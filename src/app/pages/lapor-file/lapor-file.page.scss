@@ -1,0 +1,41 @@
+ion-content{
+    --background: transparent;
+}
+
+.preview-wrapper {
+    margin-top: 48vh;
+}
+
+.block {
+    .deleteIcon {
+      position: absolute !important;
+      color: #ffffff !important;
+      margin-left: 85% !important;
+    }
+    .deleteIcon:before {
+      font-size: 40px !important;
+    }
+}
+
+.btn-camera {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;  
+    height: 72px;
+    width: 72px;
+    background: #ff4e4e;
+    border-radius: 50%;
+    border: solid #858585 3pt;
+}
+
+.btn-images {
+    ion-icon {
+        font-size: 24pt;
+    }
+}
+
+.scrolling-wrapper-flexbox {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}

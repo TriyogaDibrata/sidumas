@@ -1,0 +1,55 @@
+<ion-content padding class="auth-content">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-s="10" size-md="6" size-xl="4">
+        <div class="auth-logo"></div>
+        <div class="logo-title ion-text-center">
+          <h4>
+            Layanan Aspirasi Dan Pengaduan Masyarakat Online Kabupaten Badung
+          </h4>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-s="10" size-md="6" size-xl="4">
+
+        <form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="login(form)">
+
+          <ion-item no-padding>
+            <ion-input placeholder="Email" type="email" id="email" name="email" formControlName="email" required></ion-input>
+          </ion-item>
+
+          <ion-item no-padding>
+            <ion-input placeholder="Password" type="{{ password_type }}" id="password" name="password" formControlName="password" required></ion-input>
+            <ion-icon name="eye" (click)="showPassword()" *ngIf="hide_password"></ion-icon>
+            <ion-icon name="eye-off" (click)="hidePassword()" *ngIf="!hide_password"></ion-icon>
+          </ion-item>
+
+          <div class="ion-text-right forgot-password">Lupa Password ?</div>
+
+          <ion-button expand="block" shape="round" color="light" class="btn-login" type="submit" [disabled]="!loginForm.valid"> Masuk </ion-button>
+
+        </form>
+
+        <ion-row class="btn-group">
+          <ion-col>
+            <ion-button expand="full" shape="round">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="full" shape="round" color="danger">
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <div class="ion-text-center mt10 text1 text-white bold">
+          Belum memiliki akun ?
+          <a class="text-white" (click)="goTo('register')">Daftar</a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

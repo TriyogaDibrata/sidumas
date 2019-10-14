@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button> -->
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pratinjau</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-row class="ion-justify-content-center" no-padding>
+    <ion-col size="12" size-md="6" size-xl="6" no-padding>
+
+      <ion-item-divider color="warning" *ngIf="dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan ini bersifat rahasia dan identitas anda akan disembunyikan</ion-item-divider>
+      <ion-item-divider color="warning" *ngIf="dataUraian.hide_identity && !dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Identitas anda pada laporan ini di rahasiakan</ion-item-divider>
+      <ion-item-divider color="warning" *ngIf="!dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan bersifat rahasia</ion-item-divider>
+
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide *ngFor="let photo of dataFiles">
+          <ion-img [src]="photo"></ion-img>
+        </ion-slide>
+      </ion-slides>
+
+      <ion-item>
+        <ion-label position="stacked" class="bold text12">Topik</ion-label>
+        <br/>
+        <ion-input type="text" [(ngModel)]="dataUraian.topik" readonly></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="text-bold">Uraian</ion-label>
+        <br/>
+        <ion-textarea type="text" [(ngModel)]="dataUraian.uraian" auto-grow readonly></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="text-bold">Lokasi</ion-label>
+        <br/>
+        <ion-input type="text" [(ngModel)]="dataUraian.alamat" readonly></ion-input>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center ion-activatable" (click)="sendData()">
+    <ion-ripple-effect></ion-ripple-effect>
+    <ion-title>Kirim Laporan</ion-title>
+  </ion-toolbar>
+</ion-footer>

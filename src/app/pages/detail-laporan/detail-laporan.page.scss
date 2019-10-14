@@ -1,0 +1,102 @@
+ion-content {
+    --background : var(--ion-color-light);
+}
+
+.content-wrapper {
+    background: #ffffff;
+
+    ion-avatar {
+        width: 78px;
+        height: 78px;
+        padding: 14px;
+    }
+}
+
+.name-wrapper {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.category-wrapper {
+    color : #ffffff;
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    ion-row {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+.main-content-wrapper {
+    
+    .title {
+        font-size: 1rem;
+        font-weight: bolder;
+    }
+    
+    .main{
+        font-size: 0.8rem;
+    }
+}
+
+.footer-wrapper {
+    background: #ffffff;
+    color : var(--ion-color-medium);
+
+    ion-icon {
+        font-size: 1.2rem;
+    }
+
+    span {
+        font-size: 0.7rem;
+    }
+
+    ion-badge {
+        font-size: 0.5rem;
+    }
+}
+
+ion-item {
+    --background : var(--ion-color-light);
+}
+
+.message-input {
+    width: 100%;
+    border: 1px solid var(--ion-color-medium);
+    border-radius: 10px;
+    background: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom : 10px;
+  }
+   
+  .msg-btn {
+    --padding-start: 0.5em;
+    --padding-end: 0.5em;
+  }
+
+  .comment-wrapper{
+      ion-avatar {
+          object-fit: scale-down;
+      }
+
+      .user-name {
+          margin-top : 8px;
+      }
+  }
+
+  .date {
+      font-size: .7rem;
+      color: #706e6e;
+  }
+
+  .category-tag {
+      color : #6083f5;
+      font-size: .8rem;
+  }
+
+  .info-badge{
+      background-color : #eed91d;
+      color : #000;
+  }

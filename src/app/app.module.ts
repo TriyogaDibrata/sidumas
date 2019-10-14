@@ -8,14 +8,35 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CameraPreview } from '@ionic-native/camera-preview/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+import { GoogleMaps } from '@ionic-native/google-maps/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule, 
+    FormsModule,
+    HttpClientModule,
+    IonicModule.forRoot(), 
+    IonicStorageModule.forRoot(),
+    AppRoutingModule,
+    BrowserAnimationsModule],
   providers: [
     StatusBar,
     SplashScreen,
+    CameraPreview,
+    Camera,
+    GoogleMaps,
+    Geolocation,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

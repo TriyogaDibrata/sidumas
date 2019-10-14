@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Project</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-md="6" size-xl="6">
+          <ion-list *ngFor="let list of lists">
+            <ion-card>
+              <ion-card-header>
+                <ion-row>
+                  <ion-col no-padding>
+                    <ion-card-subtitle class="category">{{ list['kategori_name'] }} - {{ list['subkategori_name'] }}
+                    </ion-card-subtitle>
+                  </ion-col>
+                  <ion-col no-padding>
+                    <ion-card-subtitle class="ion-text-right">
+                      <ion-chip [style.background]="list['color']">{{ list['status_pengaduan'] }}</ion-chip>
+                    </ion-card-subtitle>
+                  </ion-col>
+                </ion-row>
+              </ion-card-header>
+              <ion-card-content (click)="seeDetail(list.id)">
+                <div class="user-avatar">
+                  <ion-avatar item-left>
+                    <img *ngIf="list['avatar'] != null" [src]="list['avatar']" />
+                    <img *ngIf="list['avatar'] == null" src="assets/icon/favicon.png" />
+                  </ion-avatar>
+                  <div class="user-name">
+                    <h3>{{ list['pelapor'] }}</h3>
+                    <ion-label>{{ converTime(list.tanggal) }}</ion-label>
+                  </div>
+                </div>
+    
+                <ion-card-title>{{ list['topik'] }}</ion-card-title>
+    
+                <div class="uraian">
+                  <ion-row>
+                    <ion-col no-padding class="ion-text-wrap">
+                      <p>{{ list['uraian'] | slice:0:180 }} ...</p>
+                    </ion-col>
+                    <ion-col *ngIf="list['file']" size="4">
+                      <img [src]="list['file']['fullpath']" />
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </ion-card-content>
+              <div class="button-group">
+                <ion-row>
+                  <ion-col class="ion-text-center ion-activatable">
+                    <ion-ripple-effect></ion-ripple-effect>
+                    <span>
+                      <ion-icon name="swap"></ion-icon>
+                      {{ list['tanggapans']['length'] }} Tindak Lanjut
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-text-center ion-activatable">
+                    <ion-ripple-effect></ion-ripple-effect>
+                    <span>
+                      <ion-icon name="chatbubbles"></ion-icon>
+                      {{ list['comments']['length'] }} Komentar
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-text-center ion-activatable">
+                    <ion-ripple-effect></ion-ripple-effect>
+                    <span>
+                      <ion-icon name="thumbs-up"></ion-icon>
+                      {{ list['likes']['length'] }} Dukungan
+                    </span>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </ion-card>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+</ion-content>

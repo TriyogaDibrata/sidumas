@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/app/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pengaduan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <ion-row class="ion-justify-content-center ion-no-padding" *ngIf="data">
+    <ion-col size="12" size-md="6" size-xl="6" class="ion-no-padding">
+      <div class="info-badge ion-padding" *ngIf="statusShow === 1" [hidden]="hide_info">
+        <ion-row>
+          <ion-col size="11">
+            Pengaduan ini dibuat oleh user yang belum terverifikasi
+          </ion-col>
+          <ion-col size="1">
+            <ion-icon class="mt10" name="close-circle" (click)="closeTag()"></ion-icon>
+          </ion-col>
+        </ion-row> 
+      </div>
+      <div class="content-wrapper">
+        <ion-row>
+          <ion-col size="2">
+            <ion-avatar>
+              <img *ngIf="avatar" [src]="avatar" />
+              <img *ngIf="!avatar" src="assets/icon/favicon.png" />
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="10">
+            <ion-row class="name-wrapper">
+              <ion-col size="12" class="mt5">
+                <ion-text class="bold text1">
+                  {{ nama_pelapor }}
+                  <br />
+                  <ion-text color="medium" class="text08"> ID : #{{ tracking_id }} | {{ converTime(tanggal) }}
+                  </ion-text>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+
+        <div class="image">
+          <ion-slides pager="true" [options]="slideOpts" *ngIf="files" scrollbarr="true" pager="true">
+            <ion-slide *ngFor="let file of files">
+              <img [src]="file.fullpath">
+            </ion-slide>
+          </ion-slides>
+        </div>
+
+        <div class="category-wrapper" [style.background]="color">
+          <ion-row>
+            <ion-col class="ion-text-left">
+              <ion-text>{{  status }}</ion-text>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <div class="main-content-wrapper ion-padding">
+          <div class="category-tag ion-text-right">#{{ kategori }}</div>
+          <div class="title">
+            {{ topik }}
+          </div>
+          <div class="main mt10">
+            {{ uraian }}
+          </div>
+        </div>
+
+        <div class="ion-text-right">
+          <ion-chip class="ion-margin">
+            <ion-icon name="pin"></ion-icon>
+            <ion-label>Lokasi</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+
+      <div class="footer-wrapper mt5">
+        <ion-row class="ion-text-center">
+          <ion-col (click)="displayTanggapans()">
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon name="swap" [color]="tanggapan_color"></ion-icon>
+                <ion-badge [color]="tanggapan_color">{{ count_tanggapans }}</ion-badge>
+              </ion-col>
+              <ion-col size="12">
+                <span>Tindak Lanjut</span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+          <ion-col>
+            <ion-row>
+              <ion-col size="12" (click)="displayKomentars()">
+                <ion-icon name="chatbubbles" [color]="komentar_color"></ion-icon>
+                <ion-badge color="medium" [color]="komentar_color">{{ count_komentars }}</ion-badge>
+              </ion-col>
+              <ion-col size="12">
+                <span>Komentar</span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+          <ion-col>
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon name="thumbs-up"></ion-icon>
+                <ion-badge color="medium">{{ count_dukungans }}</ion-badge>
+              </ion-col>
+              <ion-col size="12">
+                <span>Dukungan</span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+          <ion-col>
+            <ion-row>
+              <ion-col size="12">
+                <ion-icon name="share"></ion-icon>
+              </ion-col>
+              <ion-col size="12">
+                <span>Bagikan</span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="tanggapans" *ngIf="showTanggapans">
+          <div *ngIf="tanggapans.length < 1" class="ion-text-center">Belum Ada Tindak Lanjut</div>
+          <ion-list *ngFor="let tanggapan of tanggapans">
+            <div class="comment-wrapper">
+              <ion-row>
+                <ion-col size="3">
+                  <ion-avatar class="ion-no-padding">
+                    <ion-img src="assets/icon/ico-user.png"></ion-img>
+                  </ion-avatar>
+                </ion-col>
+                <ion-col size="9" class="user-name">
+                  <b>{{ tanggapan.currentuser.name }}</b>
+                  <br />
+                  <span>{{ tanggapan.tanggapan }}</span>
+                  <ion-grid *ngIf="tanggapan.files.length > 0" class="ion-no-padding">
+                    <ion-row>
+                      <ion-col size="4" *ngFor="let tl_file of tanggapan.files">
+                        <ion-img [src]="tl_file.fullpath"></ion-img>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <br />
+                  <span class="date">{{ converTime(tanggapan.created_at) }}</span>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-list>
+        </div>
+
+
+        <div class="komentars" *ngIf="showKomentars">
+          <div class="ion-text-center" *ngIf="komentars.length < 1">Belum Ada Komentar</div>
+          <ion-list *ngFor="let komentar of komentars">
+            <div class="comment-wrapper">
+              <ion-row>
+                <ion-col size="3">
+                  <ion-avatar class="ion-no-padding">
+                    <ion-img src="assets/icon/ico-user.png"></ion-img>
+                  </ion-avatar>
+                </ion-col>
+                <ion-col size="9" class="user-name">
+                  <b>{{ komentar.currentuser.name }}</b>
+                  <br />
+                  <span>{{ komentar.komentar }}</span>
+                  <br />
+                  <span class="date">{{ converTime(komentar.created_at) }}</span>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-list>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+
+<ion-footer *ngIf="showKomentars">
+  <ion-toolbar color="light">
+    <ion-row no-padding align-items-center>
+      <ion-col size="10">
+        <ion-textarea class="message-input" rows="2" [(ngModel)]="komentar_user" placeholder="Masukan Komentar"
+          auto-grow="true"></ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button expand="block" fill="clear" color="primary" [disabled]="komentar_user === ''" class="msg-btn"
+          (click)="addKomentar()">
+          <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

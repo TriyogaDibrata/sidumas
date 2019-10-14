@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Uraian</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <ion-row class="ion-justify-content-center" no-padding>
+    <ion-col size="12" size-md="6" size-xl="6" no-padding>
+
+      <ion-item>
+        <ion-textarea [(ngModel)]="topik" placeholder="Ketik Topik Pengaduan" rows="3" autocapitalize></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea placeholder="Ketik Uraian" [(ngModel)]="uraian" rows="10" auto-grow autocapitalize></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Rahasiakan Identitas</ion-label>
+        <ion-toggle [(ngModel)]="hide_identity" (ngModelChange)="hide_id()"></ion-toggle>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>Rahasiakan Pengaduan</ion-label>
+        <ion-toggle [(ngModel)]="hide_report" (ionChange)="hide_rp()"></ion-toggle>
+      </ion-item>
+
+      <ion-item no-padding class="location-wrapper" color="light">
+        <ion-icon name="pin" color="danger"></ion-icon>
+        <ion-text>{{ address }}</ion-text>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center ion-no-padding" color="none">
+    <ion-button expand="full" size="large" (click)="check()" color="danger" [disabled]="disabled_button">Lanjutkan</ion-button>
+  </ion-toolbar>
+</ion-footer>

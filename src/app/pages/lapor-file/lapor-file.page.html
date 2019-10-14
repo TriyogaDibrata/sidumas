@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lampirkan Gambar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-row class="ion-justify-content-center" class="ion-no-padding">
+    <ion-col size="12" size-md="6" size-xl="6" class="ion-no-padding">
+
+      <div class="preview-wrapper">
+
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="4">
+
+          </ion-col>
+          <ion-col size="4">
+            <div class="btn-camera ion-activatable" (click)="takePicture()">
+              <ion-ripple-effect></ion-ripple-effect>
+            </div>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button class="ion-float-right btn-images" fill="clear" (click)="openGallery()">
+              <ion-icon name="images" color="light"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <ion-grid>
+            <ion-row class="scrolling-wrapper-flexbox">
+            <ion-col size="4" *ngFor="let photo of photos; let id = index">
+              <ion-card class="block">
+                <ion-icon name="close-circle" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+                <img [src]="photo" *ngIf="photo" />
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center" (click)="toTinjau()">
+    <ion-title>Lanjutkan</ion-title>
+  </ion-toolbar>
+</ion-footer>

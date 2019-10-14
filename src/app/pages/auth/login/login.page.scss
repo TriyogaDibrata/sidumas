@@ -1,0 +1,24 @@
+ion-content {
+    --background: url('../../../../assets/images/background-sidumas.png') 0 0/100% 100% no-repeat;
+}
+
+ion-item {
+    --color : var(--ion-color-light);
+    --border-color : var(--ion-color-light);
+    --color-activated : var(--ion-color-light);
+    --highlight-color-focused : var(--ion-color-light);
+    --highlight-color-invalid : var(--ion-color-danger);
+}
+
+ion-label {
+    --color: var(--ion-color-light);
+}
+
+ion-icon {
+    color: var(--ion-color-light);
+}
+
+.btn-group {
+    margin-top: 20px;
+}
+

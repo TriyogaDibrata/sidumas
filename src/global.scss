@@ -24,3 +24,155 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+// :root {
+//     // --ion-background-color : var(--ion-color-dark);
+// }
+
+
+ion-toolbar {
+    --background: var(--ion-color-danger);
+    --color: var(--ion-color-danger-contrast);
+}
+
+ion-item {
+    --background: none;
+}
+
+.auth-content{
+    margin: 0 5%;
+
+    .auth-logo {
+        width: 160px;
+        height: 160px;
+        margin: 10px auto 0px;
+        border-radius: 10%;
+        background: url("./assets/images/logo-laras.png") no-repeat;
+        background-size: 100%;
+    }
+
+    .logo-title {
+        h4 {
+            font-size: 1.25em;
+            color: var(--ion-color-light);
+        }
+    }
+}
+
+.btn-login {
+    margin: 20px 0 0;
+}
+
+.forgot-password {
+    font-weight: bolder;
+    margin : 10px 5px 0;
+    color: var(--ion-color-light);
+}
+
+//common helper 
+// Helpers //
+.w100 {
+    width: 100%;
+  }
+  
+  .bold,
+  .fw500 {
+      font-weight: 500 !important;
+  }
+  
+  .fw700 {
+      font-weight: 700 !important;
+  }
+
+  .text05 {
+    font-size: .5rem;
+  }
+
+  .text06 {
+    font-size: .6rem;
+  }
+
+  .text07 {
+    font-size: .7rem;
+  }
+  
+  .text08 {
+    font-size: .8rem;
+  }
+  
+  .text1 {
+    font-size: 1rem !important;
+  }
+
+  .text12 {
+    font-size: 1.2rem;
+  }
+
+  .text15 {
+    font-size: 1.5rem;
+  }
+  
+  .text20 {
+    font-size: 2rem;
+  }
+  
+  .text-white {
+      color: #fff;
+  }
+  
+  .text-primary {
+      color: var(--ion-color-primary);
+  }
+
+  .text-secondary {
+    color: var(--ion-color-secondary);
+  }
+  
+  .text-dark {
+    color: var(--ion-color-dark);
+  }
+
+  .mt5 {
+      margin-top: 5px;
+  }
+
+  .mt10 {
+      margin-top: 10px;
+  }
+
+  .mt20 {
+      margin-top: 20px;
+  }
+
+ion-tab-bar {
+    --color : var(--ion-color-medium);
+}
+
+ion-tab-button {
+    --color-selected : var(--ion-color-danger);
+}
+
+.stepper {
+    font-size: 0.8rem;
+
+    ion-chip {
+        font-size: 10px;
+    }
+}
+
+.sc-ion-alert-md-h{
+    --min-width: 90% !important;
+}
+
+.alert-radio-label.sc-ion-alert-md {
+    white-space: pre-line;
+}
+
+.location-wrapper {
+    margin-top: 20px;
+    --min-height: 80px !important;
+
+    ion-text {
+        margin-left: 10px;
+    }
+}

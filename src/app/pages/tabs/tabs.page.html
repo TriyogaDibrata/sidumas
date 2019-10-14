@@ -1,0 +1,36 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Beranda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="project" *ngIf="user_type == 1">
+      <ion-icon name="construct"></ion-icon>
+      <ion-label>Project</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="search" *ngIf="user_type == 0">
+      <ion-icon name="paper"></ion-icon>
+      <ion-label>History</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="lapor-kategori" *ngIf="user_type == 0">
+      <ion-icon name="add-circle"></ion-icon>
+      <ion-label>Lapor</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="notifications">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-badge *ngIf="hasNotif">1</ion-badge>
+      <ion-label>Notifikasi</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" *ngIf="user_type == 0">
+      <ion-icon name="contact"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

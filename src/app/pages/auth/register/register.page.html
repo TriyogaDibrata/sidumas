@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goTo('login')">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-s="10" size-md="6" size-xl="4">
+
+        <form [formGroup]="registerForm" #form="ngForm" (ngSubmit)="register(form)">
+
+          <ion-item no-padding>
+            <ion-input placeholder="Nama Lengkap" type="text" id="name" name="name" formControlName="name" required>
+            </ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input placeholder="Email" type="email" id="email" name="email" formControlName="email" required>
+            </ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input placeholder="Nomor Telepon" type="tel" id="no_telp" name="no_telp" formControlName="no_telp"
+              required></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input placeholder="Kata Sandi" [type]="password_type" id="password" name="password"
+              formControlName="password" required></ion-input>
+            <ion-icon name="eye" (click)="showPassword()" *ngIf="hide_password"></ion-icon>
+            <ion-icon name="eye-off" (click)="hidePassword()" *ngIf="!hide_password"></ion-icon>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input placeholder="Konfirmasi Kata Sandi" [type]="c_password_type" id="c_password" name="c_password"
+              formControlName="c_password" required></ion-input>
+            <ion-icon name="eye" (click)="showCPassword()" *ngIf="hide_c_password"></ion-icon>
+            <ion-icon name="eye-off" (click)="hideCPassword()" *ngIf="!hide_c_password"></ion-icon>
+          </ion-item>
+
+          <ion-button class="mt20" color="danger" expand="full" shape="round" type="submit" [disabled]="!registerForm.valid">Daftar</ion-button>
+
+        </form>
+
+        <ion-row class="mt20">
+          <ion-col size="5">
+            <div class="line"></div>
+          </ion-col>
+          <ion-col size="2">
+            <div class="ion-text-center fw700"> Atau </div>
+          </ion-col>
+          <ion-col size="5">
+            <div class="line"></div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="button-group">
+          <ion-col>
+            <ion-button expand="full" shape="round">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="full" shape="round" color="danger">
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

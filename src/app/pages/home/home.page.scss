@@ -1,0 +1,38 @@
+.category {
+    margin-top: 12px;
+}
+
+.user-avatar {
+    display: flex;
+
+    ion-avatar {
+        height: 48px;
+        width: 48px;
+        margin-bottom: 20px;
+    }
+
+    .user-name {
+        margin-left: 8px;
+
+        h3 {
+            font-size: 1rem;
+            font-weight: bolder;
+        }
+    }
+}
+
+ion-card-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.button-group {
+    margin-left: 14px;
+    margin-right: 14px;
+    font-size: 0.8rem;
+    margin: 14px 0 14px 5px;
+}
+
+ion-chip {
+    color: #ffffff;
+}
