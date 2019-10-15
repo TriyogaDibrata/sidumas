@@ -85,7 +85,7 @@ export class ProfilePage implements OnInit {
     .subscribe(data => {
       console.log(data);
       this.statuses = data;
-    });s
+    });
   }
 
 }
