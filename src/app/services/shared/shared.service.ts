@@ -219,5 +219,19 @@ export class SharedService {
     .pipe();
   }
 
+  addVote(data){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
+
+    return this.http.post(this.env.API_URL + 'pengaduan/add-vote', data, {headers : this.headers})
+    .pipe();
+  }
+
+
 
 }

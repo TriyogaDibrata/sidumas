@@ -174,7 +174,16 @@ export class DetailLaporanPage implements OnInit {
       'pengaduan_id': this.pengaduan_id,
     }
 
-    console.log(data);
+    this.sharedService.addVote(data)
+    .subscribe(data => {
+      if(data['success']){
+        this.ionViewWillEnter();
+      } else {
+        this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+      }
+    }, err => {
+        this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+    });
   }
 
   closeTag(){
