@@ -17,7 +17,7 @@
 
         <ion-row>
           <ion-col size="3" *ngFor="let child of cat.child" class="ion-text-center ion-no-padding ion-activatable"
-            (click)="goToLapor(child.kategori_id)">
+            (click)="goToLapor(child.kategori_id, child.event)">
             <ion-ripple-effect></ion-ripple-effect>
             <ion-img [src]="child.iconurl" class="icon-img"></ion-img>
             <ion-label class="text08">

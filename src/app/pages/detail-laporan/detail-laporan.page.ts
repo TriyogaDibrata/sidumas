@@ -168,6 +168,15 @@ export class DetailLaporanPage implements OnInit {
     })
   }
 
+  addVote(){
+    let data = {
+      'user_id'     : this.user.id,
+      'pengaduan_id': this.pengaduan_id,
+    }
+
+    console.log(data);
+  }
+
   closeTag(){
     this.hide_info = true;
   }

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @Component({
   selector: 'app-lapor-kategori',
@@ -23,6 +24,7 @@ export class LaporKategoriPage implements OnInit {
               private authService : AuthService,
               public loadingCtrl  : LoadingController,
               public alertService : AlertService,
+              private callNumber  : CallNumber,
               ) { }
 
   ngOnInit() {
@@ -42,8 +44,14 @@ export class LaporKategoriPage implements OnInit {
     await this.loading.present();
   }
 
-  goToLapor(id){
-    this.navCtrl.navigateForward(['/lapor', id]);
+  goToLapor(id, event){
+    if(event == 'call_number'){
+      this.callNumber.callNumber('112', true)
+      .then(res => console.log('Launched Dialer', res))
+      .catch(err => console.log('Error launching dialer', err))
+    } else {
+      this.navCtrl.navigateForward(['/lapor', id]);
+    }
   }
 
   getKategori(){
