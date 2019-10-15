@@ -38,14 +38,14 @@ export class ProfilePage implements OnInit {
       message: 'Apakah anda yakin ingin keluar ?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Batal',
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Okay',
+          text: 'Ya',
           handler: () => {
             this.logout();
           }
@@ -85,7 +85,7 @@ export class ProfilePage implements OnInit {
     .subscribe(data => {
       console.log(data);
       this.statuses = data;
-    });
+    });s
   }
 
 }

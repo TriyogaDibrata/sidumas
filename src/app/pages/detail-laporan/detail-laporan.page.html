@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/app/tabs/home"></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Pengaduan</ion-title>
   </ion-toolbar>
@@ -24,7 +24,7 @@
         <ion-row>
           <ion-col size="2">
             <ion-avatar>
-              <img *ngIf="avatar" [src]="avatar" />
+              <img *ngIf="avatar" [src]="data.avatar" />
               <img *ngIf="!avatar" src="assets/icon/favicon.png" />
             </ion-avatar>
           </ion-col>
@@ -32,9 +32,9 @@
             <ion-row class="name-wrapper">
               <ion-col size="12" class="mt5">
                 <ion-text class="bold text1">
-                  {{ nama_pelapor }}
+                  {{ data.atas_nama }}
                   <br />
-                  <ion-text color="medium" class="text08"> ID : #{{ tracking_id }} | {{ converTime(tanggal) }}
+                  <ion-text color="medium" class="text08"> ID : #{{ data.no_tiket }} | {{ converTime(data.tanggal) }}
                   </ion-text>
                 </ion-text>
               </ion-col>
@@ -50,21 +50,21 @@
           </ion-slides>
         </div>
 
-        <div class="category-wrapper" [style.background]="color">
+        <div class="category-wrapper" [style.background]="data.color">
           <ion-row>
             <ion-col class="ion-text-left">
-              <ion-text>{{  status }}</ion-text>
+              <ion-text>{{  data.status_pengaduan }}</ion-text>
             </ion-col>
           </ion-row>
         </div>
 
         <div class="main-content-wrapper ion-padding">
-          <div class="category-tag ion-text-right">#{{ kategori }}</div>
+          <div class="category-tag ion-text-right">#{{ data.kategori_name }}</div>
           <div class="title">
-            {{ topik }}
+            {{ data.topik }}
           </div>
           <div class="main mt10">
-            {{ uraian }}
+            {{ data.uraian }}
           </div>
         </div>
 
@@ -94,7 +94,7 @@
             <ion-row>
               <ion-col size="12" (click)="displayKomentars()">
                 <ion-icon name="chatbubbles" [color]="komentar_color"></ion-icon>
-                <ion-badge color="medium" [color]="komentar_color">{{ count_komentars }}</ion-badge>
+                <ion-badge [color]="komentar_color">{{ count_komentars }}</ion-badge>
               </ion-col>
               <ion-col size="12">
                 <span>Komentar</span>
@@ -105,8 +105,8 @@
           <ion-col>
             <ion-row>
               <ion-col size="12" (click)="addVote()">
-                <ion-icon name="thumbs-up"></ion-icon>
-                <ion-badge color="medium">{{ count_dukungans }}</ion-badge>
+                <ion-icon name="thumbs-up" [color]="color_vote"></ion-icon>
+                <ion-badge [color]="color_vote">{{ count_dukungans }}</ion-badge>
               </ion-col>
               <ion-col size="12">
                 <span>Dukungan</span>
@@ -136,7 +136,7 @@
                 <ion-col size="3">
                   <ion-avatar class="ion-no-padding">
                     <ion-img src="assets/icon/ico-user.png"></ion-img>
-                  </ion-avatar>
+                  </ion-avatar> 
                 </ion-col>
                 <ion-col size="9" class="user-name">
                   <b>{{ tanggapan.currentuser.name }}</b>
@@ -187,7 +187,7 @@
 
 <ion-footer *ngIf="showKomentars">
   <ion-toolbar color="light">
-    <ion-row no-padding align-items-center>
+    <ion-row class="ion-no-padding ion-align-items-center">
       <ion-col size="10">
         <ion-textarea class="message-input" rows="2" [(ngModel)]="komentar_user" placeholder="Masukan Komentar"
           auto-grow="true"></ion-textarea>
@@ -204,7 +204,7 @@
 
 <ion-footer *ngIf="showTanggapans && user.tipe == 1">
   <ion-toolbar color="light">
-    <ion-row no-padding align-items-center>
+    <ion-row class="ion-no-padding ion-align-items-center">
       <ion-col size="10">
         <ion-textarea class="message-input" rows="2" [(ngModel)]="komentar_user" placeholder="Masukan Komentar"
           auto-grow="true"></ion-textarea>

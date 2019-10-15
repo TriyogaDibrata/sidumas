@@ -22,19 +22,19 @@ export class HomePage implements OnInit {
     private authService     : AuthService,
     public commonService    : CommonService,
     public alertCtrl        : AlertController,
-  ) { }
+  ) {
+   }
 
   ngOnInit() {
-    
+  }
+
+  ionViewDidEnter(){
+    this.getListPengaduan();
+    this.getUser();
   }
 
   seeDetail(id){
     this.commonService.goForward(['detail-laporan/', id]);
-  }
-
-  ionViewWillEnter(){
-    this.getListPengaduan();
-    this.getUser();
   }
 
   getListPengaduan(){
@@ -57,14 +57,14 @@ export class HomePage implements OnInit {
       message: 'Apakah anda yakin ingin keluar ?',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Batal',
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
             console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Okay',
+          text: 'Ya',
           handler: () => {
             this.logout();
           }

@@ -232,6 +232,32 @@ export class SharedService {
     .pipe();
   }
 
+  checkVoted(user_id, pengaduan_id){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
+
+    return this.http.get(this.env.API_URL + 'pengaduan/checkvote?user_id='+user_id+'&pengaduan_id='+pengaduan_id, {headers : this.headers})
+    .pipe();
+    
+  }
+
+  myList(){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
+
+    return this.http.get(this.env.API_URL + 'pengaduan/')
+  }
+
 
 
 }
