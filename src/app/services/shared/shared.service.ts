@@ -11,7 +11,7 @@ export class SharedService {
 
   token : any;
   headers : any;
-  new_notif : number = 0;
+  notif : any = {news: 0};
   user: any = null;
 
   constructor(
@@ -119,7 +119,6 @@ export class SharedService {
       });
 
       this.user = this.http.get(this.env.API_URL + 'user', {headers : this.headers})
-      .pipe()
       .subscribe(data => {
         this.user = data;
         return this.user;
@@ -297,9 +296,8 @@ export class SharedService {
     });
 
     this.http.get(this.env.API_URL + 'pengaduan/notifikasi/new', {headers : this.headers})
-    .pipe()
     .subscribe((data) => {
-      this.new_notif = data.news;
+      this.notif = data;
     }, err => {
       console.log(err);
     });

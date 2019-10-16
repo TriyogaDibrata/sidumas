@@ -44,7 +44,7 @@ export class NotificationsPage implements OnInit {
       if(data.length > 0){
         this.transformData(data);
       }
-      this.sharedService.new_notif = 0;
+      this.sharedService.notif.news = 0;
       this.loading.dismiss();
     }, err => {
       console.log(err);
