@@ -4,6 +4,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content fullscreen>
+  <ion-list class="ion-no-padding">
+    <ion-row class="notif" *ngFor="let notif of notifs">
+      <ion-col *ngIf="notif.group" class="notif-divider" size="12">
+        {{notif.mmmmyy}}
+      </ion-col>
+      <ion-col class="notif-date" size="2">
+        {{notif.ddmmm}}
+      </ion-col>
+      <ion-col class="notif-label" size="10">
+        {{notif.title}}
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

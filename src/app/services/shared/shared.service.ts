@@ -11,19 +11,21 @@ export class SharedService {
 
   token : any;
   headers : any;
+  notif : any = {news: 0};
+  user: any = null;
 
   constructor(
     private http         : HttpClient,
     private env          : EnvService,
     private storage      : Storage,
     private authService  : AuthService
-  ) { 
+  ) {
   }
 
   ngOnInit(): void {
   }
 
-  getListPengaduan(){ 
+  getListPengaduan(){
     this.token = this.authService.token;
 
     this.headers = new HttpHeaders ({
@@ -34,7 +36,7 @@ export class SharedService {
 
     return this.http.get(this.env.API_URL + 'pengaduan/list', {headers : this.headers})
     .pipe(
-    ); 
+    );
   }
 
   getDetailPengaduan(id){
@@ -103,9 +105,26 @@ export class SharedService {
     });
 
     return this.http.get(this.env.API_URL + 'user', {headers : this.headers})
-    .pipe(
-      
-    );
+    .pipe();
+  }
+
+  getUserCache(force=false){
+    if(this.user === null || force){
+      this.token = this.authService.token;
+
+      this.headers = new HttpHeaders ({
+        'Accept'        : 'application/json',
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'Bearer ' + this.token,
+      });
+
+      this.user = this.http.get(this.env.API_URL + 'user', {headers : this.headers})
+      .subscribe(data => {
+        this.user = data;
+        return this.user;
+      });
+    }
+    return this.user;
   }
 
   checkUser(user_id){
@@ -149,7 +168,7 @@ export class SharedService {
       'Content-Type'  : 'application/json',
       'Authorization' : 'Bearer ' + this.token,
     });
-    
+
     return this.http.post(this.env.API_URL + 'pengaduan/add', data, {headers : this.headers})
     .pipe();
   }
@@ -162,7 +181,7 @@ export class SharedService {
       'Content-Type'  : 'application/json',
       'Authorization' : 'Bearer ' + this.token,
     });
-    
+
     return this.http.get(this.env.API_URL + 'pengaduan/projectppl?opd_id=' + opd_id, {headers : this.headers})
     .pipe();
   }
@@ -175,7 +194,7 @@ export class SharedService {
       'Content-Type'  : 'application/json',
       'Authorization' : 'Bearer ' + this.token,
     });
-    
+
     return this.http.get(this.env.API_URL + 'pengaduan/detailproject?project_id=' + project_id, {headers : this.headers})
     .pipe();
   }
@@ -188,7 +207,7 @@ export class SharedService {
       'Content-Type'  : 'application/json',
       'Authorization' : 'Bearer ' + this.token,
     });
-    
+
     return this.http.post(this.env.API_URL + 'pengaduan/add-komentar', data, {headers : this.headers})
     .pipe();
   }
@@ -233,17 +252,9 @@ export class SharedService {
   }
 
   checkVoted(user_id, pengaduan_id){
-    this.token = this.authService.token;
-
-    this.headers = new HttpHeaders ({
-      'Accept'        : 'application/json',
-      'Content-Type'  : 'application/json',
-      'Authorization' : 'Bearer ' + this.token,
-    });
-
     return this.http.get(this.env.API_URL + 'pengaduan/checkvote?user_id='+user_id+'&pengaduan_id='+pengaduan_id, {headers : this.headers})
     .pipe();
-    
+
   }
 
   myList(user_id){
@@ -259,6 +270,36 @@ export class SharedService {
     .pipe();
   }
 
+  /*
+    notifications
+  */
+  getNotifs(user_id, page=0, first=0){
+    this.token = this.authService.token;
 
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
 
+    return this.http.get(this.env.API_URL + 'pengaduan/notifikasi?limit=20&page='+ page +'&id='+ user_id+'&first='+ first, {headers : this.headers})
+    .pipe();
+  }
+
+  getNewNotif(){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
+
+    this.http.get(this.env.API_URL + 'pengaduan/notifikasi/new', {headers : this.headers})
+    .subscribe((data) => {
+      this.notif = data;
+    }, err => {
+      console.log(err);
+    });
+  }
 }

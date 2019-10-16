@@ -3,6 +3,7 @@ import { CommonService } from 'src/app/services/common/common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auht/auth.service';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +22,14 @@ export class LoginPage implements OnInit {
     private formBuilder  : FormBuilder,
     public loadingCtrl   : LoadingController,
     private authService  : AuthService,
-    
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       'email' : [null, Validators.compose([
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$') 
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])],
       'password' : [null, Validators.compose([
         Validators.required,
@@ -38,11 +39,6 @@ export class LoginPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.authService.getToken().then(data => {
-      if(this.authService.isLoggedIn){
-        this.commonService.goTo('app/tabs/home');
-      }
-    })
   }
 
   showPassword(){
@@ -72,15 +68,15 @@ export class LoginPage implements OnInit {
 
     this.authService.login(form.value.email, form.value.password)
     .subscribe(data => {
-      
+
       if(data) {
+        this.sharedService.getUserCache(true);
         this.commonService.presentToast('Login Berhasil');
         this.commonService.goTo('app/tabs/home');
         loading.dismiss();
       }
-    }, err => {
-      console.log(err);
-      this.commonService.presentAlert('Login Gagal', err);
+    }, err => {      
+      this.commonService.presentAlert('Login Gagal', err.error.errors.email[0]);
       loading.dismiss();
     });
   }

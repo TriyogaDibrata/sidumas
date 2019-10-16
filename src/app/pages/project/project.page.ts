@@ -23,12 +23,9 @@ export class ProjectPage implements OnInit {
     this.getUser();
   }
 
-  getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      this.user = data;
-      this.getProject(this.user['opd_id']);
-    });
+  getUser(){    
+    this.user = this.sharedService.getUserCache();
+    this.getProject(this.user['opd_id']);
   }
 
   getProject(opd_id){

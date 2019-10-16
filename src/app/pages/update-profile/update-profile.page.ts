@@ -26,7 +26,7 @@ export class UpdateProfilePage implements OnInit {
   path_ktp      : any;
   path_verified_foto : any;
   sex           : any;
-
+  status        : any;
   loading       : any;
 
   constructor(private camera          : Camera,
@@ -49,7 +49,7 @@ export class UpdateProfilePage implements OnInit {
       backdropDismiss : true,
       message : "Loading..."
     });
-    
+
     await this.loading.present();
   }
 
@@ -77,23 +77,21 @@ export class UpdateProfilePage implements OnInit {
   }
 
   getUserInformation(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      console.log(data);
-      this.user = data;
-      this.user_id = data['id'];
-      this.name = data['name'];
-      this.email = data['email'];
-      this.bio = data['description'];
-      this.no_hp = data['no_hp'];
-      this.birthday = data['tgl_lahir'];
-      this.nik = data['nik'];
-      this.ktp = data['ktp'];
-      this.verified_foto = data['verified_foto'];
-      this.path_ktp = data['path_ktp'];
-      this.path_verified_foto = data['path_verified_foto'];
-      this.sex = data['sex'];
-    })
+    let data = this.sharedService.getUserCache();
+    this.user = data;
+    this.user_id = data['id'];
+    this.name = data['name'];
+    this.email = data['email'];
+    this.bio = data['description'];
+    this.no_hp = data['no_hp'];
+    this.birthday = data['tgl_lahir'];
+    this.nik = data['nik'];
+    this.ktp = data['ktp'];
+    this.verified_foto = data['verified_foto'];
+    this.path_ktp = data['path_ktp'];
+    this.path_verified_foto = data['path_verified_foto'];
+    this.sex = data['sex'];
+    this.status = data['status'];    
   }
 
   updateProfile(){

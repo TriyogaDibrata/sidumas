@@ -18,7 +18,7 @@ export class AuthService {
     private env             : EnvService,
     private storage         : Storage,
     public commonService    : CommonService,
-  ) { 
+  ) {
   }
 
 
@@ -29,7 +29,7 @@ export class AuthService {
       'Accept' : 'application/json'
     });
 
-    return this.http.post(this.env.API_URL + 'login', 
+    return this.http.post(this.env.API_URL + 'login',
     {email : email, password : password}, {headers : headers})
     .pipe(
       tap(data => {
@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   register(name: String, no_telp: Number, email: String, password: String, c_password: String){
-    return this.http.post(this.env.API_URL + 'register', 
+    return this.http.post(this.env.API_URL + 'register',
     {name : name, email: email, no_telp : no_telp, password : password, password_confirmation : c_password})
   }
 

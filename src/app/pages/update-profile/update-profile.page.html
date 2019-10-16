@@ -53,15 +53,15 @@
           <ion-label position="stacked">No. HP</ion-label>
           <ion-input type="tel" [(ngModel)]="no_hp"></ion-input>
         </ion-item>
-        <ion-item class="ion-no-padding">
+        <ion-item *ngIf="!status" class="ion-no-padding">
           <ion-label color="dark" position="stacked">Tanggal Lahir</ion-label>
           <ion-datetime display-format="DD MMMM YYYY" [(ngModel)]="birthday"></ion-datetime>
         </ion-item>
-        <ion-item class="ion-no-padding">
+        <ion-item *ngIf="!status" class="ion-no-padding">
           <ion-label position="stacked">NIK</ion-label>
           <ion-input type="number" [(ngModel)]="nik"></ion-input>
         </ion-item>
-        <ion-row>
+        <ion-row *ngIf="!status">
           <ion-col class="ion-margin ion-text-center" (click)="takePhoto('user_photo')">
             <!-- <ion-img src="assets/icon/ico-userphoto.png" *ngIf="!verified_photo"></ion-img> -->
             <ion-img [src]="verified_foto" *ngIf="verified_foto"></ion-img>

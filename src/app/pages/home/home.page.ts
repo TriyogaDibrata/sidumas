@@ -92,12 +92,7 @@ export class HomePage implements OnInit {
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      this.user = data;
-    }, err => {
-    this.alertService.presentAlert('Terjadi Kesalahan', 'Tidak dapat mengambil data pengguna');
-    });
+    this.user = this.sharedService.getUserCache();
   }
 
   addVote(pengaduan_id){
@@ -117,7 +112,4 @@ export class HomePage implements OnInit {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
     });
   }
-
-  
-
 }

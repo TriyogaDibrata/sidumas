@@ -66,7 +66,7 @@ export class DetailLaporanPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    
+
   }
 
   getDetail(){
@@ -95,7 +95,7 @@ export class DetailLaporanPage implements OnInit {
 
   getTanggapans(){
     this.sharedService.getTanggapans(this.pengaduan_id)
-    .subscribe(data => {    
+    .subscribe(data => {
       this.tanggapans = data['data'];
     })
   }
@@ -130,10 +130,8 @@ export class DetailLaporanPage implements OnInit {
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      this.user = data;
-    });
+    this.user = this.sharedService.getUserCache();
+    this.checkVoted(this.user.id);    
   }
 
   addKomentar(){
@@ -180,16 +178,16 @@ export class DetailLaporanPage implements OnInit {
     this.hide_info = true;
   }
 
-  // checkVoted(user_id){
-  //   this.sharedService.checkVoted(user_id, this.pengaduan_id)
-  //   .subscribe(data => {  
-  //     if(data['status']){
-  //       this.color_vote = "danger";
-  //     } else {
-  //       this.color_vote = "none";
-  //     }
-  //   })
-  // }
+  checkVoted(user_id){
+    this.sharedService.checkVoted(user_id, this.pengaduan_id)
+    .subscribe(data => {  
+      if(data['status']){
+        this.color_vote = "danger";
+      } else {
+        this.color_vote = "none";
+      }
+    })
+  }
 
   checkLocation(lat, lng){
     this.navCtrl.navigateForward(['lokasi', lat, lng]);
