@@ -40,7 +40,7 @@ export class LaporKategoriPage implements OnInit {
       backdropDismiss : true,
       message : "Loading..."
     });
-    
+
     await this.loading.present();
   }
 
@@ -61,13 +61,10 @@ export class LaporKategoriPage implements OnInit {
       console.log(this.kategori);
     });
   }
-  
+
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      this.user = data;
-      this.checkUser(this.user['id']);
-    })
+    this.user = this.sharedService.getUserCache();
+    this.checkUser(this.user['id']);
   }
 
   checkUser(user_id){
@@ -84,6 +81,6 @@ export class LaporKategoriPage implements OnInit {
       }
     });
   }
-  
+
 
 }

@@ -23,7 +23,7 @@
 
     <ion-tab-button tab="notifications">
       <ion-icon name="notifications"></ion-icon>
-      <ion-badge *ngIf="hasNotif">1</ion-badge>
+      <ion-badge *ngIf="sharedService.new_notif>0" color="danger">{{sharedService.new_notif}}</ion-badge>
       <ion-label>Notifikasi</ion-label>
     </ion-tab-button>
 

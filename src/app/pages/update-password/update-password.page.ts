@@ -49,7 +49,7 @@ export class UpdatePasswordPage implements OnInit {
       backdropDismiss : true,
       message : "Loading..."
     });
-    
+
     await this.loading.present();
   }
 
@@ -65,11 +65,7 @@ export class UpdatePasswordPage implements OnInit {
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      console.log(data);
-      this.user = data;
-    })
+    this.user = this.sharedService.getUserCache();    
   }
 
   update(form: FormGroup){

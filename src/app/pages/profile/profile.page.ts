@@ -57,19 +57,16 @@ export class ProfilePage implements OnInit {
   }
 
   logout(){
+    this.sharedService.user = null;
     this.authService.logout();
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      this.user = data;
-      this.user_name = data['name'];
-      this.user_email = data['email'];
-      this.user_id = data['id'];
-      console.log(data);
-      this.lihatUserStatus(this.user_id);
-    })
+    this.user = this.sharedService.getUserCache();
+    this.user_name = this.user.name;
+    this.user_email = this.user.email;
+    this.user_id = this.user.id;
+    this.lihatUserStatus(this.user_id);
   }
 
   update_profile(id){

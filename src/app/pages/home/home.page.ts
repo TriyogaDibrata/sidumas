@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
   }
 
   seeDetail(id){
@@ -80,12 +80,6 @@ export class HomePage implements OnInit {
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      console.log(data);
-      this.user = data;
-    }, err => {
-      console.log(err);
-    });
+    this.user = this.sharedService.getUserCache();
   }
 }

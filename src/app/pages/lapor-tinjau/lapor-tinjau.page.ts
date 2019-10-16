@@ -48,7 +48,7 @@ export class LaporTinjauPage implements OnInit {
       backdropDismiss : true,
       message : "Loading..."
     });
-    
+
     await this.loading.present();
   }
 
@@ -69,10 +69,7 @@ export class LaporTinjauPage implements OnInit {
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      this.user = data;
-    });
+    this.user = this.sharedService.getUserCache();
   }
 
   sendData(){

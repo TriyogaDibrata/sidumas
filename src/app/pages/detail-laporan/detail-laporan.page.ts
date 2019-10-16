@@ -139,11 +139,7 @@ export class DetailLaporanPage implements OnInit {
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      console.log(data);
-      this.user = data;
-    });
+    this.user = this.sharedService.getUserCache();    
   }
 
   addKomentar(){

@@ -30,10 +30,7 @@ export class DetailProjectPage implements OnInit {
   }
 
   getUser(){
-    this.sharedService.getUser()
-    .subscribe(data => {
-      this.user = data;
-    });
+    this.user = this.sharedService.getUserCache();
   }
 
   getDetailProject(){
