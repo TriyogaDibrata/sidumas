@@ -20,8 +20,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private sharedService: SharedService,
     private authService: AuthService,
-    private commonService: CommonService
-    private alertService : AlertService,
+    private commonService: CommonService,
+    private alertService : AlertService
   ) {
     this.initializeApp();
   }

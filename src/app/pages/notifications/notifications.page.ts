@@ -16,7 +16,7 @@ export class NotificationsPage implements OnInit {
   notifs  : any = [];
   page: number;
   lastMonth: number;
-  infiniteScroll: number;
+  infiniteScrollEnable: number;
   loading   : any;
   user  : any = {};
 
@@ -34,15 +34,15 @@ export class NotificationsPage implements OnInit {
     this.showLoading();
     this.notifs = [];
     this.page = this.lastMonth = 0;
-    this.infiniteScroll = 1;
+    this.infiniteScrollEnable = 1;
     this.getUser();
   }
 
   firstNotifs(id){
     this.sharedService.getNotifs(id, this.page, 1)
     .subscribe(data => {
-      if(data.count>0){
-        this.transformData(data.data);
+      if(data.length > 0){
+        this.transformData(data);
       }
       this.sharedService.new_notif = 0;
       this.loading.dismiss();
@@ -52,14 +52,14 @@ export class NotificationsPage implements OnInit {
   }
 
   nextPage(event){
-    if(this.infiniteScroll) {
+    if(this.infiniteScrollEnable) {
       this.page++;
       this.sharedService.getNotifs(this.user.id, this.page)
       .subscribe(data => {
-        if(data.count>0){
-          this.transformData(data.data);
+        if(data.length > 0){
+          this.transformData(data);
         }else{
-          this.infiniteScroll = 0;
+          this.infiniteScrollEnable = 0;
         }
       }, err => {
         console.log(err);
@@ -87,7 +87,7 @@ export class NotificationsPage implements OnInit {
   }
 
   getUser(){
-    this.user = this.sharedService.getUserCache();    
+    this.user = this.sharedService.getUserCache();
     this.firstNotifs(this.user.id);
   }
 
