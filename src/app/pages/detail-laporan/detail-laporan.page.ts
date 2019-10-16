@@ -37,11 +37,12 @@ export class DetailLaporanPage implements OnInit {
   hide_info : boolean = false;
 
   showTanggapans : boolean = false;
-  tanggapan_color: any = "medium";
+  tanggapan_color: any = "none";
 
   showKomentars : boolean = false;
-  komentar_color : any = "medium";
-  user : any;
+  komentar_color : any = "none";
+  user : any = {};
+  color_vote : any = "none";
 
   slideOpts = {
     initialSlide: 0,
@@ -56,38 +57,27 @@ export class DetailLaporanPage implements OnInit {
 
   ngOnInit() {
     this.pengaduan_id = this.route.snapshot.paramMap.get('id');
-    console.log(this.pengaduan_id);
-  }
-
-  ionViewWillEnter(){
+    this.getUser();
     this.getDetail();
     this.getComments();
     this.getTanggapans();
     this.getUser();
   }
 
+  ionViewWillEnter(){
+
+  }
+
   getDetail(){
     this.sharedService.getDetailPengaduan(this.pengaduan_id)
     .subscribe(data => {
-      console.log(data['data']);
       if(data){
         this.data = data['data'];
-        this.nama_pelapor = this.data['atas_nama'];
-        this.tracking_id = this.data['no_tiket'];
-        this.tanggal = this.data['tanggal'];
-        this.topik = this.data['topik'];
-        this.uraian = this.data['uraian'];
-        this.color = this.data['color'];
-        this.kategori = this.data['kategori_name'];
-        this.status = this.data['status_pengaduan'];
         this.count_tanggapans = this.data['tanggapans']['length'];
         this.count_komentars = this.data['comments']['length'];
         this.count_dukungans = this.data['likes']['length'];
-        this.avatar = this.data['avatar'];
         this.files = this.data['files'];
         this.statusShow = this.data['statusshow'];
-        // this.tanggapans = this.data['tanggapans'];
-        // this.komentars = this.data['comments'];
       }
     }, err => {
       console.log(err);
@@ -104,7 +94,6 @@ export class DetailLaporanPage implements OnInit {
   getTanggapans(){
     this.sharedService.getTanggapans(this.pengaduan_id)
     .subscribe(data => {
-      console.log(data);
       this.tanggapans = data['data'];
     })
   }
@@ -118,28 +107,29 @@ export class DetailLaporanPage implements OnInit {
 
   displayTanggapans() {
     this.showKomentars = false;
-    this.komentar_color = "medium";
+    this.komentar_color = "none";
     this.showTanggapans = !this.showTanggapans;
     if(this.showTanggapans == true){
       this.tanggapan_color = "danger";
     } else {
-      this.tanggapan_color = "medium";
+      this.tanggapan_color = "none";
     }
   }
 
   displayKomentars() {
     this.showTanggapans = false;
-    this.tanggapan_color = "medium";
+    this.tanggapan_color = "none";
     this.showKomentars = !this.showKomentars;
     if(this.showKomentars == true){
       this.komentar_color = "danger";
     } else {
-      this.komentar_color = "medium";
+      this.komentar_color = "none";
     }
   }
 
   getUser(){
-    this.user = this.sharedService.getUserCache();    
+    this.user = this.sharedService.getUserCache();
+    this.checkVoted(this.user.id);    
   }
 
   addKomentar(){
@@ -166,14 +156,14 @@ export class DetailLaporanPage implements OnInit {
 
   addVote(){
     let data = {
-      'user_id'     : this.user.id,
+      'user_id'     : this.user['id'],
       'pengaduan_id': this.pengaduan_id,
     }
 
     this.sharedService.addVote(data)
     .subscribe(data => {
       if(data['success']){
-        this.ionViewWillEnter();
+        this.ngOnInit();
       } else {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
       }
@@ -184,6 +174,17 @@ export class DetailLaporanPage implements OnInit {
 
   closeTag(){
     this.hide_info = true;
+  }
+
+  checkVoted(user_id){
+    this.sharedService.checkVoted(user_id, this.pengaduan_id)
+    .subscribe(data => {
+      if(data['status']){
+        this.color_vote = "danger";
+      } else {
+        this.color_vote = "none";
+      }
+    })
   }
 
 }

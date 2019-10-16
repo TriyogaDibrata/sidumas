@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { CommonService } from 'src/app/services/common/common.service';
+import { AlertService } from './services/alert/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent {
     private sharedService: SharedService,
     private authService: AuthService,
     private commonService: CommonService
+    private alertService : AlertService,
   ) {
     this.initializeApp();
   }

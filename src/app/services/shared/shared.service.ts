@@ -252,10 +252,14 @@ export class SharedService {
     .pipe();
   }
 
+<<<<<<< HEAD
   /*
     notifications
   */
   getNotifs(user_id, page=0, first=0){
+=======
+  checkVoted(user_id, pengaduan_id){
+>>>>>>> a3dfe91d6b59642dfae16d4eb85e317b842f4bb5
     this.token = this.authService.token;
 
     this.headers = new HttpHeaders ({
@@ -264,12 +268,33 @@ export class SharedService {
       'Authorization' : 'Bearer ' + this.token,
     });
 
+<<<<<<< HEAD
     return this.http.get(this.env.API_URL + 'pengaduan/notifikasi?limit=20&page='+ page +'&id='+ user_id+'&first='+ first, {headers : this.headers})
     .pipe();
   }
 
   getNewNotif(){
     this.token = this.authService.token;
+=======
+    return this.http.get(this.env.API_URL + 'pengaduan/checkvote?user_id='+user_id+'&pengaduan_id='+pengaduan_id, {headers : this.headers})
+    .pipe();
+    
+  }
+
+  myList(user_id){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
+
+    return this.http.get(this.env.API_URL + 'pengaduan/listsaya?user_id='+user_id, {headers: this.headers})
+    .pipe();
+  }
+
+>>>>>>> a3dfe91d6b59642dfae16d4eb85e317b842f4bb5
 
     this.headers = new HttpHeaders ({
       'Accept'        : 'application/json',
