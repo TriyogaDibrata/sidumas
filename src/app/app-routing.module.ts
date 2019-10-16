@@ -24,7 +24,7 @@ const routes: Routes = [
     runGuardsAndResolvers: "always",
     canActivate: [AuthGuard]
   },
-  { path: 'lokasi', loadChildren: './pages/lokasi/lokasi.module#LokasiPageModule',
+  { path: 'lokasi/:lat/:lng', loadChildren: './pages/lokasi/lokasi.module#LokasiPageModule',
     runGuardsAndResolvers: "always",
     canActivate: [AuthGuard]
   },

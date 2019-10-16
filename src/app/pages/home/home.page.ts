@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auht/auth.service';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AlertController } from '@ionic/angular';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
-  lists : any;
-  user  : any = {};
+  lists       : any;
+  user        : any = {};
+  color_vote  : any;
 
   constructor(
     private sharedService   : SharedService,
@@ -22,6 +24,7 @@ export class HomePage implements OnInit {
     private authService     : AuthService,
     public commonService    : CommonService,
     public alertCtrl        : AlertController,
+    private alertService    : AlertService,
   ) {
    }
 
@@ -40,9 +43,18 @@ export class HomePage implements OnInit {
   getListPengaduan(){
     this.sharedService.getListPengaduan()
     .subscribe(data => {
-      console.log(data['data']);
       this.lists = data['data'];
     });
+  }
+
+  doRefresh(event){
+    this.sharedService.getListPengaduan()
+    .subscribe(data => {
+      this.lists = data['data'];
+      event.target.complete();
+    }, err => {
+      this.alertService.presentAlert('Terjadi Kesalahan', 'Tidak dapat memuat data');
+    })
   }
 
   converTime(time) {
@@ -82,10 +94,30 @@ export class HomePage implements OnInit {
   getUser(){
     this.sharedService.getUser()
     .subscribe(data => {
-      console.log(data);
       this.user = data;
     }, err => {
-      console.log(err);
+    this.alertService.presentAlert('Terjadi Kesalahan', 'Tidak dapat mengambil data pengguna');
     });
   }
+
+  addVote(pengaduan_id){
+    let data = {
+      'user_id'     : this.user['id'],
+      'pengaduan_id': pengaduan_id,
+    }
+
+    this.sharedService.addVote(data)
+    .subscribe(data => {
+      if(data['success']){
+        this.ionViewDidEnter();
+      } else {
+        this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+      }
+    }, err => {
+        this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+    });
+  }
+
+  
+
 }

@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class EnvService {
 
-  API_URL = 'http://localhost:8000/api/';
-  // API_URL = 'https://sidumas.badungkab.go.id/api/';
+  // API_URL = 'http://localhost:8000/api/';
+  API_URL = 'https://sidumas.badungkab.go.id/api/';
   
   constructor() { }
 }

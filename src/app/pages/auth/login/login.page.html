@@ -1,4 +1,4 @@
-<ion-content padding class="auth-content">
+<ion-content class="auth-content ion-padding">
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-s="10" size-md="6" size-xl="4">
@@ -16,11 +16,11 @@
 
         <form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="login(form)">
 
-          <ion-item no-padding>
+          <ion-item class="ion-no-padding">
             <ion-input placeholder="Email" type="email" id="email" name="email" formControlName="email" required></ion-input>
           </ion-item>
 
-          <ion-item no-padding>
+          <ion-item class="ion-no-padding">
             <ion-input placeholder="Password" type="{{ password_type }}" id="password" name="password" formControlName="password" required></ion-input>
             <ion-icon name="eye" (click)="showPassword()" *ngIf="hide_password"></ion-icon>
             <ion-icon name="eye-off" (click)="hidePassword()" *ngIf="!hide_password"></ion-icon>

@@ -1,5 +1,6 @@
 .category {
     margin-top: 12px;
+    color : #6e8cf0;
 }
 
 .user-avatar {
@@ -35,4 +36,8 @@ ion-card-title {
 
 ion-chip {
     color: #ffffff;
+}
+
+ion-refresher {
+    z-index: 10;
 }

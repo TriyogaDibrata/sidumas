@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import * as moment from 'moment';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { IonContent } from '@ionic/angular';
+import { IonContent, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail-laporan',
@@ -53,6 +53,7 @@ export class DetailLaporanPage implements OnInit {
               private router        : Router,
               private sharedService : SharedService,
               public alertService   : AlertService,
+              public navCtrl        : NavController,
               ) { }
 
   ngOnInit() {
@@ -71,6 +72,7 @@ export class DetailLaporanPage implements OnInit {
   getDetail(){
     this.sharedService.getDetailPengaduan(this.pengaduan_id)
     .subscribe(data => {
+      console.log(data);
       if(data){
         this.data = data['data'];
         this.count_tanggapans = this.data['tanggapans']['length'];
@@ -131,7 +133,6 @@ export class DetailLaporanPage implements OnInit {
     this.sharedService.getUser()
     .subscribe(data => {
       this.user = data;
-      this.checkVoted(this.user.id);
     });
   }
 
@@ -179,15 +180,18 @@ export class DetailLaporanPage implements OnInit {
     this.hide_info = true;
   }
 
-  checkVoted(user_id){
-    this.sharedService.checkVoted(user_id, this.pengaduan_id)
-    .subscribe(data => {
-      if(data['status']){
-        this.color_vote = "danger";
-      } else {
-        this.color_vote = "none";
-      }
-    })
-  }
+  // checkVoted(user_id){
+  //   this.sharedService.checkVoted(user_id, this.pengaduan_id)
+  //   .subscribe(data => {  
+  //     if(data['status']){
+  //       this.color_vote = "danger";
+  //     } else {
+  //       this.color_vote = "none";
+  //     }
+  //   })
+  // }
 
+  checkLocation(lat, lng){
+    this.navCtrl.navigateForward(['lokasi', lat, lng]);
+  }
 }
