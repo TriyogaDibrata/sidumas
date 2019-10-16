@@ -11,7 +11,7 @@ import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
   styleUrls: ['./notifications.page.scss'],
 })
 export class NotificationsPage implements OnInit {
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
   notifs  : any = [];
   page: number;
@@ -40,7 +40,7 @@ export class NotificationsPage implements OnInit {
 
   firstNotifs(id){
     this.sharedService.getNotifs(id, this.page, 1)
-    .subscribe(data => {
+    .subscribe((data: any[]) => {
       if(data.length > 0){
         this.transformData(data);
       }
@@ -55,7 +55,7 @@ export class NotificationsPage implements OnInit {
     if(this.infiniteScrollEnable) {
       this.page++;
       this.sharedService.getNotifs(this.user.id, this.page)
-      .subscribe(data => {
+      .subscribe((data: any[]) => {
         if(data.length > 0){
           this.transformData(data);
         }else{

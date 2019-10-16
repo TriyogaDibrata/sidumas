@@ -298,7 +298,7 @@ export class SharedService {
 
     this.http.get(this.env.API_URL + 'pengaduan/notifikasi/new', {headers : this.headers})
     .pipe()
-    .subscribe(data => {
+    .subscribe((data) => {
       this.new_notif = data.news;
     }, err => {
       console.log(err);
