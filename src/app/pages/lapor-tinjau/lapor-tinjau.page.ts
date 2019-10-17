@@ -19,6 +19,8 @@ export class LaporTinjauPage implements OnInit {
   photos     : any;
   user       : any = {};
   loading    : any;
+  lat        : number;
+  lng        : number;
 
   constructor(public commonService  : CommonService,
               public navCtrl        : NavController,
@@ -34,8 +36,10 @@ export class LaporTinjauPage implements OnInit {
     this.dataObj = JSON.parse(this.dataRec);
     this.dataUraian = JSON.parse(this.dataObj['data']);
     this.dataFiles = this.dataObj['files'];
+    this.lat = this.dataUraian['lat'];
+    this.lng = this.dataUraian['lng'];
     console.log(this.dataUraian);
-    console.log(this.dataFiles);
+    console.log(this.lat, this.lng);
   }
 
   ionViewWillEnter(){
