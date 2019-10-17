@@ -25,7 +25,7 @@ export class SharedService {
   ngOnInit(): void {
   }
 
-  getListPengaduan(category){
+  getListPengaduan(category=''){
     this.token = this.authService.token;
 
     this.headers = new HttpHeaders ({
