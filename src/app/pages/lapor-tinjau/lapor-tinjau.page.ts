@@ -38,8 +38,6 @@ export class LaporTinjauPage implements OnInit {
     this.dataFiles = this.dataObj['files'];
     this.lat = this.dataUraian['lat'];
     this.lng = this.dataUraian['lng'];
-    console.log(this.dataUraian);
-    console.log(this.lat, this.lng);
   }
 
   ionViewWillEnter(){
