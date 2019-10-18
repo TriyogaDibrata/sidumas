@@ -69,17 +69,17 @@ ion-item {
     color: var(--ion-color-light);
 }
 
-//common helper 
+//common helper
 // Helpers //
 .w100 {
     width: 100%;
   }
-  
+
   .bold,
   .fw500 {
       font-weight: 500 !important;
   }
-  
+
   .fw700 {
       font-weight: 700 !important;
   }
@@ -95,11 +95,11 @@ ion-item {
   .text07 {
     font-size: .7rem;
   }
-  
+
   .text08 {
     font-size: .8rem;
   }
-  
+
   .text1 {
     font-size: 1rem !important;
   }
@@ -111,15 +111,15 @@ ion-item {
   .text15 {
     font-size: 1.5rem;
   }
-  
+
   .text20 {
     font-size: 2rem;
   }
-  
+
   .text-white {
       color: #fff;
   }
-  
+
   .text-primary {
       color: var(--ion-color-primary);
   }
@@ -127,7 +127,7 @@ ion-item {
   .text-secondary {
     color: var(--ion-color-secondary);
   }
-  
+
   .text-dark {
     color: var(--ion-color-dark);
   }
@@ -175,4 +175,9 @@ ion-tab-button {
     ion-text {
         margin-left: 10px;
     }
+}
+
+ion-title{
+  font-size: 16px;
+  font-weight: bold;  
 }

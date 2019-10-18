@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   lists       : any = [];
   user        : any = {};
   color_vote  : any;
-  categories  : any;
+  categories  : any = [];
   loading   : any;
   category    : any = "";
 
@@ -36,7 +36,6 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter(){
-    this.category = "";
     this.getMenuCategories();
     this.getUser();
     this.getListPengaduan();
@@ -56,14 +55,16 @@ export class HomePage implements OnInit {
   }
 
   getMenuCategories(){
-    this.sharedService.getMenuCategories()
-    .subscribe(data => {
-      this.categories = data;
-    });
+    if(this.categories.length == 0){
+      this.sharedService.getMenuCategories()
+      .subscribe(data => {
+        this.categories = data;
+      });
+    }
   }
 
   doRefresh(event){
-    this.sharedService.getListPengaduan()
+    this.sharedService.getListPengaduan(this.category)
     .subscribe(data => {
       this.lists = data['data'];
       event.target.complete();
