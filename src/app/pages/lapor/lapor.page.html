@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Uraian</ion-title>
+    <ion-title>Buat Pengaduan</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,18 +12,18 @@
     <ion-col size="12" size-md="6" size-xl="6" no-padding>
 
       <ion-item>
-        <ion-textarea [(ngModel)]="topik" placeholder="Ketik Topik Pengaduan" rows="3" autocapitalize></ion-textarea>
+        <ion-textarea [(ngModel)]="topik" placeholder="Judul Pengaduan" rows="3" autocapitalize></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-textarea placeholder="Ketik Uraian" [(ngModel)]="uraian" rows="10" auto-grow autocapitalize></ion-textarea>
+        <ion-textarea placeholder="Deskripsi Pengaduan" [(ngModel)]="uraian" rows="10" auto-grow autocapitalize></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label>Rahasiakan Identitas</ion-label>
         <ion-toggle [(ngModel)]="hide_identity" (ngModelChange)="hide_id()"></ion-toggle>
       </ion-item>
-    
+
       <ion-item>
         <ion-label>Rahasiakan Pengaduan</ion-label>
         <ion-toggle [(ngModel)]="hide_report" (ionChange)="hide_rp()"></ion-toggle>
