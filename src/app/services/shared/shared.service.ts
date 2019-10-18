@@ -25,7 +25,7 @@ export class SharedService {
   ngOnInit(): void {
   }
 
-  getListPengaduan(category=''){
+  getListPengaduan(category='', search=''){
     this.token = this.authService.token;
 
     this.headers = new HttpHeaders ({
@@ -34,7 +34,7 @@ export class SharedService {
       'Authorization' : 'Bearer ' + this.token,
     });
 
-    return this.http.get(this.env.API_URL + 'pengaduan/list?cid='+category, {headers : this.headers})
+    return this.http.get(this.env.API_URL + 'pengaduan/list?cid='+category+'&s='+search, {headers : this.headers})
     .pipe(
     );
   }

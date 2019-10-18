@@ -18,8 +18,9 @@ export class HomePage implements OnInit {
   user        : any = {};
   color_vote  : any;
   categories  : any = [];
-  loading   : any;
+  loading     : any;
   category    : any = "";
+  search      : any = {active: 0,limit: 30,value: ''};
 
   constructor(
     private sharedService   : SharedService,
@@ -47,7 +48,7 @@ export class HomePage implements OnInit {
 
   getListPengaduan(){
     this.showLoading();
-    this.sharedService.getListPengaduan(this.category)
+    this.sharedService.getListPengaduan(this.category, this.search.value)
     .subscribe(data => {
       this.lists = data['data'];
       this.loading.dismiss();
@@ -132,6 +133,28 @@ export class HomePage implements OnInit {
   segmentChanged(ev: any){
     this.category = ev.detail.value;
     this.getListPengaduan();
+  }
+
+  toogleSearch(){
+    if(this.search.active==1){
+      this.search.active = 0;
+      this.search.value = '';
+      this.getListPengaduan();
+    }else{
+      this.search.active = 1;
+    }
+  }
+
+  searchPengaduan(ev){
+    this.getListPengaduan();
+  }
+
+  writeSearch(ev){
+    if (ev.target.value.length > this.search.limit) {
+      ev.target.value = this.search.value;
+      return false;
+    }
+    this.search.value = ev.target.value;
   }
 
   async showLoading(){

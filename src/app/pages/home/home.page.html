@@ -1,11 +1,22 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar *ngIf="search.active==0">
     <ion-title>SIDUMAS</ion-title>
-    <ion-buttons slot="end" *ngIf="user.tipe == 1">
-      <ion-chip (click)="presentAlertConfirm()">
+    <ion-buttons slot="end">
+      <ion-button (click)="toogleSearch()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-chip (click)="presentAlertConfirm()" *ngIf="user.tipe == 1">
         <ion-icon name="log-out" color="light"></ion-icon>
         <ion-label>Keluar</ion-label>
       </ion-chip>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="search.active==1">
+    <ion-searchbar (ionInput)="writeSearch($event)" (search)="searchPengaduan($event)" placeholder="Pencarian, maks. 30 karakter"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="toogleSearch()">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -34,7 +45,7 @@
     <ion-col *ngIf="lists.length == 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
       <div class="no-data">
         <ion-icon name="notifications-outline"></ion-icon>
-        Belum terdapat pengaduan pada kategori ini
+        Pengaduan belum tersedia
       </div>
     </ion-col>
     <ion-col *ngIf="lists.length > 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
