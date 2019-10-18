@@ -11,6 +11,7 @@
 </ion-header>
 
 <ion-content fullscreen>
+
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
       refreshingText="Refreshing...">
@@ -18,7 +19,26 @@
   </ion-refresher>
 
   <ion-row class="ion-justify-content-center">
-    <ion-col size="12" size-md="6" size-xl="6">
+
+    <ion-col class="no-padding-bottom" size="12" size-md="6" size-xl="6">
+      <ion-segment class="category-segment" scrollable color="danger" (ionChange)="segmentChanged($event)">
+        <ion-segment-button [checked]="category==''" value="">
+          <ion-label>Semua</ion-label>
+        </ion-segment-button>
+        <ion-segment-button *ngFor="let category of categories" [checked]="category==category.kategori_id" value="{{category.kategori_id}}">
+          <ion-label>{{category.name}}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-col>
+
+    <ion-col class="no-padding-bottom" size="12" size-md="6" size-xl="6" *ngIf="lists.length == 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
+      <div class="no-data">
+        <ion-icon name="notifications-outline"></ion-icon>
+        Belum terdapat pengaduan pada kategori ini
+      </div>
+    </ion-col>
+
+    <ion-col *ngIf="lists.length > 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
       <ion-list *ngFor="let list of lists">
         <ion-card>
           <ion-card-header>
@@ -160,8 +180,8 @@
           </ion-card>
         </ion-list>
       </div>
-
     </ion-col>
+
   </ion-row>
 
 </ion-content>

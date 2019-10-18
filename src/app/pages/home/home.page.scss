@@ -1,6 +1,5 @@
 .category {
     margin-top: 12px;
-    color : #6e8cf0;
 }
 
 .user-avatar {
@@ -38,6 +37,40 @@ ion-chip {
     color: #ffffff;
 }
 
-ion-refresher {
-    z-index: 10;
+ion-segment{
+  padding-top: 10px;
+}
+ion-segment-button{
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --indicator-color-checked: rgba(0,0,0,0) !important;
+  border: 1px solid #eee;
+  border-radius: 100px;
+  margin-right: 2px;
+  margin-left: 2px;
+  min-height: 0;
+  line-height: normal;
+}
+ion-segment-button.segment-button-checked{
+  border-color: var(--ion-color-danger, #f04141) !important;
+}
+ion-label{
+  margin-top: 7px !important;
+  margin-bottom: 7px !important;
+}
+.no-padding-top{
+  padding-top: 0 !important;
+}
+.no-padding-bottom{
+  padding-bottom: 0 !important;
+}
+.no-data{
+  text-align: center;
+  color: rgba(0,0,0,0.3);
+  font-size: 16px;
+  padding: 40px 15px 15px;
+}
+
+ion-refresher{
+  z-index: 10;
 }

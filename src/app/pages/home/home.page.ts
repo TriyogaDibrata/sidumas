@@ -4,7 +4,7 @@ import { EnvService } from 'src/app/services/env/env.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common/common.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
@@ -14,9 +14,12 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 })
 export class HomePage implements OnInit {
 
-  lists       : any;
+  lists       : any = [];
   user        : any = {};
   color_vote  : any;
+  categories  : any;
+  loading   : any;
+  category    : any = "";
 
   constructor(
     private sharedService   : SharedService,
@@ -25,6 +28,7 @@ export class HomePage implements OnInit {
     public commonService    : CommonService,
     public alertCtrl        : AlertController,
     private alertService    : AlertService,
+    public loadingCtrl      : LoadingController,
   ) {
    }
 
@@ -32,8 +36,10 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter(){
-    this.getListPengaduan();
+    this.category = "";
+    this.getMenuCategories();
     this.getUser();
+    this.getListPengaduan();
   }
 
   seeDetail(id){
@@ -41,14 +47,23 @@ export class HomePage implements OnInit {
   }
 
   getListPengaduan(){
-    this.sharedService.getListPengaduan()
+    this.showLoading();
+    this.sharedService.getListPengaduan(this.category)
     .subscribe(data => {
       this.lists = data['data'];
+      this.loading.dismiss();
+    });
+  }
+
+  getMenuCategories(){
+    this.sharedService.getMenuCategories()
+    .subscribe(data => {
+      this.categories = data;
     });
   }
 
   doRefresh(event){
-    this.sharedService.getListPengaduan()
+    this.sharedService.getListPengaduan(this.category)
     .subscribe(data => {
       this.lists = data['data'];
       event.target.complete();
@@ -111,5 +126,20 @@ export class HomePage implements OnInit {
     }, err => {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
     });
+  }
+
+  segmentChanged(ev: any){
+    this.category = ev.detail.value;
+    this.getListPengaduan();
+  }
+
+  async showLoading(){
+    this.loading = await this.loadingCtrl.create({
+      spinner : "dots",
+      backdropDismiss : true,
+      message : "Loading..."
+    });
+
+    await this.loading.present();
   }
 }
