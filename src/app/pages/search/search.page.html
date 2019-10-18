@@ -7,12 +7,30 @@
 <ion-content fullscreen>
   <ion-row class="ion-justify-content-center">
     <ion-col size="12" size-md="6" size-xl="6">
+      <ion-segment color="danger" (ionChange)="segmentChanged($event)">
+        <ion-segment-button [checked]="segment.value==1" value="1">
+          <ion-label><ion-icon name="timer"></ion-icon> Proses</ion-label>
+        </ion-segment-button>
+        <ion-segment-button [checked]="segment.value==2" value="2">
+          <ion-label><ion-icon name="checkmark-circle-outline"></ion-icon> Selesai</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-col>
+    <ion-col *ngIf="lists.length == 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
+      <div class="no-data">
+        <ion-icon name="notifications-outline"></ion-icon>
+        Pengaduan belum tersedia
+      </div>
+    </ion-col>
+    <ion-col *ngIf="lists.length > 0" size="12" size-md="6" size-xl="6">
       <ion-list *ngFor="let list of lists">
         <ion-card>
           <ion-card-header>
             <ion-row>
               <ion-col no-padding>
-                <ion-card-subtitle class="category">{{ list['kategori_name'] }} - {{ list['subkategori_name'] }}
+                <ion-card-subtitle>
+                  <h3>#{{list.no_tiket}}</h3>
+                  <ion-label>{{ converTime(list.tanggal) }}</ion-label>
                 </ion-card-subtitle>
               </ion-col>
               <ion-col no-padding>
@@ -23,18 +41,12 @@
             </ion-row>
           </ion-card-header>
           <ion-card-content (click)="seeDetail(list.id)">
-            <div class="user-avatar">
-              <ion-avatar item-left>
-                <img *ngIf="list['avatar'] != null" [src]="list['avatar']" />
-                <img *ngIf="list['avatar'] == null" src="assets/icon/favicon.png" />
-              </ion-avatar>
-              <div class="user-name">
-                <h3>{{ list['pelapor'] }}</h3>
-                <ion-label>{{ converTime(list.tanggal) }}</ion-label>
-              </div>
-            </div>
-
-            <ion-card-title>{{ list['topik'] }}</ion-card-title>
+            <ion-card-title class="category">
+              {{ list['kategori_name'] }}{{ list['subkategori_name']?' - '+list['subkategori_name']:'' }}
+            </ion-card-title>
+            <ion-card-title>
+              {{ list['topik'] }}
+            </ion-card-title>
 
             <div class="uraian">
               <ion-row>
@@ -74,6 +86,12 @@
           </div>
         </ion-card>
       </ion-list>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
 
       <div *ngIf="!lists">
           <ion-list *ngFor="let i of [1,2,3]">
@@ -107,10 +125,10 @@
                       </p>
                     </ion-label>
                   </ion-item>
-  
+
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-  
+
                 <div class="uraian">
                   <ion-row>
                     <ion-col no-padding class="ion-text-wrap">

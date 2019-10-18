@@ -13,7 +13,9 @@ import { CommonService } from 'src/app/services/common/common.service';
 export class SearchPage implements OnInit {
 
   user        : any;
-  lists       : any;
+  lists       : any = [];
+  segment     : any = {value: 1};
+  infiniteScroll  : any = {enable: 1, page: 0};
 
   constructor(private sharedService : SharedService,
               private alertService  : AlertService,
@@ -39,7 +41,7 @@ export class SearchPage implements OnInit {
   }
 
   getMyList(user_id){
-    this.sharedService.myList(user_id)
+    this.sharedService.myList(user_id, this.segment.value, this.infiniteScroll.page)
     .subscribe(data => {
       console.log(data);
       this.lists = data['data'];
@@ -54,4 +56,37 @@ export class SearchPage implements OnInit {
     return local_time;
   }
 
+  segmentChanged(ev: any) {
+    this.segment.value = ev.detail.value;
+
+    // reset infinite scroll
+    this.infiniteScroll.page = 0;
+    this.infiniteScroll.enable = 1;
+
+    this.getMyList(this.user['id']);
+  }
+
+  nextPage(event){
+    if(this.infiniteScroll.enable) {
+      this.infiniteScroll.page++;
+
+      this.sharedService.myList(this.user['id'], this.segment.value, this.infiniteScroll.page)
+      .subscribe((data) => {
+        if(data.count > 0){
+          this.transformData(data['data']);
+        }else{
+          this.infiniteScroll.enable = 0;
+        }
+      }, err => {
+        console.log(err);
+      });
+    }
+    event.target.complete();
+  }
+
+  transformData(rows){
+    rows.forEach((data) => {
+      this.lists.push(data);
+    });
+  }
 }
