@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>register</ion-title>
+    <ion-title>Daftar</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,26 +21,74 @@
             <ion-input placeholder="Nama Lengkap" type="text" id="name" name="name" formControlName="name" required>
             </ion-input>
           </ion-item>
+          <div class="ion-margin-top" *ngIf="registerForm.get('name').touched && registerForm.get('name').hasError('required')">
+            <ion-label>
+              <ion-icon name="warning" color="warning"></ion-icon>
+              <ion-text class="ion-margin">Nama Tidak Boleh Kosong</ion-text>
+            </ion-label>
+          </div>
           <ion-item no-padding>
             <ion-input placeholder="Email" type="email" id="email" name="email" formControlName="email" required>
             </ion-input>
           </ion-item>
+          <div class="ion-margin-top" *ngIf="registerForm.get('email').touched && registerForm.get('email').hasError('required')">
+            <ion-label>
+              <ion-icon name="warning" color="warning"></ion-icon>
+              <ion-text class="ion-margin">Email Tidak Boleh Kosong !</ion-text>
+            </ion-label>
+          </div>
+
+          <div class="ion-margin-top" *ngIf="registerForm.get('email').touched && registerForm.get('email').hasError('pattern')">
+            <ion-label>
+              <ion-icon name="warning" color="warning"></ion-icon>
+              <ion-text class="ion-margin">Format Email Tidak Sesuai !</ion-text>
+            </ion-label>
+          </div>
+
           <ion-item no-padding>
             <ion-input placeholder="Nomor Telepon" type="tel" id="no_telp" name="no_telp" formControlName="no_telp"
               required></ion-input>
           </ion-item>
+          <div class="ion-margin-top" *ngIf="registerForm.get('no_telp').touched && registerForm.get('no_telp').hasError('required')">
+            <ion-label>
+              <ion-icon name="warning" color="warning"></ion-icon>
+              <ion-text class="ion-margin">Nomor Telepon Tidak Boleh Kosong!</ion-text>
+            </ion-label>
+          </div>
+
           <ion-item no-padding>
-            <ion-input placeholder="Kata Sandi" [type]="password_type" id="password" name="password"
+            <ion-input placeholder="Password" [type]="password_type" id="password" name="password"
               formControlName="password" required></ion-input>
             <ion-icon name="eye" (click)="showPassword()" *ngIf="hide_password"></ion-icon>
             <ion-icon name="eye-off" (click)="hidePassword()" *ngIf="!hide_password"></ion-icon>
           </ion-item>
+          <div class="ion-margin-top" *ngIf="registerForm.get('password').touched && registerForm.get('password').hasError('required')">
+            <ion-label>
+              <ion-icon name="warning" color="warning"></ion-icon>
+              <ion-text class="ion-margin">Password harus diisi !</ion-text>
+            </ion-label>
+          </div>
+
+          <div class="ion-margin-top" *ngIf="registerForm.get('password').touched && registerForm.get('password').hasError('minlength')">
+            <ion-label>
+              <ion-icon name="warning" color="warning"></ion-icon>
+              <ion-text class="ion-margin">Password Min 8 Karakter !</ion-text>
+            </ion-label>
+          </div>
+
           <ion-item no-padding>
-            <ion-input placeholder="Konfirmasi Kata Sandi" [type]="c_password_type" id="c_password" name="c_password"
+            <ion-input placeholder="Ulangi Password" [type]="c_password_type" id="c_password" name="c_password"
               formControlName="c_password" required></ion-input>
             <ion-icon name="eye" (click)="showCPassword()" *ngIf="hide_c_password"></ion-icon>
             <ion-icon name="eye-off" (click)="hideCPassword()" *ngIf="!hide_c_password"></ion-icon>
           </ion-item>
+
+          <div class="ion-margin-top" *ngIf="registerForm.get('c_password').touched && registerForm.get['c_password'].errors?.MatchPassword">
+            <ion-label>
+              <ion-icon name="warning" color="warning"></ion-icon>
+              <ion-text class="ion-margin">Tidak Sesuai !</ion-text>
+            </ion-label>
+          </div>
 
           <ion-button class="mt20" color="danger" expand="full" shape="round" type="submit" [disabled]="!registerForm.valid">Daftar</ion-button>
 

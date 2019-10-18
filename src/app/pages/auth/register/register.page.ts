@@ -40,10 +40,12 @@ export class RegisterPage implements OnInit {
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])],
       'password' : [null, Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.minLength(8)
       ])],
       'c_password': [null, Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.minLength(8),
       ])]
     }, {
       validator: this.matchPassword
