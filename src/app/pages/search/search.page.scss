@@ -1,5 +1,6 @@
 .category {
-    margin-top: 12px;
+    margin-bottom: 5px;
+    color: var(--ion-color-step-550,#737373);
 }
 
 .user-avatar {
@@ -35,4 +36,22 @@ ion-card-title {
 
 ion-chip {
     color: #ffffff;
+}
+ion-card-subtitle > h3{
+    font-size: 16px;
+    margin: 0;
+    color: var(--ion-color-danger, #f04141) !important;
+}
+
+.no-padding-top{
+  padding-top: 0 !important;
+}
+.no-padding-bottom{
+  padding-bottom: 0 !important;
+}
+.no-data{
+  text-align: center;
+  color: rgba(0,0,0,0.3);
+  font-size: 18px;
+  padding: 40px 15px 15px;
 }

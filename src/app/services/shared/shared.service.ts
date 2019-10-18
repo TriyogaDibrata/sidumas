@@ -257,7 +257,7 @@ export class SharedService {
 
   }
 
-  myList(user_id){
+  myList(user_id, category='', page=''){
     this.token = this.authService.token;
 
     this.headers = new HttpHeaders ({
@@ -266,7 +266,7 @@ export class SharedService {
       'Authorization' : 'Bearer ' + this.token,
     });
 
-    return this.http.get(this.env.API_URL + 'pengaduan/listsaya?user_id='+user_id, {headers: this.headers})
+    return this.http.get(this.env.API_URL + 'pengaduan/listsaya?user_id='+user_id+'&cid='+category+'&page='+page, {headers: this.headers})
     .pipe();
   }
 
