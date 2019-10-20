@@ -22,6 +22,11 @@ export class LaporTinjauPage implements OnInit {
   lat        : number;
   lng        : number;
 
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
+
   constructor(public commonService  : CommonService,
               public navCtrl        : NavController,
               private route         : ActivatedRoute,

@@ -72,7 +72,8 @@ export class SearchPage implements OnInit {
 
       this.sharedService.myList(this.user['id'], this.segment.value, this.infiniteScroll.page)
       .subscribe((data) => {
-        if(data.count > 0){
+        console.log(data);
+        if(data['count'] > 0){
           this.transformData(data['data']);
         }else{
           this.infiniteScroll.enable = 0;

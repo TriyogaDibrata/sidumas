@@ -17,7 +17,7 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="SplashScreen" value="false" />
+    <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyCQAw3LUaWAO3sMF84Q667xxwS6tCv5M4w" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyCQAw3LUaWAO3sMF84Q667xxwS6tCv5M4w" />

@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
   loading     : any;
   category    : any = "";
   search      : any = {active: 0,limit: 30,value: ''};
+  infiniteScroll  : any = {enable: 1, page: 0};
 
   constructor(
     private sharedService   : SharedService,
@@ -48,7 +49,7 @@ export class HomePage implements OnInit {
 
   getListPengaduan(){
     this.showLoading();
-    this.sharedService.getListPengaduan(this.category, this.search.value)
+    this.sharedService.getListPengaduan(this.category, this.search.value, this.infiniteScroll.page)
     .subscribe(data => {
       this.lists = data['data'];
       this.loading.dismiss();
@@ -133,6 +134,9 @@ export class HomePage implements OnInit {
   segmentChanged(ev: any){
     this.category = ev.detail.value;
     this.getListPengaduan();
+
+    this.infiniteScroll.page = 0;
+    this.infiniteScroll.enable = 1; 
   }
 
   toogleSearch(){
@@ -143,6 +147,31 @@ export class HomePage implements OnInit {
     }else{
       this.search.active = 1;
     }
+  }
+
+  loadData(event){
+    if(this.infiniteScroll.enable) {
+      this.infiniteScroll.page++;
+
+      this.sharedService.getListPengaduan(this.category, this.search.value, this.infiniteScroll.page)
+      .subscribe((data) => {
+        console.log(data);
+        if(data['count'] > 0){
+          this.transformData(data['data']);
+        }else{
+          this.infiniteScroll.enable = 0;
+        }
+      }, err => {
+        console.log(err);
+      });
+    }
+    event.target.complete();
+  }
+
+  transformData(rows){
+    rows.forEach((data) => {
+      this.lists.push(data);
+    });
   }
 
   searchPengaduan(ev){

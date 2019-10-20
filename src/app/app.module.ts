@@ -25,6 +25,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
   imports: [
     BrowserModule, 
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(),

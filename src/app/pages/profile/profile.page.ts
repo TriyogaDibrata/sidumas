@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +16,7 @@ export class ProfilePage implements OnInit {
   user_email : any;
   user_id : any;
   statuses : any = {};
+  loading : any;
 
   constructor(
     public commonService  : CommonService,
@@ -23,6 +24,7 @@ export class ProfilePage implements OnInit {
     private sharedService : SharedService,
     public navCtrl        : NavController,
     public alertCtrl      : AlertController,
+    public loadingCtrl    : LoadingController,
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,7 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter(){
     this.getUser();
+    this.showLoading();
   }
 
   async presentAlertConfirm() {
@@ -83,6 +86,16 @@ export class ProfilePage implements OnInit {
       console.log(data);
       this.statuses = data;
     });
+  }
+
+  async showLoading(){
+    this.loading = await this.loadingCtrl.create({
+      spinner : "dots",
+      backdropDismiss : true,
+      message : "Loading..."
+    });
+
+    await this.loading.present();
   }
 
 }
