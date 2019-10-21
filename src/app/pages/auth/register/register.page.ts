@@ -105,16 +105,17 @@ export class RegisterPage implements OnInit {
         this.storage.set('token', data['token'])
         .then(
           ()=> {
-            console.log('Token Stored');
+            // console.log('Token Stored');
             loading.dismiss();
             this.commonService.goTo('app/tabs/home');
           }, err => {
             console.log(err);
           }
         );
-      } 
+      }
     }, err => {
-      console.log(err);
+      let errors = err.error.errors;
+      this.commonService.presentAlert('Daftar Gagal', errors[Object.keys(errors)[0]]);
       loading.dismiss();
     })
   }

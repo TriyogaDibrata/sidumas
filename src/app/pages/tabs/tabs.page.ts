@@ -13,7 +13,7 @@ export class TabsPage {
   constructor(private sharedService       : SharedService) {}
 
   ionViewWillEnter(){
-    this.getUser();
+    // this.getUser();
   }
 
   getUser(){
