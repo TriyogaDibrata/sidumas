@@ -15,3 +15,16 @@
   font-weight: bold;
   padding: 10px;
 }
+
+.no-padding-top{
+  padding-top: 0 !important;
+}
+.no-padding-bottom{
+  padding-bottom: 0 !important;
+}
+.no-data{
+  text-align: center;
+  color: rgba(0,0,0,0.3);
+  font-size: 18px;
+  padding: 40px 15px 15px;
+}

@@ -83,7 +83,7 @@
             <ion-icon name="eye-off" (click)="hideCPassword()" *ngIf="!hide_c_password"></ion-icon>
           </ion-item>
 
-          <div class="ion-margin-top" *ngIf="registerForm.get('c_password').touched && registerForm.get['c_password'].errors?.MatchPassword">
+          <div class="ion-margin-top" *ngIf="registerForm.get('c_password').touched && this.registerForm.get('c_password').hasError('matchPassword')">
             <ion-label>
               <ion-icon name="warning" color="warning"></ion-icon>
               <ion-text class="ion-margin">Tidak Sesuai !</ion-text>

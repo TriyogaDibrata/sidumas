@@ -6,28 +6,23 @@
       <ion-label>Beranda</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="project" *ngIf="user_type == 1">
-      <ion-icon name="construct"></ion-icon>
-      <ion-label>Project</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="search" *ngIf="user_type == 0">
+    <ion-tab-button tab="search">
       <ion-icon name="paper"></ion-icon>
       <ion-label>Riwayat</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="lapor-kategori" *ngIf="user_type == 0">
+    <ion-tab-button tab="lapor-kategori">
       <ion-icon name="add-circle"></ion-icon>
       <ion-label>Lapor</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="notifications">
       <ion-icon name="notifications"></ion-icon>
-      <!-- <ion-badge *ngIf="sharedService.notif.news>0" color="danger">{{sharedService.notif.news}}</ion-badge> -->
+      <ion-badge *ngIf="sharedService.notif.news > 0" color="danger">{{sharedService.notif.news}}</ion-badge>
       <ion-label>Notifikasi</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="profile" *ngIf="user_type == 0">
+    <ion-tab-button tab="profile">
       <ion-icon name="contact"></ion-icon>
       <ion-label>Profile</ion-label>
     </ion-tab-button>
