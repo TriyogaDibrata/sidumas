@@ -95,6 +95,19 @@ export class SharedService {
     );
   }
 
+  getKategoriName(id){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
+
+    return this.http.get(this.env.API_URL + 'pengaduan/category?id='+id, {headers : this.headers})
+    .pipe();
+  }
+
   getUser(){
     this.token = this.authService.token;
 

@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content class="ion-no-padding">
-  <ion-row class="ion-justify-content-center" no-padding>
-    <ion-col size="12" size-md="6" size-xl="6" no-padding>
+  <ion-row class="ion-justify-content-center ion-no-padding">
+    <ion-col size="12" size-md="6" size-xl="6" class="ion-no-padding">
 
       <ion-item>
         <ion-textarea [(ngModel)]="topik" placeholder="Judul Pengaduan" rows="3" autocapitalize></ion-textarea>
@@ -29,9 +29,9 @@
         <ion-toggle [(ngModel)]="hide_report" (ionChange)="hide_rp()"></ion-toggle>
       </ion-item>
 
-      <ion-item no-padding class="location-wrapper" color="light">
-        <ion-icon name="pin" color="danger"></ion-icon>
-        <ion-text>{{ address }}</ion-text>
+      <ion-item (click)="chooseLocation()">
+        <ion-label position="stacked"><ion-icon name="pin" color="danger"></ion-icon> Lokasi saat ini</ion-label>
+        <ion-textarea [(ngModel)]="address" readonly></ion-textarea>
       </ion-item>
 
     </ion-col>

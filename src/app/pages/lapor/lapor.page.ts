@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common/common.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalPlacesPage } from '../../modal-places/modal-places.page';
 
 @Component({
   selector: 'app-lapor',
@@ -33,6 +34,7 @@ export class LaporPage implements OnInit {
                public nativeGeocoder: NativeGeocoder,
                public route         : ActivatedRoute,
                public router        : Router,
+               private modalCtrl    : ModalController,
                ) { 
                }
 
@@ -142,6 +144,13 @@ export class LaporPage implements OnInit {
     if (this.hide_report == true) {
       this.alertService.presentAlert('Rahasiakan Pengaduan', 'Dengan mengaktifkan fitur ini maka pengaduan anda akan di rahasiakan');
     }
+  }
+
+  async chooseLocation(){
+    const modal = await this.modalCtrl.create({
+      component : ModalPlacesPage,
+    });
+    return await modal.present();
   }
 
 }

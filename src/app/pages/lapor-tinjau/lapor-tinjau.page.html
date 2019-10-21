@@ -26,7 +26,13 @@
       </ion-slides>
 
       <ion-item>
-        <ion-label position="stacked" class="bold text12">Topik</ion-label>
+        <ion-label position="stacked" class="bold text12">Kategori</ion-label>
+        <br/>
+        <ion-input type="text" [(ngModel)]="nama_kategori" readonly></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked" class="bold text12">Judul</ion-label>
         <br/>
         <ion-input type="text" [(ngModel)]="dataUraian.topik" readonly></ion-input>
       </ion-item>

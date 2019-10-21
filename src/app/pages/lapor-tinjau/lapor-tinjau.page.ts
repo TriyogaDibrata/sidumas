@@ -21,6 +21,7 @@ export class LaporTinjauPage implements OnInit {
   loading    : any;
   lat        : number;
   lng        : number;
+  nama_kategori : any;
 
   slideOpts = {
     initialSlide: 0,
@@ -42,10 +43,10 @@ export class LaporTinjauPage implements OnInit {
     this.dataRec = this.route.snapshot.paramMap.get('dataObj');
     this.dataObj = JSON.parse(this.dataRec);
     this.dataUraian = JSON.parse(this.dataObj['data']);
-    console.log(this.dataUraian);
     this.dataFiles = this.dataObj['files'];
     this.lat = this.dataUraian['lat'];
     this.lng = this.dataUraian['lng'];
+    this.getCategoryName(this.dataUraian['kategori_id']);
   }
 
   closeTag(){
@@ -84,6 +85,15 @@ export class LaporTinjauPage implements OnInit {
 
   getUser(){
     this.user = this.sharedService.getUserCache();
+  }
+
+  getCategoryName(id){
+    this.sharedService.getKategoriName(id)
+    .subscribe(data => {
+      this.nama_kategori = data['kategori_name'];
+    }, err => {
+      console.log(err);
+    });
   }
 
   sendData(){
