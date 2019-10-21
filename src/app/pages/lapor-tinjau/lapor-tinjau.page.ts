@@ -42,6 +42,7 @@ export class LaporTinjauPage implements OnInit {
     this.dataRec = this.route.snapshot.paramMap.get('dataObj');
     this.dataObj = JSON.parse(this.dataRec);
     this.dataUraian = JSON.parse(this.dataObj['data']);
+    console.log(this.dataUraian);
     this.dataFiles = this.dataObj['files'];
     this.lat = this.dataUraian['lat'];
     this.lng = this.dataUraian['lng'];
