@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { EnvService } from 'src/app/services/env/env.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common/common.service';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { IonInfiniteScroll, AlertController, LoadingController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
@@ -13,6 +13,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
   lists       : any = [];
   user        : any = {};
@@ -21,7 +22,7 @@ export class HomePage implements OnInit {
   loading     : any;
   category    : any = "";
   search      : any = {active: 0,limit: 30,value: ''};
-  infiniteScroll  : any = {enable: 1, page: 0};
+  iScroll  : any = {enable: 1, page: 0};
 
   constructor(
     private sharedService   : SharedService,
@@ -38,6 +39,8 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter(){
+    this.lists = [];
+    this.iScroll.page = 0;
     this.getMenuCategories();
     this.getUser();
     this.getListPengaduan();
@@ -49,7 +52,7 @@ export class HomePage implements OnInit {
 
   getListPengaduan(){
     this.showLoading();
-    this.sharedService.getListPengaduan(this.category, this.search.value, this.infiniteScroll.page)
+    this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
     .subscribe(data => {
       this.lists = data['data'];
       this.loading.dismiss();
@@ -135,8 +138,8 @@ export class HomePage implements OnInit {
     this.category = ev.detail.value;
     this.getListPengaduan();
 
-    this.infiniteScroll.page = 0;
-    this.infiniteScroll.enable = 1; 
+    this.iScroll.page = 0;
+    this.iScroll.enable = 1;
   }
 
   toogleSearch(){
@@ -150,16 +153,16 @@ export class HomePage implements OnInit {
   }
 
   loadData(event){
-    if(this.infiniteScroll.enable) {
-      this.infiniteScroll.page++;
+    if(this.iScroll.enable) {
+      this.iScroll.page++;
 
-      this.sharedService.getListPengaduan(this.category, this.search.value, this.infiniteScroll.page)
+      this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
       .subscribe((data) => {
         console.log(data);
         if(data['count'] > 0){
           this.transformData(data['data']);
         }else{
-          this.infiniteScroll.enable = 0;
+          this.iScroll.enable = 0;
         }
       }, err => {
         console.log(err);
