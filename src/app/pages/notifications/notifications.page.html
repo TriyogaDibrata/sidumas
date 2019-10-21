@@ -6,6 +6,14 @@
 
 <ion-content fullscreen>
   <ion-list class="ion-no-padding">
+    <ion-row *ngIf="notifs.length == 0" class="notif">
+      <ion-col class="no-padding-top" size="12" size-md="6" size-xl="6">
+        <div class="no-data">
+          <ion-icon name="notifications-outline"></ion-icon>
+          Pemberitahuan belum tersedia
+        </div>
+      </ion-col>
+    </ion-row>
     <ion-row class="notif" *ngFor="let notif of notifs">
       <ion-col *ngIf="notif.group" class="notif-divider" size="12">
         {{notif.mmmmyy}}
