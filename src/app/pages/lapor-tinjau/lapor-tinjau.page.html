@@ -13,10 +13,39 @@
 <ion-content no-padding>
   <ion-row class="ion-justify-content-center" no-padding>
     <ion-col size="12" size-md="6" size-xl="6" no-padding>
+      
+      <div class="info-badge ion-padding" *ngIf="dataUraian.hide_identity && dataUraian.hide_report" [hidden]="hide_info">
+        <ion-row>
+          <ion-col size="11">
+            Laporan ini bersifat rahasia dan identitas anda akan disembunyikan
+          </ion-col>
+          <ion-col size="1">
+            <ion-icon class="mt10" name="close-circle" (click)="closeTag()"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </div>
 
-      <ion-item-divider color="warning" *ngIf="dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan ini bersifat rahasia dan identitas anda akan disembunyikan</ion-item-divider>
-      <ion-item-divider color="warning" *ngIf="dataUraian.hide_identity && !dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Identitas anda pada laporan ini di rahasiakan</ion-item-divider>
-      <ion-item-divider color="warning" *ngIf="!dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan bersifat rahasia</ion-item-divider>
+      <div class="info-badge ion-padding" *ngIf="dataUraian.hide_identity && !dataUraian.hide_report" [hidden]="hide_info">
+        <ion-row>
+          <ion-col size="11">
+            Identitas anda pada laporan ini di rahasiakan
+          </ion-col>
+          <ion-col size="1">
+            <ion-icon class="mt10" name="close-circle" (click)="closeTag()"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="info-badge ion-padding" *ngIf="!dataUraian.hide_identity && dataUraian.hide_report" [hidden]="hide_info">
+        <ion-row>
+          <ion-col size="11">
+            Laporan bersifat rahasia
+          </ion-col>
+          <ion-col size="1">
+            <ion-icon class="mt10" name="close-circle" (click)="closeTag()"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </div>
 
       <ion-slides pager="true" [options]="slideOpts">
         <ion-slide *ngFor="let photo of dataFiles">

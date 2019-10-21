@@ -27,6 +27,8 @@ export class LaporTinjauPage implements OnInit {
     speed: 400
   };
 
+  hide_info : boolean = false;
+
   constructor(public commonService  : CommonService,
               public navCtrl        : NavController,
               private route         : ActivatedRoute,
@@ -43,6 +45,10 @@ export class LaporTinjauPage implements OnInit {
     this.dataFiles = this.dataObj['files'];
     this.lat = this.dataUraian['lat'];
     this.lng = this.dataUraian['lng'];
+  }
+
+  closeTag(){
+    this.hide_info = true;
   }
 
   ionViewWillEnter(){
