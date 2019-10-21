@@ -4,6 +4,7 @@ import { SharedService } from 'src/app/services/shared/shared.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common/common.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-search',
@@ -16,14 +17,20 @@ export class SearchPage implements OnInit {
   lists       : any = [];
   segment     : any = {value: 1};
   infiniteScroll  : any = {enable: 1, page: 0};
+  loading     : any;
 
   constructor(private sharedService : SharedService,
               private alertService  : AlertService,
-              private commonService : CommonService
+              private commonService : CommonService,
+              public loadingCtrl    : LoadingController,
               ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
     this.getUser();
+    this.showLoading();
   }
 
   seeDetail(id){
@@ -45,8 +52,10 @@ export class SearchPage implements OnInit {
     .subscribe(data => {
       console.log(data);
       this.lists = data['data'];
+      this.loading.dismiss();
     }, err => {
       console.log(err);
+      this.loading.dismiss();
     });
   }
 
@@ -89,5 +98,15 @@ export class SearchPage implements OnInit {
     rows.forEach((data) => {
       this.lists.push(data);
     });
+  }
+
+  async showLoading(){
+    this.loading = await this.loadingCtrl.create({
+      spinner : "dots",
+      backdropDismiss : true,
+      message : "Loading..."
+    });
+
+    await this.loading.present();
   }
 }

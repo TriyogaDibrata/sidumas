@@ -83,8 +83,11 @@ export class ProfilePage implements OnInit {
   lihatUserStatus(user_id){
     this.sharedService.seeUserStatus(user_id)
     .subscribe(data => {
-      console.log(data);
       this.statuses = data;
+      this.loading.dismiss();
+    }, err => {
+      console.log(err);
+      this.loading.dismiss();
     });
   }
 

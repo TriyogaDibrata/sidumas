@@ -4,6 +4,7 @@ import { CameraPreview, CameraPreviewOptions } from '@ionic-native/camera-previe
 import { NavController, AlertController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-lapor-file',
@@ -26,9 +27,10 @@ export class LaporFilePage implements OnInit {
               public camera        : Camera,
               private route        : ActivatedRoute,
               private router       : Router,
+              private alertService : AlertService,
               ) 
   {
-    // this.openCamera();
+
   }
 
   ionViewWillEnter(){
@@ -38,6 +40,10 @@ export class LaporFilePage implements OnInit {
   ngOnInit() {
     this.dataRec = this.route.snapshot.paramMap.get('dataObj');
     this.photos = [];
+    if(this.photos >= 5){
+      this.toTinjau();
+      this.alertService.presentToast('Maksimum 5 data');
+    }
   }
 
   ngOnDestroy(): void {
