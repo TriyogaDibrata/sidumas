@@ -4,27 +4,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content no-padding>
   <ion-row class="ion-justify-content-center" no-padding>
     <ion-col size="12" size-md="6" size-xl="6" no-padding>
 
-      <div class="category-wrapper" *ngFor="let cat of kategori">
-        <ion-item-divider class="ion-no-padding">
-          <ion-label class="bold">
-              {{ cat.name }}
-          </ion-label>
-        </ion-item-divider>
+      <div *ngFor="let cat of kategori">
+        <div class="divider-top"></div>
+        <div class="category-wrapper ion-padding">
 
-        <ion-row>
-          <ion-col size="3" *ngFor="let child of cat.child" class="ion-text-center ion-no-padding ion-activatable"
-            (click)="goToLapor(child.kategori_id, child.event)">
-            <ion-ripple-effect></ion-ripple-effect>
-            <ion-img [src]="child.iconurl" class="icon-img"></ion-img>
-            <ion-label class="text08">
-              {{ child.name }}
+          <ion-item-divider class="ion-no-padding">
+            <ion-label class="bold">
+              {{ cat.name }}
             </ion-label>
+          </ion-item-divider>
+
+          <ion-row class="frame-btn">
+            <ion-col *ngFor="let child of cat.child" size="{{child.size}}" class="ion-text-center ion-no-padding ion-activatable"
+            (click)="goToLapor(child.kategori_id, child.event)">
+            <div [ngStyle]="{'background-color': child.bgcolor, 'color': child.color, 'border-radius': child.radius}" class="btn-cat">
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-img [src]="child.iconurl" class="icon-img"></ion-img>
+              <ion-label class="text08">
+                {{ child.name }}
+              </ion-label>
+            </div>
           </ion-col>
         </ion-row>
+      </div>
       </div>
 
     </ion-col>

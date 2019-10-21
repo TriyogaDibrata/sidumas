@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common/common.service';
-import { LoadingController } from '@ionic/angular';
+import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-search',
@@ -12,11 +12,12 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
   user        : any;
   lists       : any = [];
   segment     : any = {value: 1};
-  infiniteScroll  : any = {enable: 1, page: 0};
+  iScroll     : any = {enable: 1, page: 0};
   loading     : any;
 
   constructor(private sharedService : SharedService,
@@ -29,8 +30,11 @@ export class SearchPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.getUser();
     this.showLoading();
+    this.lists = [];
+    this.iScroll.enable = 1;
+    this.iScroll.page = 0;
+    this.getUser();
   }
 
   seeDetail(id){
@@ -48,7 +52,7 @@ export class SearchPage implements OnInit {
   }
 
   getMyList(user_id){
-    this.sharedService.myList(user_id, this.segment.value, this.infiniteScroll.page)
+    this.sharedService.myList(user_id, this.segment.value, this.iScroll.page)
     .subscribe(data => {
       console.log(data);
       this.lists = data['data'];
@@ -69,23 +73,23 @@ export class SearchPage implements OnInit {
     this.segment.value = ev.detail.value;
 
     // reset infinite scroll
-    this.infiniteScroll.page = 0;
-    this.infiniteScroll.enable = 1;
+    this.iScroll.page = 0;
+    this.iScroll.enable = 1;
 
     this.getMyList(this.user['id']);
   }
 
   nextPage(event){
-    if(this.infiniteScroll.enable) {
-      this.infiniteScroll.page++;
+    if(this.iScroll.enable) {
+      this.iScroll.page++;
 
-      this.sharedService.myList(this.user['id'], this.segment.value, this.infiniteScroll.page)
+      this.sharedService.myList(this.user['id'], this.segment.value, this.iScroll.page)
       .subscribe((data) => {
         console.log(data);
         if(data['count'] > 0){
           this.transformData(data['data']);
         }else{
-          this.infiniteScroll.enable = 0;
+          this.iScroll.enable = 0;
         }
       }, err => {
         console.log(err);
