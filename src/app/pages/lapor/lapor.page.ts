@@ -150,6 +150,13 @@ export class LaporPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component : ModalPlacesPage,
     });
+
+    modal.onDidDismiss().then(data => {
+      this.lat = data['data']['lat'];
+      this.lng = data['data']['lng'];
+      this.geocoder(this.lat, this.lng);
+    });
+
     return await modal.present();
   }
 

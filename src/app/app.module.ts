@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { GoogleMaps } from '@ionic-native/google-maps/ngx';
@@ -31,8 +31,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    ModalPlacesPageModule,
-    BrowserAnimationsModule],
+    ModalPlacesPageModule],
   providers: [
     StatusBar,
     SplashScreen,

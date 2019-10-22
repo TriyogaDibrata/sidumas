@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LaporPage } from './lapor.page';
-import { MaterialModule } from '../../material.module';
 
 const routes: Routes = [
   {
@@ -21,7 +20,6 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    MaterialModule,
     RouterModule.forChild(routes)
   ],
   declarations: [LaporPage]

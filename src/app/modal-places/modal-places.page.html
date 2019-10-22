@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar showCancelButton="always"></ion-searchbar>
+    <ion-searchbar style="z-index: 99;" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
+      placeholder="Search for a place" name="autocomplete">
+    </ion-searchbar>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -10,5 +12,12 @@
 </ion-header>
 
 <ion-content>
+    <ion-list [hidden]="autocompleteItems.length == 0" style="z-index: 99;">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+        {{ item.description }}
+      </ion-item>
+    </ion-list>
+
+    <div #map id="map" class="map" style="height: 100%;">Cannot Load Map</div>
 
 </ion-content>
