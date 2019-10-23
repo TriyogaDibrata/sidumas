@@ -13,6 +13,7 @@ export class SharedService {
   headers : any;
   notif : any = {news: 0};
   user: any = null;
+  banners: any = {get: 0, data: []};
 
   constructor(
     private http         : HttpClient,
@@ -327,5 +328,25 @@ export class SharedService {
 
     return this.http.get(this.env.API_URL + 'pengaduan/menu-category', {headers : this.headers})
     .pipe();
+  }
+
+  getBanners(){
+    if(this.banners.get == 0){
+      this.token = this.authService.token;
+
+      this.headers = new HttpHeaders ({
+        'Accept'        : 'application/json',
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'Bearer ' + this.token,
+      });
+
+      this.http.get(this.env.API_URL + 'ref/banners', {headers : this.headers})
+      .subscribe(data => {
+        this.banners.get = 1;
+        this.banners.data = data;        
+        return this.banners.data;
+      });
+    }
+    return this.banners.data;
   }
 }

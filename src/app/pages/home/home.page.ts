@@ -23,6 +23,14 @@ export class HomePage implements OnInit {
   category    : any = "";
   search      : any = {active: 0,limit: 30,value: ''};
   iScroll  : any = {enable: 1, page: 0};
+  slideOpts = {
+    initialSlide: 0,
+    autoplay: {
+      delay: 3000,
+    },
+    speed: 400
+  };
+  banners  : any = [];
 
   constructor(
     private sharedService   : SharedService,
@@ -41,6 +49,7 @@ export class HomePage implements OnInit {
   ionViewDidEnter(){
     this.lists = [];
     this.iScroll.page = 0;
+    this.getBanners();
     this.getMenuCategories();
     this.getUser();
     this.getListPengaduan();
@@ -197,5 +206,9 @@ export class HomePage implements OnInit {
     });
 
     await this.loading.present();
+  }
+
+  getBanners(){
+    this.banners = this.sharedService.getBanners();
   }
 }

@@ -36,6 +36,7 @@ export class AppComponent {
           this.commonService.goTo('app/tabs/home');
           this.sharedService.getNewNotif();
           this.sharedService.getUserCache(true);
+          this.sharedService.getBanners();
         }else{
           this.commonService.goTo('login');
         }

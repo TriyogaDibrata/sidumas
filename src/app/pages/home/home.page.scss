@@ -73,6 +73,29 @@ ion-label{
   padding: 40px 15px 15px;
 }
 
-ion-refresher{
-  z-index: 10;
+.swiper-pagination-bullet-active {
+  background: red !important;
+}
+
+ion-slides{
+  --bullet-background-active: red !important;
+  border-radius: 5px;
+}
+.slide-img{
+  z-index: 1;
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+  max-height: 100px;
+}
+.loading-slide{
+  height: 100px;
+  display: table;
+}
+.loading-slide-box{
+  display: table-cell;
+  vertical-align: middle;
+}
+.loading-slide-text{
+  font-size: 12px;
 }

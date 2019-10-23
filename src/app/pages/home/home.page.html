@@ -32,6 +32,24 @@
 
   <ion-row class="ion-justify-content-center">
 
+    <ion-col *ngIf="banners.length > 0" size="12" size-md="12" size-xl="12">
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide *ngFor="let banner of banners">
+          <ion-img class="slide-img" [src]="banner.url"></ion-img>
+          <div class="loading-slide">
+            <div class="loading-slide-box">
+              <div>
+                <ion-spinner></ion-spinner>
+              </div>
+              <div class="loading-slide-text">
+                Loading content..
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+
     <ion-col class="no-padding-bottom" size="12" size-md="6" size-xl="6">
       <ion-segment class="category-segment" scrollable color="danger" (ionChange)="segmentChanged($event)">
         <ion-segment-button [checked]="category==''" value="">
