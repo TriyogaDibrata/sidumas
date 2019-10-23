@@ -209,6 +209,15 @@ export class HomePage implements OnInit {
   }
 
   getBanners(){
-    this.banners = this.sharedService.getBanners();
+    if(this.sharedService.banners.get == 0){
+      this.sharedService.getBanners()
+      .subscribe(data => {
+        this.sharedService.banners.get = 1;
+        this.sharedService.banners.data = data;
+        this.banners = this.sharedService.banners.data;
+      });
+    }else{
+      this.banners = this.sharedService.banners.data;
+    }
   }
 }

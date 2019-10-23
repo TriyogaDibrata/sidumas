@@ -331,22 +331,15 @@ export class SharedService {
   }
 
   getBanners(){
-    if(this.banners.get == 0){
-      this.token = this.authService.token;
+    this.token = this.authService.token;
 
-      this.headers = new HttpHeaders ({
-        'Accept'        : 'application/json',
-        'Content-Type'  : 'application/json',
-        'Authorization' : 'Bearer ' + this.token,
-      });
+    this.headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
 
-      this.http.get(this.env.API_URL + 'ref/banners', {headers : this.headers})
-      .subscribe(data => {
-        this.banners.get = 1;
-        this.banners.data = data;        
-        return this.banners.data;
-      });
-    }
-    return this.banners.data;
+    return this.http.get(this.env.API_URL + 'ref/banners', {headers : this.headers})
+    .pipe();
   }
 }
