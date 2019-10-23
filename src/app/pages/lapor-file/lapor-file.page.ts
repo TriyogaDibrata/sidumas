@@ -30,7 +30,11 @@ export class LaporFilePage implements OnInit {
               private alertService : AlertService,
               ) 
   {
-
+    this.photos = [];
+    if(this.photos.length >= 5){
+      this.toTinjau();
+      this.alertService.presentToast('Maksimum 5 data');
+    }
   }
 
   ionViewWillEnter(){
@@ -40,10 +44,6 @@ export class LaporFilePage implements OnInit {
   ngOnInit() {
     this.dataRec = this.route.snapshot.paramMap.get('dataObj');
     this.photos = [];
-    // if(this.photos >= 5){
-    //   this.toTinjau();
-    //   this.alertService.presentToast('Maksimum 5 data');
-    // }
   }
 
   ngOnDestroy(): void {

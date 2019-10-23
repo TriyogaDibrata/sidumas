@@ -1,4 +1,8 @@
 <ion-content>
+ <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+   <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="crescent">
+   </ion-refresher-content>
+ </ion-refresher>
   <div class="profile-header">
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6" size-x="6">
@@ -14,8 +18,11 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size="11" size-md="6" size-xl="5">
         <ion-card>
-          <ion-avatar>
+          <ion-avatar (click)="presentActionSheet()" *ngIf="!user.avatar">
             <img src="assets/icon/ico-user.png" />
+          </ion-avatar>
+          <ion-avatar (click)="presentActionSheet()" *ngIf="user.avatar">
+            <img [src]="user.avatar" />
           </ion-avatar>
           <div class="user-name ion-text-center">
             <ion-text>{{ user_name }}</ion-text>

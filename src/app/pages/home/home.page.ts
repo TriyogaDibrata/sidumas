@@ -38,11 +38,16 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
+    this.showLoading();
     this.lists = [];
     this.iScroll.page = 0;
     this.getMenuCategories();
     this.getUser();
+    this.getListPengaduan();
+  }
+
+  ionViewDidEnter(){
     this.getListPengaduan();
   }
 
@@ -51,7 +56,6 @@ export class HomePage implements OnInit {
   }
 
   getListPengaduan(){
-    this.showLoading();
     this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
     .subscribe(data => {
       this.lists = data['data'];

@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ActionSheetController } from '@ionic/angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { EnvService } from 'src/app/services/env/env.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -11,12 +17,15 @@ import { NavController, AlertController, LoadingController } from '@ionic/angula
 })
 export class ProfilePage implements OnInit {
 
-  user : any;
+  user : any = {};
   user_name : any;
   user_email : any;
   user_id : any;
   statuses : any = {};
   loading : any;
+  public base64Image: string;
+  user_avatar : any;
+  token : any;
 
   constructor(
     public commonService  : CommonService,
@@ -25,6 +34,12 @@ export class ProfilePage implements OnInit {
     public navCtrl        : NavController,
     public alertCtrl      : AlertController,
     public loadingCtrl    : LoadingController,
+    public camera         : Camera,
+    public crop           : Crop,
+    private actionSheetCtrl : ActionSheetController,
+    public alertService   : AlertService,
+    private http          : HttpClient,
+    private env           : EnvService,
   ) { }
 
   ngOnInit() {
@@ -69,6 +84,7 @@ export class ProfilePage implements OnInit {
     this.user_name = this.user.name;
     this.user_email = this.user.email;
     this.user_id = this.user.id;
+    this.user_avatar = this.user.avatar;
     this.lihatUserStatus(this.user_id);
   }
 
@@ -99,6 +115,111 @@ export class ProfilePage implements OnInit {
     });
 
     await this.loading.present();
+  }
+
+  async presentActionSheet(){
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Profile',
+      buttons: [{
+        text: 'Lihat Foto Profile',
+        icon: 'search',
+        handler: () => {
+          console.log('Share clicked');
+        }
+      }, {
+        text: 'Ubah Foto Profile',
+        icon: 'images',
+        handler: () => {
+          this.updateAvatarOptions();
+        }
+      }, {
+        text: 'Batal',
+        icon: 'close-circle',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  async updateAvatarOptions() {
+    const alert = await this.alertCtrl.create({
+      // header: 'Confirm!',
+      message: 'Ubah foto profile',
+      buttons: [{
+          text: 'Kamera',
+          handler: () => {
+            this.takePhoto(this.camera.PictureSourceType.CAMERA);
+          }
+        },
+        {
+          text : 'Galeri',
+          handler: () => {
+            this.takePhoto(this.camera.PictureSourceType.PHOTOLIBRARY);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  takePhoto(type){
+
+    const options: CameraOptions = {
+      quality: 100, // picture quality
+      targetHeight: 600,
+      targetWidth: 600,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      allowEdit: true,
+      sourceType: type,
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      
+      if(imageData){
+        this.base64Image = "data:image/jpeg;base64," + imageData;
+            let data = {
+              'id'      : this.user.id,
+              'avatar'  : this.base64Image,
+            };
+            this.sharedService.updateAvatar(data)
+            .subscribe(data => {
+              if(data['success']){
+                this.ionViewWillEnter();
+                this.doRefresh(event);
+              } else {
+                this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
+              }
+            }, err => {
+              this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
+            });
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  doRefresh(event){
+    this.token = this.authService.token;
+
+      let headers = new HttpHeaders ({
+        'Accept'        : 'application/json',
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'Bearer ' + this.token,
+      });
+
+      this.user = this.http.get(this.env.API_URL + 'user', {headers : headers})
+      .subscribe(data => {
+        this.user = data;
+        event.target.complete();
+      }, err => {
+        console.log(err);
+        event.target.complete();
+      });
   }
 
 }

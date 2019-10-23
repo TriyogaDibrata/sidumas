@@ -19,6 +19,7 @@ import { GoogleMaps } from '@ionic-native/google-maps/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +42,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
     Geolocation,
     NativeGeocoder,
     CallNumber,
+    Crop,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

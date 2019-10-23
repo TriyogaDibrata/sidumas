@@ -27,6 +27,7 @@
     "@ionic-native/camera": "^5.15.0",
     "@ionic-native/camera-preview": "^5.14.0",
     "@ionic-native/core": "^5.0.0",
+    "@ionic-native/crop": "^5.15.1",
     "@ionic-native/geolocation": "^5.15.0",
     "@ionic-native/google-maps": "^5.0.0-beta.27",
     "@ionic-native/native-geocoder": "^5.15.0",
@@ -39,6 +40,7 @@
     "cordova-browser": "6.0.0",
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-camera-preview": "^0.11.0",
+    "cordova-plugin-crop": "^0.4.0",
     "cordova-plugin-geolocation": "^4.0.2",
     "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
     "cordova-plugin-nativegeocoder": "^3.2.2",
@@ -105,7 +107,8 @@
       },
       "cordova-plugin-geolocation": {},
       "cordova-plugin-nativegeocoder": {},
-      "mx.ferreyra.callnumber": {}
+      "mx.ferreyra.callnumber": {},
+      "cordova-plugin-crop": {}
     },
     "platforms": [
       "android",
