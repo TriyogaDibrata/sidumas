@@ -48,7 +48,6 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter(){
-    this.getListPengaduan();
   }
 
   seeDetail(id){
@@ -120,17 +119,20 @@ export class HomePage implements OnInit {
     this.user = this.sharedService.getUserCache();
   }
 
-  addVote(pengaduan_id){
+  addVote(pengaduan){
     let data = {
       'user_id'     : this.user['id'],
-      'pengaduan_id': pengaduan_id,
+      'pengaduan_id': pengaduan.id,
     }
 
     this.sharedService.addVote(data)
     .subscribe(data => {
-      if(data['success']){
-        this.ionViewDidEnter();
-      } else {
+      console.log(data);
+      if(data['success'] && data['new_user']){
+        pengaduan['likes']['length']++;
+      } else if (data['success'] && !data['new_user']){
+        pengaduan['likes']['length']--;
+      }else {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
       }
     }, err => {
