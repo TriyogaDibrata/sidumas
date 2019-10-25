@@ -133,7 +133,7 @@ export class HomePage implements OnInit {
 
   addVote(pengaduan){
     let data = {
-      'user_id'     : this.userhome.id,
+      'user_id'     : this.sharedService.getUserCache().id,
       'pengaduan_id': pengaduan.id,
     }
 
