@@ -129,11 +129,12 @@ export class HomePage implements OnInit {
 
   getUser(){
     this.user = this.sharedService.getUserCache();
+    console.log(this.user.id);
   }
 
   addVote(pengaduan){
     let data = {
-      'user_id'     : this.user['id'],
+      'user_id'     : this.user.id,
       'pengaduan_id': pengaduan.id,
     }
 
