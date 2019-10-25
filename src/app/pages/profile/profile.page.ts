@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
-import { NavController, AlertController, LoadingController, ActionSheetController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ActionSheetController, ModalController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EnvService } from 'src/app/services/env/env.service';
+import { ModalImagePage } from 'src/app/modal-image/modal-image.page';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class ProfilePage implements OnInit {
     public alertService   : AlertService,
     private http          : HttpClient,
     private env           : EnvService,
+    public modalCtrl      : ModalController,
   ) { }
 
   ngOnInit() {
@@ -124,7 +126,7 @@ export class ProfilePage implements OnInit {
         text: 'Lihat Foto Profile',
         icon: 'search',
         handler: () => {
-          console.log('Share clicked');
+          this.PresentImage(this.user_avatar);
         }
       }, {
         text: 'Ubah Foto Profile',
@@ -220,6 +222,16 @@ export class ProfilePage implements OnInit {
         console.log(err);
         event.target.complete();
       });
+  }
+
+  async PresentImage(image: any){
+    const modal = await this.modalCtrl.create({
+      component: ModalImagePage,
+      componentProps: {
+        image: image
+      }
+    });
+    return await modal.present();
   }
 
 }

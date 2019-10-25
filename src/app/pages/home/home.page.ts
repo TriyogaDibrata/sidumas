@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common/common.service';
 import { IonInfiniteScroll, AlertController, LoadingController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,14 @@ export class HomePage implements OnInit {
   category    : any = "";
   search      : any = {active: 0,limit: 30,value: ''};
   iScroll  : any = {enable: 1, page: 0};
+  slideOpts = {
+    initialSlide: 0,
+    autoplay: {
+      delay: 3000,
+    },
+    speed: 400
+  };
+  banners  : any = [];
 
   constructor(
     private sharedService   : SharedService,
@@ -42,6 +51,7 @@ export class HomePage implements OnInit {
     this.showLoading();
     this.lists = [];
     this.iScroll.page = 0;
+    this.getBanners();
     this.getMenuCategories();
     this.getUser();
     this.getListPengaduan();
@@ -57,6 +67,7 @@ export class HomePage implements OnInit {
   getListPengaduan(){
     this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
     .subscribe(data => {
+      console.log(data);
       this.lists = data['data'];
       this.loading.dismiss();
     });
@@ -72,7 +83,8 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(event){
-    this.sharedService.getListPengaduan(this.category)
+    this.iScroll.page = 0;
+    this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
     .subscribe(data => {
       this.lists = data['data'];
       event.target.complete();
@@ -130,8 +142,11 @@ export class HomePage implements OnInit {
       console.log(data);
       if(data['success'] && data['new_user']){
         pengaduan['likes']['length']++;
+        pengaduan['is_like'] = true;
+        
       } else if (data['success'] && !data['new_user']){
         pengaduan['likes']['length']--;
+        pengaduan['is_like'] = null;
       }else {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
       }
@@ -203,5 +218,26 @@ export class HomePage implements OnInit {
     });
 
     await this.loading.present();
+  }
+
+  getBanners(){
+    if(this.sharedService.banners.get == 0){
+      this.sharedService.getBanners()
+      .subscribe(data => {
+        this.sharedService.banners.get = 1;
+        this.sharedService.banners.data = data;
+        this.banners = this.sharedService.banners.data;
+      });
+    }else{
+      this.banners = this.sharedService.banners.data;
+    }
+  }
+
+  voteColor(islike){
+    if(islike == null ){
+      return ""
+    } else {
+      return "danger";
+    }
   }
 }

@@ -34,7 +34,7 @@ export class AppComponent {
       this.authService.getToken().then(data => {
         if(this.authService.isLoggedIn){
           this.commonService.goTo('app/tabs/home');
-          this.sharedService.getNewNotif();
+          this.sharedService.getNewNotif();          
           this.sharedService.getUserCache(true);
         }else{
           this.commonService.goTo('login');

@@ -20,6 +20,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
+import { ModalImagePageModule } from './modal-image/modal-image.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { Crop } from '@ionic-native/crop/ngx';
     IonicModule.forRoot(), 
     IonicStorageModule.forRoot(),
     AppRoutingModule,
+    ModalImagePageModule,
     ModalPlacesPageModule],
   providers: [
     StatusBar,
