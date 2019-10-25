@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
   lists       : any = [];
-  user        : any = {};
+  userhome   : any = {};
   color_vote  : any;
   categories  : any = [];
   loading     : any;
@@ -128,13 +128,12 @@ export class HomePage implements OnInit {
   }
 
   getUser(){
-    this.user = this.sharedService.getUserCache();
-    console.log(this.user.id);
+    this.userhome = this.sharedService.getUserCache();
   }
 
   addVote(pengaduan){
     let data = {
-      'user_id'     : this.user.id,
+      'user_id'     : this.userhome.id,
       'pengaduan_id': pengaduan.id,
     }
 
@@ -144,7 +143,7 @@ export class HomePage implements OnInit {
       if(data['success'] && data['new_user']){
         pengaduan['likes']['length']++;
         pengaduan['is_like'] = true;
-        
+
       } else if (data['success'] && !data['new_user']){
         pengaduan['likes']['length']--;
         pengaduan['is_like'] = null;
