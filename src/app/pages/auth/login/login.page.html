@@ -33,7 +33,6 @@
             <ion-icon name="eye" (click)="showPassword()" *ngIf="hide_password"></ion-icon>
             <ion-icon name="eye-off" (click)="hidePassword()" *ngIf="!hide_password"></ion-icon>
           </ion-item>
-
           <div class="error mt10" *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('required')">
             <ion-label color="light">
               <ion-icon name="warning"></ion-icon>
