@@ -15,7 +15,7 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-s="10" size-md="6" size-xl="4">
 
-        <form [formGroup]="registerForm" #form="ngForm" (ngSubmit)="register(form)">
+        <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
 
           <ion-item no-padding>
             <ion-input placeholder="Nama Lengkap" type="text" id="name" name="name" formControlName="name" required>
