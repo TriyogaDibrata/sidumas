@@ -14,7 +14,7 @@ import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
 export class SearchPage implements OnInit {
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
-  user        : any;
+  user        : any = {};
   lists       : any = [];
   segment     : any = {value: 1};
   iScroll     : any = {enable: 1, page: 0};
@@ -61,6 +61,20 @@ export class SearchPage implements OnInit {
       console.log(err);
       this.loading.dismiss();
     });
+  }
+
+  doRefresh(event){
+    this.showLoading();
+    this.iScroll.page = 0;
+    this.sharedService.myList(this.user['id'], this.segment.value, this.iScroll.page)
+    .subscribe(data => {
+      this.lists = data['data'];
+      event.target.complete();
+      this.loading.dismiss();
+    }, err => {
+      this.alertService.presentAlert('Terjadi Kesalahan', 'Tidak dapat memuat data');
+      this.loading.dismiss();
+    })
   }
 
   converTime(time) {

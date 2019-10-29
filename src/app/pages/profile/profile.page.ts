@@ -193,6 +193,7 @@ export class ProfilePage implements OnInit {
               if(data['success']){
                 this.ionViewWillEnter();
                 this.doRefresh(event);
+                this.sharedService.getUserCache(true);
               } else {
                 this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
               }

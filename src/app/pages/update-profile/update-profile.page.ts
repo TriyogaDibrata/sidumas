@@ -14,7 +14,7 @@ export class UpdateProfilePage implements OnInit {
   base64Image   : any;
   photos        : any;
   user_id       : any;
-  user          : any;
+  user          : any = {};
   name          : any;
   email         : any;
   bio           : any;
@@ -78,6 +78,7 @@ export class UpdateProfilePage implements OnInit {
 
   getUserInformation(){
     let data = this.sharedService.getUserCache();
+    console.log(data);
     this.user = data;
     this.user_id = data['id'];
     this.name = data['name'];
@@ -116,6 +117,7 @@ export class UpdateProfilePage implements OnInit {
           this.loading.dismiss();
           this.navCtrl.navigateRoot('/app/tabs/profile');
           this.alertService.presentToast('Informasi berhasil diperbaharui');
+          this.sharedService.getUserCache(true);
         }
     }, err => {
         this.loading.dismiss();

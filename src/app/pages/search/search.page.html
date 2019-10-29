@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content fullscreen>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
   <ion-row class="ion-justify-content-center">
     <ion-col size="12" size-md="6" size-xl="6">
       <ion-segment color="danger" (ionChange)="segmentChanged($event)">
@@ -92,79 +98,6 @@
           loadingText="Loading more data...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
-
-      <div *ngIf="!lists">
-          <ion-list *ngFor="let i of [1,2,3]">
-            <ion-card>
-              <ion-card-header>
-                <ion-row>
-                  <ion-col no-padding>
-                    <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-                  </ion-col>
-                  <ion-col no-padding>
-                    <ion-card-subtitle class="ion-text-right">
-                      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
-                    </ion-card-subtitle>
-                  </ion-col>
-                </ion-row>
-              </ion-card-header>
-              <ion-card-content>
-                  <ion-item>
-                    <ion-avatar slot="start">
-                      <ion-skeleton-text animated></ion-skeleton-text>
-                    </ion-avatar>
-                    <ion-label>
-                      <h3>
-                        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                      </h3>
-                      <p>
-                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-                      </p>
-                      <p>
-                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                      </p>
-                    </ion-label>
-                  </ion-item>
-
-                <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-                <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-
-                <div class="uraian">
-                  <ion-row>
-                    <ion-col no-padding class="ion-text-wrap">
-                      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
-                      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
-                      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
-                      <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
-                    </ion-col>
-                  </ion-row>
-                </div>
-              </ion-card-content>
-              <div class="button-group">
-                <ion-row>
-                  <ion-col class="ion-text-center ion-activatable">
-                    <ion-ripple-effect></ion-ripple-effect>
-                    <span>
-                      <ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
-                    </span>
-                  </ion-col>
-                  <ion-col class="ion-text-center ion-activatable">
-                    <ion-ripple-effect></ion-ripple-effect>
-                    <span>
-                      <ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
-                    </span>
-                  </ion-col>
-                  <ion-col class="ion-text-center ion-activatable">
-                    <ion-ripple-effect></ion-ripple-effect>
-                    <span>
-                      <ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
-                    </span>
-                  </ion-col>
-                </ion-row>
-              </div>
-            </ion-card>
-          </ion-list>
-        </div>
 
     </ion-col>
   </ion-row>
