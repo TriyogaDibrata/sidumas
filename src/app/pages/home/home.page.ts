@@ -97,7 +97,7 @@ export class HomePage implements OnInit {
   }
 
   converTime(time) {
-    moment.locale('id')
+    moment.locale('id');
     let local_time = moment(time).fromNow();
     return local_time;
   }

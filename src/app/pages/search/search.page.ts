@@ -84,6 +84,7 @@ export class SearchPage implements OnInit {
   }
 
   segmentChanged(ev: any) {
+    this.showLoading();
     this.segment.value = ev.detail.value;
 
     // reset infinite scroll

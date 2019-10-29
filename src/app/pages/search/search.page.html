@@ -2,6 +2,20 @@
   <ion-toolbar>
     <ion-title>Riwayat Pengaduan Saya</ion-title>
   </ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-segment color="danger" (ionChange)="segmentChanged($event)">
+      <ion-segment-button [checked]="segment.value==1" value="1">
+        <ion-label class="ion-no-margin">
+          <ion-icon name="timer"></ion-icon> Proses
+        </ion-label>
+      </ion-segment-button>
+      <ion-segment-button [checked]="segment.value==2" value="2">
+        <ion-label class="ion-no-margin">
+          <ion-icon name="checkmark-circle-outline"></ion-icon> Selesai
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
@@ -10,36 +24,26 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  
+
   <ion-row class="ion-justify-content-center">
-    <ion-col size="12" size-md="6" size-xl="6">
-      <ion-segment color="danger" (ionChange)="segmentChanged($event)">
-        <ion-segment-button [checked]="segment.value==1" value="1">
-          <ion-label><ion-icon name="timer"></ion-icon> Proses</ion-label>
-        </ion-segment-button>
-        <ion-segment-button [checked]="segment.value==2" value="2">
-          <ion-label><ion-icon name="checkmark-circle-outline"></ion-icon> Selesai</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-col>
-    <ion-col *ngIf="lists.length == 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
+    <ion-col *ngIf="lists.length == 0" class="ion-no-padding-top" size="12" size-md="6" size-xl="6">
       <div class="no-data">
         <ion-icon name="notifications-outline"></ion-icon>
         Pengaduan belum tersedia
       </div>
     </ion-col>
-    <ion-col *ngIf="lists.length > 0" size="12" size-md="6" size-xl="6">
-      <ion-list *ngFor="let list of lists">
+    <ion-col class="ion-no-padding" *ngIf="lists.length > 0" size="12" size-md="6" size-xl="6">
+      <ion-list *ngFor="let list of lists" class="ion-no-padding">
         <ion-card>
           <ion-card-header>
             <ion-row>
-              <ion-col no-padding>
+              <ion-col class="ion-no-padding">
                 <ion-card-subtitle>
                   <h3>#{{list.no_tiket}}</h3>
                   <ion-label>{{ converTime(list.tanggal) }}</ion-label>
                 </ion-card-subtitle>
               </ion-col>
-              <ion-col no-padding>
+              <ion-col class="ion-no-padding">
                 <ion-card-subtitle class="ion-text-right">
                   <ion-chip [style.background]="list['color']">{{ list['status_pengaduan'] }}</ion-chip>
                 </ion-card-subtitle>
@@ -56,7 +60,7 @@
 
             <div class="uraian">
               <ion-row>
-                <ion-col no-padding class="ion-text-wrap">
+                <ion-col class="ion-no-padding ion-text-wrap">
                   <p>{{ list['uraian'] | slice:0:180 }} ...</p>
                 </ion-col>
                 <ion-col *ngIf="list['file']" size="4">
@@ -67,38 +71,39 @@
           </ion-card-content>
           <div class="button-group">
             <ion-row>
-              <ion-col class="ion-text-center ion-activatable">
-                <ion-ripple-effect></ion-ripple-effect>
-                <span>
-                  <ion-icon name="swap"></ion-icon>
-                  {{ list['tanggapans']['length'] }} Tindak Lanjut
-                </span>
-              </ion-col>
-              <ion-col class="ion-text-center ion-activatable">
-                <ion-ripple-effect></ion-ripple-effect>
-                <span>
-                  <ion-icon name="chatbubbles"></ion-icon>
-                  {{ list['comments']['length'] }} Komentar
-                </span>
-              </ion-col>
-              <ion-col class="ion-text-center ion-activatable">
-                <ion-ripple-effect></ion-ripple-effect>
-                <span>
-                  <ion-icon name="thumbs-up"></ion-icon>
-                  {{ list['likes']['length'] }} Dukungan
-                </span>
+              <ion-col size=6>
+                <ion-row>
+                  <ion-col class="ion-activatable ion-text-left">
+                    <ion-ripple-effect></ion-ripple-effect>
+                    <span>
+                      <ion-icon name="ios-git-compare"></ion-icon>
+                      {{ list['tanggapans']['length'] }}
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-activatable ion-text-left">
+                    <ion-ripple-effect></ion-ripple-effect>
+                    <span>
+                      <ion-icon name="ios-chatbubbles"></ion-icon>
+                      {{ list['comments']['length'] }}
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-activatable  ion-text-left">
+                    <ion-ripple-effect></ion-ripple-effect>
+                    <span>
+                      <ion-icon name="ios-thumbs-up"></ion-icon>
+                      {{ list['likes']['length'] }}
+                    </span>
+                  </ion-col>
+                </ion-row>
               </ion-col>
             </ion-row>
           </div>
         </ion-card>
       </ion-list>
       <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
-        <ion-infinite-scroll-content
-          loadingSpinner="bubbles"
-          loadingText="Loading more data...">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
-
     </ion-col>
   </ion-row>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common/common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
 
@@ -22,7 +22,8 @@ export class LoginPage implements OnInit {
     private formBuilder  : FormBuilder,
     public loadingCtrl   : LoadingController,
     private authService  : AuthService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    public alertCtrl     : AlertController
   ) { }
 
   ngOnInit() {
@@ -79,6 +80,40 @@ export class LoginPage implements OnInit {
       this.commonService.presentAlert('Login Gagal', err.error.errors.email[0]);
       loading.dismiss();
     });
+  }
+
+  async forgotPass() {
+    const alert = await this.alertCtrl.create({
+      header: 'Lupa Password?',
+      message: 'Masukan email untuk mendapatkan link reset password',
+      inputs: [
+        {
+          name: 'email',
+          type: 'email',
+          placeholder: 'Email'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Konfirmasi',
+          handler: async data => {
+            let form = {
+              'email': data.email,
+            };
+
+            console.log(form);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

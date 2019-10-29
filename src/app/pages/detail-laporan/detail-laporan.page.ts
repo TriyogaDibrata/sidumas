@@ -102,7 +102,6 @@ export class DetailLaporanPage implements OnInit {
 
   converTime(time) {
     moment.locale('id')
-    // let local_time = moment(time).format('dddd, DD-MM-YYYY');
     let local_time = moment(time).fromNow();
     return local_time;
   }
@@ -130,8 +129,7 @@ export class DetailLaporanPage implements OnInit {
   }
 
   getUser(){
-    this.user = this.sharedService.getUserCache();
-    this.checkVoted(this.user.id);    
+    this.user = this.sharedService.getUserCache();  
   }
 
   addKomentar(){
@@ -156,17 +154,23 @@ export class DetailLaporanPage implements OnInit {
     })
   }
 
-  addVote(){
+  addVote(pengaduan){
     let data = {
-      'user_id'     : this.user['id'],
-      'pengaduan_id': this.pengaduan_id,
+      'user_id'     : this.sharedService.getUserCache().id,
+      'pengaduan_id': pengaduan.id,
     }
 
     this.sharedService.addVote(data)
     .subscribe(data => {
-      if(data['success']){
-        this.ngOnInit();
-      } else {
+      console.log(data);
+      if(data['success'] && data['new_user']){
+        pengaduan['likes']['length']++;
+        pengaduan['is_like'] = true;
+
+      } else if (data['success'] && !data['new_user']){
+        pengaduan['likes']['length']--;
+        pengaduan['is_like'] = null;
+      }else {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
       }
     }, err => {
@@ -178,18 +182,15 @@ export class DetailLaporanPage implements OnInit {
     this.hide_info = true;
   }
 
-  checkVoted(user_id){
-    this.sharedService.checkVoted(user_id, this.pengaduan_id)
-    .subscribe(data => {  
-      if(data['status']){
-        this.color_vote = "danger";
-      } else {
-        this.color_vote = "none";
-      }
-    })
-  }
-
   checkLocation(lat, lng){
     this.navCtrl.navigateForward(['lokasi', lat, lng]);
+  }
+
+  voteColor(islike){
+    if(islike == null ){
+      return "medium"
+    } else {
+      return "danger";
+    }
   }
 }
