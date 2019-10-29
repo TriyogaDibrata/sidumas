@@ -83,12 +83,15 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(event){
+    this.showLoading();
     this.iScroll.page = 0;
     this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
     .subscribe(data => {
       this.lists = data['data'];
       event.target.complete();
+      this.loading.dismiss();
     }, err => {
+      this.loading.dismiss();
       this.alertService.presentAlert('Terjadi Kesalahan', 'Tidak dapat memuat data');
     })
   }
