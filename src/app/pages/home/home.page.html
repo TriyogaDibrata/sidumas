@@ -75,7 +75,11 @@
           <ion-card-header>
             <ion-row>
               <ion-col class="ion-no-padding">
-                <ion-card-subtitle class="category">#{{ list['kategori_name'] }}</ion-card-subtitle>
+                <ion-card-subtitle class="category-chip">
+                  <ion-text>
+                    <ion-icon name="attach"></ion-icon>{{ list['kategori_name'] }}
+                  </ion-text>
+                </ion-card-subtitle>
               </ion-col>
               <ion-col class="ion-no-padding">
                 <ion-card-subtitle class="ion-text-right">
@@ -117,7 +121,7 @@
                 <ion-ripple-effect></ion-ripple-effect>
                 <span>
                   <ion-icon name="swap"></ion-icon>
-                  {{ list['tanggapans']['length'] }} Tindak Lanjut
+                  {{ list['tanggapans']['length'] }} Tindakan
                 </span>
               </ion-col>
               <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list.id)">

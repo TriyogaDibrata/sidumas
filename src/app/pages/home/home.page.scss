@@ -1,22 +1,21 @@
-.category {
-    margin-top: 12px;
-}
-
 .user-avatar {
     display: flex;
 
     ion-avatar {
-        height: 48px;
-        width: 48px;
-        margin-bottom: 20px;
+        height: 30px;
+        width: 30px;
     }
 
     .user-name {
         margin-left: 8px;
 
         h3 {
-            font-size: 1rem;
+            font-size: 12px;
             font-weight: bolder;
+        }
+        ion-label{
+            margin-top: 2px !important;
+            font-size: 10px;
         }
     }
 }
@@ -98,4 +97,11 @@ ion-slides{
 }
 .loading-slide-text{
   font-size: 12px;
+}
+.category-chip{
+  font-size: 10px;
+  padding-top: 4px;
+  ion-text{
+    text-transform: uppercase;
+  }
 }
