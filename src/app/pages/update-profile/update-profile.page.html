@@ -63,13 +63,11 @@
         </ion-item>
         <ion-row *ngIf="status==0">
           <ion-col class="ion-margin ion-text-center" (click)="takePhoto('user_photo')">
-            <!-- <ion-img src="assets/icon/ico-userphoto.png" *ngIf="!verified_photo"></ion-img> -->
             <ion-img [src]="verified_foto" *ngIf="verified_foto"></ion-img>
             <ion-chip [hidden]="verified_foto"><ion-icon name="contact"></ion-icon> <ion-label>Upload Foto</ion-label></ion-chip>
             <ion-label [hidden]="!verified_foto">Foto Pengguna</ion-label>
           </ion-col>
           <ion-col class="ion-margin ion-text-center" (click)="takePhoto('id_photo')">
-            <!-- <ion-img src="assets/icon/ico-idcard.png" *ngIf="!ktp"></ion-img> -->
             <ion-img [src]="ktp" *ngIf="ktp"></ion-img>
             <ion-chip [hidden]="ktp"><ion-icon name="card"></ion-icon> <ion-label>Upload Foto Ktp</ion-label></ion-chip>
             <ion-label [hidden]="!ktp">Foto KTP</ion-label>
