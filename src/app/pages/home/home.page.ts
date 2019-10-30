@@ -60,8 +60,9 @@ export class HomePage implements OnInit {
   ionViewDidEnter(){
   }
 
-  seeDetail(id){
-    this.commonService.goForward(['detail-laporan/', id]);
+  seeDetail(pengaduan){
+    this.sharedService.pengaduan = pengaduan;
+    this.commonService.goForward(['detail-laporan/', pengaduan.id]);
   }
 
   getListPengaduan(){
@@ -144,12 +145,12 @@ export class HomePage implements OnInit {
     .subscribe(data => {
       console.log(data);
       if(data['success'] && data['new_user']){
-        pengaduan['likes']['length']++;
-        pengaduan['is_like'] = true;
+        pengaduan.likes_count++;
+        pengaduan.is_like = 1;
 
       } else if (data['success'] && !data['new_user']){
-        pengaduan['likes']['length']--;
-        pengaduan['is_like'] = null;
+        pengaduan.likes_count--;
+        pengaduan.is_like = null;
       }else {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
       }

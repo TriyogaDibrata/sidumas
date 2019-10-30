@@ -89,7 +89,7 @@
             </ion-row>
           </ion-card-header>
 
-          <ion-card-content (click)="seeDetail(list.id)">
+          <ion-card-content (click)="seeDetail(list)">
             <ion-card-title class="ion-text-wrap">{{ list['topik'] }}</ion-card-title>
 
             <div class="user-avatar">
@@ -116,25 +116,25 @@
           </ion-card-content>
           <div class="button-group">
             <ion-row>
-              <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list.id)">
+              <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list)">
                 <ion-ripple-effect></ion-ripple-effect>
                 <span>
                   <ion-icon name="ios-swap"></ion-icon>
-                  {{ list['tanggapans']['length'] }} Tindakan
+                  {{ list.tanggapans_count }} Tindakan
                 </span>
               </ion-col>
-              <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list.id)">
+              <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list)">
                 <ion-ripple-effect></ion-ripple-effect>
                 <span>
                   <ion-icon name="ios-chatbubbles"></ion-icon>
-                  {{ list['comments']['length'] }} Komentar
+                  {{ list.comments_count }} Komentar
                 </span>
               </ion-col>
               <ion-col class="ion-text-center ion-activatable" (click)="addVote(list)">
                 <ion-ripple-effect></ion-ripple-effect>
                 <ion-text [color]="voteColor(list['is_like'])">
                   <ion-icon name="ios-thumbs-up"></ion-icon>
-                  {{ list['likes']['length'] }} Dukungan
+                  {{ list.likes_count }} Dukungan
                 </ion-text>
               </ion-col>
             </ion-row>

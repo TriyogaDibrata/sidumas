@@ -103,6 +103,7 @@ export class DetailLaporanPage implements OnInit {
     .subscribe(data => {
       this.komentars = data['data'];
       this.scrollToBottom();
+      this.sharedService.pengaduan.comments_count = this.komentars.length;
       this.loading.dismiss();
     })
   }
@@ -113,6 +114,7 @@ export class DetailLaporanPage implements OnInit {
     .subscribe(data => {
       this.tanggapans = data['data'];
       this.scrollToBottom();
+      this.sharedService.pengaduan.tanggapans_count = this.tanggapans.length;
       this.loading.dismiss();
     })
   }
@@ -183,9 +185,13 @@ export class DetailLaporanPage implements OnInit {
       if(data['success'] && data['new_user']){
         pengaduan['likes']['length']++;
         pengaduan['is_like'] = true;
+        this.sharedService.pengaduan.is_like = 1;
+        this.sharedService.pengaduan.likes_count = pengaduan['likes']['length'];
       } else if (data['success'] && !data['new_user']){
         pengaduan['likes']['length']--;
         pengaduan['is_like'] = null;
+        this.sharedService.pengaduan.is_like = null;
+        this.sharedService.pengaduan.likes_count = pengaduan['likes']['length'];
       }else {
         this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
       }
