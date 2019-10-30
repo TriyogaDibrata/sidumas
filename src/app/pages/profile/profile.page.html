@@ -1,8 +1,9 @@
 <ion-content>
- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-   <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="crescent">
-   </ion-refresher-content>
+
+ <ion-refresher pull-max="60" slot="fixed" (ionRefresh)="doRefresh($event)">
+   <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent" refreshingText="Refreshing..."></ion-refresher-content>
  </ion-refresher>
+
   <div class="profile-header">
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6" size-x="6">
