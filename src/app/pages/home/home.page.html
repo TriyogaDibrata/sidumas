@@ -31,11 +31,12 @@
   </ion-refresher>
 
   <ion-row class="ion-justify-content-center">
+      <ion-col class="no-padding-bottom" size="12" size-md="6" size-xl="6">
 
-    <ion-col *ngIf="banners.length > 0" size="12" size-md="12" size-xl="12">
-      <ion-slides pager="true" [options]="slideOpts">
+    <!-- <ion-col *ngIf="banners.length > 0" size="12" size-md="6" size-xl="6"> -->
+      <ion-slides *ngIf="banners.length > 0" pager="true" [options]="slideOpts">
         <ion-slide *ngFor="let banner of banners">
-          <ion-img class="slide-img" [src]="banner.url"></ion-img>
+          <img class="slide-img" [src]="banner.url" />
           <div class="loading-slide">
             <div class="loading-slide-box">
               <div>
@@ -48,9 +49,9 @@
           </div>
         </ion-slide>
       </ion-slides>
-    </ion-col>
+    <!-- </ion-col> -->
 
-    <ion-col class="no-padding-bottom" size="12" size-md="6" size-xl="6">
+    <!-- <ion-col class="no-padding-bottom" size="12" size-md="6" size-xl="6"> -->
       <ion-segment class="category-segment" scrollable color="danger" (ionChange)="segmentChanged($event)">
         <ion-segment-button [checked]="category==''" value="">
           <ion-label>Semua</ion-label>
@@ -60,16 +61,16 @@
           <ion-label>{{category.name}}</ion-label>
         </ion-segment-button>
       </ion-segment>
-    </ion-col>
+    <!-- </ion-col> -->
 
-    <ion-col *ngIf="lists.length == 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
-      <div class="no-data">
+    <!-- <ion-col *ngIf="lists.length == 0" class="no-padding-top" size="12" size-md="6" size-xl="6"> -->
+      <div class="no-data" *ngIf="lists.length == 0" >
         <ion-icon name="notifications-outline"></ion-icon>
         Pengaduan belum tersedia
       </div>
-    </ion-col>
+    <!-- </ion-col> -->
 
-    <ion-col *ngIf="lists.length > 0" class="ion-no-padding" size="12" size-md="6" size-xl="6">
+    <!-- <ion-col *ngIf="lists.length > 0" class="ion-no-padding" size="12" size-md="6" size-xl="6"> -->
       <ion-list *ngFor="let list of lists">
         <ion-card class="ion-no-padding">
           <ion-card-header class="ion-no-padding">

@@ -4,7 +4,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
   <ion-list class="ion-no-padding">
     <ion-row *ngIf="notifs.length == 0" class="notif">
       <ion-col class="no-padding-top" size="12" size-md="6" size-xl="6">
@@ -27,9 +33,7 @@
     </ion-row>
   </ion-list>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

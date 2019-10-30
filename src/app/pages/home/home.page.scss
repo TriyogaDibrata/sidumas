@@ -49,6 +49,7 @@ ion-segment{
   padding-top: 10px;
 }
 ion-segment-button{
+  --border-color : var(--ion-color-light);
   --padding-start: 15px;
   --padding-end: 15px;
   --indicator-color-checked: rgba(0,0,0,0) !important;

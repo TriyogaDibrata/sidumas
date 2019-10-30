@@ -136,6 +136,7 @@ export class SharedService {
       this.user = this.http.get(this.env.API_URL + 'user', { headers: this.headers })
         .subscribe(data => {
           this.user = data;
+          console.log('ini dia', data);
           return this.user;
         });
     }

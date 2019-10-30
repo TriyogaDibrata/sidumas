@@ -37,10 +37,6 @@ export class SearchPage implements OnInit {
     this.getUser();
   }
 
-  seeDetail(id){
-    this.commonService.goForward(['detail-laporan/', id]);
-  }
-
   getUser(){
     this.sharedService.getUser()
     .subscribe(data => {
@@ -127,5 +123,42 @@ export class SearchPage implements OnInit {
     });
 
     await this.loading.present();
+  }
+
+  voteColor(islike){
+    if(islike == null ){
+      return ""
+    } else {
+      return "danger";
+    }
+  }
+
+  addVote(pengaduan){
+    let data = {
+      'user_id'     : this.sharedService.getUserCache().id,
+      'pengaduan_id': pengaduan.id,
+    }
+
+    this.sharedService.addVote(data)
+    .subscribe(data => {
+      console.log(data);
+      if(data['success'] && data['new_user']){
+        pengaduan.likes_count++;
+        pengaduan.is_like = 1;
+
+      } else if (data['success'] && !data['new_user']){
+        pengaduan.likes_count--;
+        pengaduan.is_like = null;
+      }else {
+        this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+      }
+    }, err => {
+        this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+    });
+  }
+
+  seeDetail(pengaduan){
+    this.sharedService.pengaduan = pengaduan;
+    this.commonService.goForward(['detail-laporan/', pengaduan.id]);
   }
 }

@@ -25,7 +25,7 @@
             <img [src]="user.avatar" />
           </ion-avatar>
           <div class="user-name ion-text-center">
-            <ion-text>{{ user.name }}</ion-text>
+            <ion-text>{{ sharedService.getUserCache().name }}</ion-text>
           </div>
           <div class="user-email ion-text-center">
             <ion-text>{{ user.email }}</ion-text>

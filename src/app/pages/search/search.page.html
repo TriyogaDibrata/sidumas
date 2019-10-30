@@ -18,7 +18,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content class="ion-no-padding">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
       refreshingText="Refreshing...">
@@ -50,7 +50,7 @@
               </ion-col>
             </ion-row>
           </ion-card-header>
-          <ion-card-content (click)="seeDetail(list.id)">
+          <ion-card-content (click)="seeDetail(list)">
             <ion-card-title class="category">
               {{ list['kategori_name'] }}{{ list['subkategori_name']?' - '+list['subkategori_name']:'' }}
             </ion-card-title>
@@ -71,30 +71,26 @@
           </ion-card-content>
           <div class="button-group">
             <ion-row>
-              <ion-col size=6>
-                <ion-row>
-                  <ion-col class="ion-activatable ion-text-left">
-                    <ion-ripple-effect></ion-ripple-effect>
-                    <span>
-                      <ion-icon name="ios-git-compare"></ion-icon>
-                      {{ list['tanggapans']['length'] }}
-                    </span>
-                  </ion-col>
-                  <ion-col class="ion-activatable ion-text-left">
-                    <ion-ripple-effect></ion-ripple-effect>
-                    <span>
-                      <ion-icon name="ios-chatbubbles"></ion-icon>
-                      {{ list['comments']['length'] }}
-                    </span>
-                  </ion-col>
-                  <ion-col class="ion-activatable  ion-text-left">
-                    <ion-ripple-effect></ion-ripple-effect>
-                    <span>
-                      <ion-icon name="ios-thumbs-up"></ion-icon>
-                      {{ list['likes']['length'] }}
-                    </span>
-                  </ion-col>
-                </ion-row>
+              <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list)">
+                <ion-ripple-effect></ion-ripple-effect>
+                <span>
+                  <ion-icon name="ios-swap"></ion-icon>
+                  {{ list.tanggapans_count }} Tindakan
+                </span>
+              </ion-col>
+              <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list)">
+                <ion-ripple-effect></ion-ripple-effect>
+                <span>
+                  <ion-icon name="ios-chatbubbles"></ion-icon>
+                  {{ list.comments_count }} Komentar
+                </span>
+              </ion-col>
+              <ion-col class="ion-text-center ion-activatable" (click)="addVote(list)">
+                <ion-ripple-effect></ion-ripple-effect>
+                <ion-text [color]="voteColor(list['is_like'])">
+                  <ion-icon name="ios-thumbs-up"></ion-icon>
+                  {{ list.likes_count }} Dukungan
+                </ion-text>
               </ion-col>
             </ion-row>
           </div>

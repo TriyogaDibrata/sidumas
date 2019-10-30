@@ -101,7 +101,7 @@ export class ProfilePage implements OnInit {
       this.statuses = data;
       this.loading.dismiss();
     }, err => {
-      console.log(err);
+      this.commonService.presentAlert('Gagal memuat konten', 'Terjadi kesalahan saat memuat konten');
       this.loading.dismiss();
     });
   }

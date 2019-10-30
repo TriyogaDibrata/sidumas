@@ -228,6 +228,7 @@ export class HomePage implements OnInit {
     if(this.sharedService.banners.get == 0){
       this.sharedService.getBanners()
       .subscribe(data => {
+        console.log(data);
         this.sharedService.banners.get = 1;
         this.sharedService.banners.data = data;
         this.banners = this.sharedService.banners.data;

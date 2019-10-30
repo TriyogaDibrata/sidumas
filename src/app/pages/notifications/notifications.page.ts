@@ -51,6 +51,21 @@ export class NotificationsPage implements OnInit {
     });
   }
 
+  doRefresh(event){
+    this.sharedService.getNotifs(this.user.id, this.page, 1)
+    .subscribe((data: any[]) => {
+      if(data.length > 0){
+        this.transformData(data);
+      }
+      this.sharedService.notif.news = 0;
+      this.loading.dismiss();
+      event.target.complete();
+    }, err => {
+      event.target.complete();
+      console.log(err);
+    });
+  }
+
   nextPage(event){
     if(this.infiniteScrollEnable) {
       this.page++;
