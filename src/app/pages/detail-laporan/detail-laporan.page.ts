@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import * as moment from 'moment';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { IonContent, NavController, LoadingController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
@@ -16,8 +15,6 @@ import { CommonService } from 'src/app/services/common/common.service';
 export class DetailLaporanPage implements OnInit {
 
   @ViewChild(IonContent, {static: false}) content: IonContent;
-  @ViewChild('framekomentar', {static: false}) framekomentar;
-  @ViewChild('scrollKomentar', {static: false}) scrollKomentar;
 
   loading : any;
   pengaduan_id : any;

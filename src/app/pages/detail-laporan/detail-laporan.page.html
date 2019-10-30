@@ -128,7 +128,7 @@
       </div>
 
       <div class="content-wrapper">
-        <div class="tanggapans" *ngIf="showTanggapans">
+        <div class="tanggapans" [hidden]="!showTanggapans">
           <div class="ion-text-center" *ngIf="!tanggapans">
             <ion-spinner></ion-spinner>
           </div>
@@ -161,7 +161,7 @@
           </ion-list>
         </div>
 
-        <div #framekomentar class="komentars" [hidden]="!showKomentars">
+        <div class="komentars" [hidden]="!showKomentars">
           <div class="ion-text-center" *ngIf="!komentars">
             <ion-spinner></ion-spinner>
           </div>
