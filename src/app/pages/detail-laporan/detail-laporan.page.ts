@@ -196,14 +196,14 @@ export class DetailLaporanPage implements OnInit {
 
   voteColor(islike){
     if(islike == null ){
-      return "medium"
+      return "none"
     } else {
       return "danger";
     }
   }
 
   share(data){
-    this.socialSharing.share("Sistem Pengaduan Masyarakat Kabupaten Badung", data.topik, "https://sidumas.badungkab.go.id/upload/banners/banner-sidumas.jpg", "https://sidumas.badungkab.go.id/T/"+data.no_tiket).then(() => {
+    this.socialSharing.share("Sistem Pengaduan Masyarakat Kabupaten Badung", data.topik, null, "https://sidumas.badungkab.go.id/T/"+data.no_tiket).then(() => {
       console.log("shareSheetShare: Success");
     }).catch(() => {
       console.error("shareSheetShare: failed");
