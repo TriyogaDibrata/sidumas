@@ -68,7 +68,6 @@ export class HomePage implements OnInit {
   getListPengaduan(){
     this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
     .subscribe(data => {
-      console.log(data);
       this.lists = data['data'];
       this.loading.dismiss();
     });
@@ -143,7 +142,6 @@ export class HomePage implements OnInit {
 
     this.sharedService.addVote(data)
     .subscribe(data => {
-      console.log(data);
       if(data['success'] && data['new_user']){
         pengaduan.likes_count++;
         pengaduan.is_like = 1;
@@ -183,14 +181,13 @@ export class HomePage implements OnInit {
 
       this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
       .subscribe((data) => {
-        console.log(data);
         if(data['count'] > 0){
           this.transformData(data['data']);
         }else{
           this.iScroll.enable = 0;
         }
       }, err => {
-        console.log(err);
+        this.commonService.presentAlert('Gagal memuat', 'Terjadi kesalahan saat memuat data');
       });
     }
     event.target.complete();
@@ -228,7 +225,6 @@ export class HomePage implements OnInit {
     if(this.sharedService.banners.get == 0){
       this.sharedService.getBanners()
       .subscribe(data => {
-        console.log(data);
         this.sharedService.banners.get = 1;
         this.sharedService.banners.data = data;
         this.banners = this.sharedService.banners.data;

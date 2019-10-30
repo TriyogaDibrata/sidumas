@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common/common.service';
 import { AlertController } from '@ionic/angular';
 import * as moment from 'moment';
 import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-notifications',
@@ -23,8 +24,9 @@ export class NotificationsPage implements OnInit {
   constructor(
     private sharedService   : SharedService,
     public commonService    : CommonService,
-    public loadingCtrl  : LoadingController,
+    public loadingCtrl      : LoadingController,
     public alertCtrl        : AlertController,
+    public alertService     : AlertService,
   ) { }
 
   ngOnInit() {
@@ -62,7 +64,7 @@ export class NotificationsPage implements OnInit {
       event.target.complete();
     }, err => {
       event.target.complete();
-      console.log(err);
+      this.alertService.presentAlert('Gagal memuat data', 'Terdapat kesalahan saat memuat data');
     });
   }
 

@@ -29,19 +29,19 @@ export class ProfilePage implements OnInit {
   token : any;
 
   constructor(
-    public commonService  : CommonService,
-    private authService   : AuthService,
-    private sharedService : SharedService,
-    public navCtrl        : NavController,
-    public alertCtrl      : AlertController,
-    public loadingCtrl    : LoadingController,
-    public camera         : Camera,
-    public crop           : Crop,
-    private actionSheetCtrl : ActionSheetController,
-    public alertService   : AlertService,
-    private http          : HttpClient,
-    private env           : EnvService,
-    public modalCtrl      : ModalController,
+    public commonService      : CommonService,
+    private authService       : AuthService,
+    private sharedService     : SharedService,
+    public navCtrl            : NavController,
+    public alertCtrl          : AlertController,
+    public loadingCtrl        : LoadingController,
+    public camera             : Camera,
+    public crop               : Crop,
+    private actionSheetCtrl   : ActionSheetController,
+    public alertService       : AlertService,
+    private http              : HttpClient,
+    private env               : EnvService,
+    public modalCtrl          : ModalController,
   ) { }
 
   ngOnInit() {
@@ -84,6 +84,7 @@ export class ProfilePage implements OnInit {
 
   getUser(){
     this.user = this.sharedService.getUserCache();
+    console.log(this.user);
     this.lihatUserStatus(this.user.id);
   }
 
@@ -199,7 +200,7 @@ export class ProfilePage implements OnInit {
             });
       }
     }, (err) => {
-      console.log(err);
+        this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
     });
   }
 
@@ -217,7 +218,7 @@ export class ProfilePage implements OnInit {
         this.user = data;
         event.target.complete();
       }, err => {
-        console.log(err);
+        this.alertService.presentAlert('Gagal memuat data', 'Terdapat kesalahan saat memuat data');
         event.target.complete();
       });
   }

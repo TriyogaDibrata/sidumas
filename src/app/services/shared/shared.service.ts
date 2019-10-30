@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EnvService } from '../env/env.service';
 import { AuthService } from '../auht/auth.service';
 import { Storage } from '@ionic/storage';
+import { AlertService } from '../alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,11 @@ export class SharedService {
   pengaduan: any;
 
   constructor(
-    private http: HttpClient,
-    private env: EnvService,
-    private storage: Storage,
-    private authService: AuthService
+    private http        : HttpClient,
+    private env         : EnvService,
+    private storage     : Storage,
+    private authService : AuthService,
+    public alertService : AlertService
   ) {
   }
 
@@ -136,7 +138,6 @@ export class SharedService {
       this.user = this.http.get(this.env.API_URL + 'user', { headers: this.headers })
         .subscribe(data => {
           this.user = data;
-          console.log('ini dia', data);
           return this.user;
         });
     }
@@ -315,7 +316,7 @@ export class SharedService {
       .subscribe((data) => {
         this.notif = data;
       }, err => {
-        console.log(err);
+        this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
       });
   }
 

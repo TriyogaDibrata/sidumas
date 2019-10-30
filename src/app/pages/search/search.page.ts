@@ -43,7 +43,7 @@ export class SearchPage implements OnInit {
       this.user = data;
       this.getMyList(this.user['id']);
     }, err => {
-      console.log(err);
+      this.commonService.presentAlert('Gagal memuat', 'Terjadi kesalahan saat memuat data');
     });
   }
 
@@ -54,7 +54,7 @@ export class SearchPage implements OnInit {
       this.lists = data['data'];
       this.loading.dismiss();
     }, err => {
-      console.log(err);
+      this.commonService.presentAlert('Gagal memuat', 'Terjadi kesalahan saat memuat data');
       this.loading.dismiss();
     });
   }
@@ -96,14 +96,13 @@ export class SearchPage implements OnInit {
 
       this.sharedService.myList(this.user['id'], this.segment.value, this.iScroll.page)
       .subscribe((data) => {
-        console.log(data);
         if(data['count'] > 0){
           this.transformData(data['data']);
         }else{
           this.iScroll.enable = 0;
         }
       }, err => {
-        console.log(err);
+        this.commonService.presentAlert('Gagal memuat', 'Terjadi kesalahan saat memuat data');
       });
     }
     event.target.complete();
@@ -141,7 +140,6 @@ export class SearchPage implements OnInit {
 
     this.sharedService.addVote(data)
     .subscribe(data => {
-      console.log(data);
       if(data['success'] && data['new_user']){
         pengaduan.likes_count++;
         pengaduan.is_like = 1;

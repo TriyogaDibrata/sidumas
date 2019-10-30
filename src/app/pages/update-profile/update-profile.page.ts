@@ -72,13 +72,12 @@ export class UpdateProfilePage implements OnInit {
         this.ktp = "data:image/jpeg;base64," + imageData;
       }
     }, (err) => {
-      console.log(err);
+      this.alertService.presentAlert('Gagal membuka kamera', 'Terdapat kesalahan saat membuka kamera');
     });
   }
 
   getUserInformation(){
     let data = this.sharedService.getUserCache();
-    console.log(data);
     this.user = data;
     this.user_id = data['id'];
     this.name = data['name'];
@@ -109,8 +108,7 @@ export class UpdateProfilePage implements OnInit {
       'ktp'           : this.ktp,
       'foto'          : this.verified_foto
     }
-
-    // return console.log(data);
+    
     this.sharedService.updateProfileUser(data)
     .subscribe(data => {
         if(data['success']){
@@ -122,7 +120,7 @@ export class UpdateProfilePage implements OnInit {
     }, err => {
         this.loading.dismiss();
         this.alertService.presentAlert('Oooops', err);
-        console.log(err);
+        this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
     });
   }
 }
