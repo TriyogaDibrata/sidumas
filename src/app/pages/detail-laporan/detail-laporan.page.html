@@ -7,10 +7,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-no-padding">
+<ion-content #content class="ion-no-padding">
   <ion-row class="ion-justify-content-center ion-no-padding" *ngIf="data">
     <ion-col size="12" size-md="6" size-xl="6" class="ion-no-padding">
-      <div class="info-badge ion-padding" *ngIf="statusShow === 1" [hidden]="hide_info">
+      <div class="info-badge" *ngIf="statusShow === 1" [hidden]="hide_info">
         <ion-row>
           <ion-col size="11">
             Pengaduan ini dibuat oleh user yang belum terverifikasi
@@ -30,11 +30,11 @@
           </ion-col>
           <ion-col size="10">
             <ion-row class="name-wrapper">
-              <ion-col size="12" class="mt5">
+              <ion-col size="12" class="mt3">
                 <ion-text class="bold text1">
                   {{ data.atas_nama }}
                   <br />
-                  <ion-text color="medium" class="text08"> ID : #{{ data.no_tiket }} | {{ converTime(data.tanggal) }}
+                  <ion-text color="medium" class="text07"> ID : #{{ data.no_tiket }} | {{ converTime(data.tanggal) }}
                   </ion-text>
                 </ion-text>
               </ion-col>
@@ -69,8 +69,8 @@
         </div>
 
         <div class="ion-text-right">
-          <ion-chip class="ion-margin" (click)="checkLocation(data.koordinat_lat, data.koordinat_lng)">
-            <ion-icon name="pin"></ion-icon>
+          <ion-chip color="danger" class="ion-margin" (click)="checkLocation(data.koordinat_lat, data.koordinat_lng)">
+            <ion-icon name="map"></ion-icon>
             <ion-label>Lokasi</ion-label>
           </ion-chip>
         </div>
@@ -81,7 +81,7 @@
           <ion-col (click)="displayTanggapans()">
             <ion-row>
               <ion-col size="12">
-                <ion-icon name="swap" [color]="tanggapan_color"></ion-icon>
+                <ion-icon name="ios-swap" [color]="tanggapan_color"></ion-icon>
                 <ion-badge [color]="tanggapan_color">{{ count_tanggapans }}</ion-badge>
               </ion-col>
               <ion-col size="12">
@@ -93,7 +93,7 @@
           <ion-col>
             <ion-row>
               <ion-col size="12" (click)="displayKomentars()">
-                <ion-icon name="chatbubbles" [color]="komentar_color"></ion-icon>
+                <ion-icon name="ios-chatbubbles" [color]="komentar_color"></ion-icon>
                 <ion-badge [color]="komentar_color">{{ count_komentars }}</ion-badge>
               </ion-col>
               <ion-col size="12">
@@ -105,7 +105,7 @@
           <ion-col>
             <ion-row>
               <ion-col size="12" (click)="addVote(data)">
-                <ion-icon name="thumbs-up" [color]="voteColor(data['is_like'])"></ion-icon>
+                <ion-icon name="ios-thumbs-up" [color]="voteColor(data['is_like'])"></ion-icon>
                 <ion-badge [color]="voteColor(data['is_like'])">{{ data['likes']['length'] }}</ion-badge>
               </ion-col>
               <ion-col size="12">
@@ -116,7 +116,7 @@
 
           <ion-col>
             <ion-row>
-              <ion-col size="12">
+              <ion-col size="12" (click)="share(data)">
                 <ion-icon name="share"></ion-icon>
               </ion-col>
               <ion-col size="12">
@@ -129,16 +129,20 @@
 
       <div class="content-wrapper">
         <div class="tanggapans" *ngIf="showTanggapans">
+          <div class="ion-text-center" *ngIf="!tanggapans">
+            <ion-spinner></ion-spinner>
+          </div>
           <div *ngIf="tanggapans.length < 1" class="ion-text-center">Belum Ada Tindak Lanjut</div>
           <ion-list *ngFor="let tanggapan of tanggapans">
             <div class="comment-wrapper">
               <ion-row>
-                <ion-col size="3">
+                <ion-col size="2">
                   <ion-avatar class="ion-no-padding">
-                    <ion-img src="assets/icon/ico-user.png"></ion-img>
+                    <ion-img *ngIf="!tanggapan.currentuser.avatar" src="assets/icon/ico-user.png"></ion-img>
+                    <ion-img *ngIf="tanggapan.currentuser.avatar" [src]="tanggapan.currentuser.avatar"></ion-img>
                   </ion-avatar> 
                 </ion-col>
-                <ion-col size="9" class="user-name">
+                <ion-col size="10" class="user-name">
                   <b>{{ tanggapan.currentuser.name }}</b>
                   <br />
                   <span>{{ tanggapan.tanggapan }}</span>
@@ -159,16 +163,20 @@
 
 
         <div class="komentars" *ngIf="showKomentars">
+          <div class="ion-text-center" *ngIf="!komentars">
+            <ion-spinner></ion-spinner>
+          </div>
           <div class="ion-text-center" *ngIf="komentars.length < 1">Belum Ada Komentar</div>
           <ion-list *ngFor="let komentar of komentars">
             <div class="comment-wrapper">
               <ion-row>
-                <ion-col size="3">
+                <ion-col size="2">
                   <ion-avatar class="ion-no-padding">
-                    <ion-img src="assets/icon/ico-user.png"></ion-img>
+                      <ion-img *ngIf="!komentar.currentuser.avatar" src="assets/icon/ico-user.png"></ion-img>
+                      <ion-img *ngIf="komentar.currentuser.avatar" [src]="komentar.currentuser.avatar"></ion-img>
                   </ion-avatar>
                 </ion-col>
-                <ion-col size="9" class="user-name">
+                <ion-col size="10" class="user-name">
                   <b>{{ komentar.currentuser.name }}</b>
                   <br />
                   <span>{{ komentar.komentar }}</span>

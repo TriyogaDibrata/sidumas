@@ -3,7 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import * as moment from 'moment';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { IonContent, NavController } from '@ionic/angular';
+import { IonContent, NavController, LoadingController } from '@ionic/angular';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
   selector: 'app-detail-laporan',
@@ -12,8 +15,9 @@ import { IonContent, NavController } from '@ionic/angular';
 })
 export class DetailLaporanPage implements OnInit {
 
-  @ViewChild(IonContent, {static : false}) content: IonContent;
+  @ViewChild(IonContent, {static: false}) content: IonContent;
 
+  loading : any;
   pengaduan_id : any;
   data : any;
   nama_pelapor : any;
@@ -54,19 +58,19 @@ export class DetailLaporanPage implements OnInit {
               private sharedService : SharedService,
               public alertService   : AlertService,
               public navCtrl        : NavController,
+              public socialSharing  : SocialSharing,
+              public loadingCtrl    : LoadingController,
+              public commonService  : CommonService,
               ) { }
 
   ngOnInit() {
     this.pengaduan_id = this.route.snapshot.paramMap.get('id');
-    this.getUser();
-    this.getDetail();
-    this.getComments();
-    this.getTanggapans();
-    this.getUser();
+    this.showLoading();
   }
 
   ionViewWillEnter(){
-
+    this.getUser();
+    this.getDetail();
   }
 
   getDetail(){
@@ -80,9 +84,11 @@ export class DetailLaporanPage implements OnInit {
         this.count_dukungans = this.data['likes']['length'];
         this.files = this.data['files'];
         this.statusShow = this.data['statusshow'];
+        this.loading.dismiss();
       }
     }, err => {
-      console.log(err);
+      this.loading.dismiss();
+      this.commonService.presentAlert("Gagal memuat", "Terjadi kesalah saat memuat konten");
     });
   }
 
@@ -112,17 +118,19 @@ export class DetailLaporanPage implements OnInit {
     this.showTanggapans = !this.showTanggapans;
     if(this.showTanggapans == true){
       this.tanggapan_color = "danger";
+      this.getTanggapans();
     } else {
       this.tanggapan_color = "none";
     }
   }
 
-  displayKomentars() {
+  displayKomentars() {;
     this.showTanggapans = false;
     this.tanggapan_color = "none";
     this.showKomentars = !this.showKomentars;
     if(this.showKomentars == true){
       this.komentar_color = "danger";
+      this.getComments();
     } else {
       this.komentar_color = "none";
     }
@@ -144,8 +152,8 @@ export class DetailLaporanPage implements OnInit {
       if(data['success']){
         this.alertService.presentToast(data['message']);
         this.komentar_user = '';
-        this.ionViewWillEnter();
-        this.content.scrollToBottom(0);
+        this.getComments();
+        this.content.scrollToBottom(300);
       } else {
         this.alertService.presentAlert('Perhatian', data['message']);
       }
@@ -192,5 +200,23 @@ export class DetailLaporanPage implements OnInit {
     } else {
       return "danger";
     }
+  }
+
+  share(data){
+    this.socialSharing.share("Sistem Pengaduan Masyarakat Kabupaten Badung", data.topik, "https://sidumas.badungkab.go.id/upload/banners/banner-sidumas.jpg", "https://sidumas.badungkab.go.id/T/"+data.no_tiket).then(() => {
+      console.log("shareSheetShare: Success");
+    }).catch(() => {
+      console.error("shareSheetShare: failed");
+    });
+  }
+
+  async showLoading(){
+    this.loading = await this.loadingCtrl.create({
+      spinner : "dots",
+      backdropDismiss : true,
+      message : "Loading..."
+    });
+
+    await this.loading.present();
   }
 }

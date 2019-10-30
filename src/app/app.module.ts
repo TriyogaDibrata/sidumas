@@ -21,6 +21,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { ModalImagePageModule } from './modal-image/modal-image.module';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,6 +45,7 @@ import { ModalImagePageModule } from './modal-image/modal-image.module';
     Geolocation,
     NativeGeocoder,
     CallNumber,
+    SocialSharing,
     Crop,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

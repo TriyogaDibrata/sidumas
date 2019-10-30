@@ -22,13 +22,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-no-padding">
 
-<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
-    refreshingText="Refreshing...">
-  </ion-refresher-content>
-</ion-refresher>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <ion-row class="ion-justify-content-center">
 
@@ -69,15 +69,15 @@
       </div>
     </ion-col>
 
-    <ion-col *ngIf="lists.length > 0" class="no-padding-top" size="12" size-md="6" size-xl="6">
+    <ion-col *ngIf="lists.length > 0" class="ion-no-padding" size="12" size-md="6" size-xl="6">
       <ion-list *ngFor="let list of lists">
-        <ion-card>
-          <ion-card-header>
+        <ion-card class="ion-no-padding">
+          <ion-card-header class="ion-no-padding">
             <ion-row>
               <ion-col class="ion-no-padding">
                 <ion-card-subtitle class="category-chip">
                   <ion-text>
-                    <ion-icon name="attach"></ion-icon>{{ list['kategori_name'] }}
+                    {{ list['kategori_name'] }}
                   </ion-text>
                 </ion-card-subtitle>
               </ion-col>
@@ -88,29 +88,28 @@
               </ion-col>
             </ion-row>
           </ion-card-header>
-          <ion-card-content (click)="seeDetail(list.id)">
-            <ion-item class="ion-no-padding">
-              <div class="user-avatar">
-                <ion-avatar item-left>
-                  <img *ngIf="list['avatar'] != null" [src]="list['avatar']" />
-                  <img *ngIf="list['avatar'] == null" src="assets/icon/favicon.png" />
-                </ion-avatar>
-                <div class="user-name">
-                  <h3>{{ list['pelapor'] }}</h3>
-                  <ion-label>{{ converTime(list.tanggal) }}</ion-label>
-                </div>
-              </div>
-            </ion-item>
 
-            <ion-card-title class="ion-margin-top">{{ list['topik'] }}</ion-card-title>
+          <ion-card-content (click)="seeDetail(list.id)">
+            <ion-card-title class="ion-text-wrap">{{ list['topik'] }}</ion-card-title>
+
+            <div class="user-avatar">
+              <ion-avatar item-left>
+                <img *ngIf="list['avatar'] != null" [src]="list['avatar']" />
+                <img *ngIf="list['avatar'] == null" src="assets/icon/favicon.png" />
+              </ion-avatar>
+              <div class="user-name">
+                <h3>{{ list['pelapor'] }}</h3>
+                <ion-label>{{ converTime(list.tanggal) }}</ion-label>
+              </div>
+            </div>
 
             <div class="uraian">
               <ion-row>
-                <ion-col class="ion-text-wrap ion-no-padding">
-                  <p>{{ list['uraian'] | slice:0:180 }} ...</p>
+                <ion-col *ngIf="list['file']" size="12" class="ion-no-padding">
+                  <img [src]="list['file']['fullpath']" width="100%" height="250px" />
                 </ion-col>
-                <ion-col *ngIf="list['file']" size="4">
-                  <img [src]="list['file']['fullpath']" />
+                <ion-col class="ion-text-wrap ion-no-padding ion-margin-top" size=12>
+                  <p>{{ list['uraian'] | slice:0:180 }} ...</p>
                 </ion-col>
               </ion-row>
             </div>
@@ -120,21 +119,21 @@
               <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list.id)">
                 <ion-ripple-effect></ion-ripple-effect>
                 <span>
-                  <ion-icon name="swap"></ion-icon>
+                  <ion-icon name="ios-swap"></ion-icon>
                   {{ list['tanggapans']['length'] }} Tindakan
                 </span>
               </ion-col>
               <ion-col class="ion-text-center ion-activatable" (click)="seeDetail(list.id)">
                 <ion-ripple-effect></ion-ripple-effect>
                 <span>
-                  <ion-icon name="chatbubbles"></ion-icon>
+                  <ion-icon name="ios-chatbubbles"></ion-icon>
                   {{ list['comments']['length'] }} Komentar
                 </span>
               </ion-col>
               <ion-col class="ion-text-center ion-activatable" (click)="addVote(list)">
                 <ion-ripple-effect></ion-ripple-effect>
                 <ion-text [color]="voteColor(list['is_like'])">
-                  <ion-icon name="thumbs-up"></ion-icon>
+                  <ion-icon name="ios-thumbs-up"></ion-icon>
                   {{ list['likes']['length'] }} Dukungan
                 </ion-text>
               </ion-col>

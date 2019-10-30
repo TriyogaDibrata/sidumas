@@ -86,3 +86,11 @@ ion-chip {
 ion-refresher {
     z-index: 1;
 }
+
+.uraian{
+    img{
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+}

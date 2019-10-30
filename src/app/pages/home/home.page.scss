@@ -1,28 +1,35 @@
+ion-content{
+  --background : #eeeeee;
+}
+
 .user-avatar {
     display: flex;
+    margin: 5px 0 5px;
 
     ion-avatar {
-        height: 30px;
-        width: 30px;
+        height: 38px;
+        width: 38px;
     }
 
     .user-name {
         margin-left: 8px;
 
         h3 {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bolder;
+            color: #525252;
         }
         ion-label{
             margin-top: 2px !important;
-            font-size: 10px;
+            font-size: 12px;
         }
     }
 }
 
 ion-card-title {
-    font-size: 1rem;
-    margin-bottom: 10px;
+    font-size: 1.25rem;
+    margin: 10px 0 10px;
+    font-weight: 500;
 }
 
 .button-group {
@@ -34,8 +41,8 @@ ion-card-title {
 
 ion-chip {
     color: #ffffff;
-    height: 15px;
-    font-size: 0.7rem;
+    height: 18px;
+    font-size: 0.8rem;
 }
 
 ion-segment{
@@ -99,9 +106,38 @@ ion-slides{
   font-size: 12px;
 }
 .category-chip{
-  font-size: 10px;
+  font-size: 16px;
   padding-top: 4px;
-  ion-text{
-    text-transform: uppercase;
+  // ion-text{
+  //   text-transform: uppercase;
+  // }
+}
+
+.uraian {
+  img{
+    object-fit: cover;
   }
+
+  p{
+    font-size: 0.9rem;
+    color: #000000;
+  }
+}
+
+.list-md {
+  background: #eeeeee !important;
+  padding-top : 0px !important;
+  padding-bottom : 0px !important;
+}
+
+ion-card {
+  --background : #ffffff;
+}
+
+.sc-ion-card-md-h {
+  margin-bottom: 1px !important;
+}
+
+ion-card-header {
+  padding: 10px 16px 0px 16px;
 }
