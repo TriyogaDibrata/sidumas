@@ -140,7 +140,7 @@
                   <ion-avatar class="ion-no-padding">
                     <ion-img *ngIf="!tanggapan.currentuser.avatar" src="assets/icon/ico-user.png"></ion-img>
                     <ion-img *ngIf="tanggapan.currentuser.avatar" [src]="tanggapan.currentuser.avatar"></ion-img>
-                  </ion-avatar> 
+                  </ion-avatar>
                 </ion-col>
                 <ion-col size="10" class="user-name">
                   <b>{{ tanggapan.currentuser.name }}</b>
@@ -161,8 +161,7 @@
           </ion-list>
         </div>
 
-
-        <div class="komentars" *ngIf="showKomentars">
+        <div #framekomentar class="komentars" [hidden]="!showKomentars">
           <div class="ion-text-center" *ngIf="!komentars">
             <ion-spinner></ion-spinner>
           </div>
@@ -186,43 +185,21 @@
               </ion-row>
             </div>
           </ion-list>
+          <ion-toolbar class="toolbar-comment" color="light">
+            <ion-row class="ion-no-padding ion-align-items-center">
+              <ion-col size="10">
+                <ion-textarea class="message-input" rows="2" [(ngModel)]="komentar_user" placeholder="Masukan Komentar"></ion-textarea>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button expand="block" fill="clear" color="primary" [disabled]="komentar_user === ''" class="msg-btn"
+                  (click)="addKomentar()">
+                  <ion-icon name="send" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-toolbar>
         </div>
       </div>
     </ion-col>
   </ion-row>
-
 </ion-content>
-
-<ion-footer *ngIf="showKomentars">
-  <ion-toolbar color="light">
-    <ion-row class="ion-no-padding ion-align-items-center">
-      <ion-col size="10">
-        <ion-textarea class="message-input" rows="2" [(ngModel)]="komentar_user" placeholder="Masukan Komentar"
-          auto-grow="true"></ion-textarea>
-      </ion-col>
-      <ion-col size="2">
-        <ion-button expand="block" fill="clear" color="primary" [disabled]="komentar_user === ''" class="msg-btn"
-          (click)="addKomentar()">
-          <ion-icon name="send" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>
-
-<ion-footer *ngIf="showTanggapans && user.tipe == 1">
-  <ion-toolbar color="light">
-    <ion-row class="ion-no-padding ion-align-items-center">
-      <ion-col size="10">
-        <ion-textarea class="message-input" rows="2" [(ngModel)]="komentar_user" placeholder="Masukan Komentar"
-          auto-grow="true"></ion-textarea>
-      </ion-col>
-      <ion-col size="2">
-        <ion-button expand="block" fill="clear" color="primary" [disabled]="komentar_user === ''" class="msg-btn"
-          (click)="addKomentar()">
-          <ion-icon name="send" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>

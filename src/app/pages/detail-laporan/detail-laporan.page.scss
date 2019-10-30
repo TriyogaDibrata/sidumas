@@ -29,12 +29,12 @@ ion-content {
 }
 
 .main-content-wrapper {
-    
+
     .title {
         font-size: 1rem;
         font-weight: bolder;
     }
-    
+
     .main{
         font-size: 0.8rem;
     }
@@ -70,7 +70,7 @@ ion-item {
     padding-right: 10px;
     margin-bottom : 10px;
   }
-   
+
   .msg-btn {
     --padding-start: 0.5em;
     --padding-end: 0.5em;
@@ -115,4 +115,10 @@ ion-item {
       position: relative;
       overflow: hidden;
       margin: 0 auto;
+      margin-bottom: 93px;
+  }
+
+  .toolbar-comment{
+    position: fixed;
+    bottom: 0;
   }

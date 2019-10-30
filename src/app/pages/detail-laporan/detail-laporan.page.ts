@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import * as moment from 'moment';
@@ -16,6 +16,8 @@ import { CommonService } from 'src/app/services/common/common.service';
 export class DetailLaporanPage implements OnInit {
 
   @ViewChild(IonContent, {static: false}) content: IonContent;
+  @ViewChild('framekomentar', {static: false}) framekomentar;
+  @ViewChild('scrollKomentar', {static: false}) scrollKomentar;
 
   loading : any;
   pengaduan_id : any;
@@ -28,8 +30,8 @@ export class DetailLaporanPage implements OnInit {
   color : any;
   status : any;
   kategori : any;
-  tanggapans : any;
-  komentars : any;
+  tanggapans : any=[];
+  komentars : any=[];
   dukungans : any;
   avatar : any;
   count_tanggapans : any;
@@ -92,17 +94,29 @@ export class DetailLaporanPage implements OnInit {
     });
   }
 
+  scrollToBottom(){
+    setTimeout(() => {
+      this.content.scrollToBottom(500)
+    }, 100);
+  }
+
   getComments(){
+    this.showLoading();
     this.sharedService.getComments(this.pengaduan_id)
     .subscribe(data => {
       this.komentars = data['data'];
+      this.scrollToBottom();
+      this.loading.dismiss();
     })
   }
 
   getTanggapans(){
+    this.showLoading();
     this.sharedService.getTanggapans(this.pengaduan_id)
     .subscribe(data => {
       this.tanggapans = data['data'];
+      this.scrollToBottom();
+      this.loading.dismiss();
     })
   }
 
@@ -124,7 +138,7 @@ export class DetailLaporanPage implements OnInit {
     }
   }
 
-  displayKomentars() {;
+  displayKomentars() {
     this.showTanggapans = false;
     this.tanggapan_color = "none";
     this.showKomentars = !this.showKomentars;
@@ -137,7 +151,7 @@ export class DetailLaporanPage implements OnInit {
   }
 
   getUser(){
-    this.user = this.sharedService.getUserCache();  
+    this.user = this.sharedService.getUserCache();
   }
 
   addKomentar(){
@@ -153,7 +167,6 @@ export class DetailLaporanPage implements OnInit {
         this.alertService.presentToast(data['message']);
         this.komentar_user = '';
         this.getComments();
-        this.content.scrollToBottom(300);
       } else {
         this.alertService.presentAlert('Perhatian', data['message']);
       }
@@ -170,11 +183,9 @@ export class DetailLaporanPage implements OnInit {
 
     this.sharedService.addVote(data)
     .subscribe(data => {
-      console.log(data);
       if(data['success'] && data['new_user']){
         pengaduan['likes']['length']++;
         pengaduan['is_like'] = true;
-
       } else if (data['success'] && !data['new_user']){
         pengaduan['likes']['length']--;
         pengaduan['is_like'] = null;
