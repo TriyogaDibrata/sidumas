@@ -53,3 +53,12 @@
 .myreports-card .comments-count {
     margin-top: 10px;
 }
+
+ion-refresher{
+  background: var(--ion-color-danger);
+}
+ion-refresher, ion-refresher-content{
+  --ion-text-color: white;
+  --color: white;
+  color: white;
+}

@@ -5,12 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
-      refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
   
+  <ion-refresher pull-max="60" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent" refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list class="ion-no-padding">
     <ion-row *ngIf="notifs.length == 0" class="notif">
       <ion-col class="no-padding-top" size="12" size-md="6" size-xl="6">
