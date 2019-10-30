@@ -14,6 +14,7 @@ export class SharedService {
   notif: any = { news: 0 };
   user: any = null;
   banners: any = { get: 0, data: [] };
+  pengaduan: any;
 
   constructor(
     private http: HttpClient,
