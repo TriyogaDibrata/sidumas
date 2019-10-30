@@ -24,8 +24,8 @@
         <ion-row>
           <ion-col size="2">
             <ion-avatar>
-              <img *ngIf="avatar" [src]="data.avatar" />
-              <img *ngIf="!avatar" src="assets/icon/favicon.png" />
+              <img *ngIf="data.avatar" [src]="data.avatar" />
+              <img *ngIf="!data.avatar" src="https://sidumas.badungkab.go.id/assets/frontpage/anon_user.png" />
             </ion-avatar>
           </ion-col>
           <ion-col size="10">
@@ -85,7 +85,7 @@
                 <ion-badge [color]="tanggapan_color">{{ count_tanggapans }}</ion-badge>
               </ion-col>
               <ion-col size="12">
-                <span>Tindak Lanjut</span>
+                <span>Tindakan</span>
               </ion-col>
             </ion-row>
           </ion-col>

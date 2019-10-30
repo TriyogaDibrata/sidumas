@@ -211,7 +211,7 @@ export class DetailLaporanPage implements OnInit {
   }
 
   share(data){
-    this.socialSharing.share("Sistem Pengaduan Masyarakat Kabupaten Badung", data.topik, null, "https://sidumas.badungkab.go.id/T/"+data.no_tiket).then(() => {
+    this.socialSharing.share(data.topik, null, null, "https://sidumas.badungkab.go.id/T/"+data.no_tiket).then(() => {
       console.log("shareSheetShare: Success");
     }).catch(() => {
       console.error("shareSheetShare: failed");

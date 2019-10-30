@@ -45,7 +45,7 @@ export class ProfilePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getUser();
+    // this.getUser();
   }
 
   ionViewWillEnter(){
@@ -84,11 +84,7 @@ export class ProfilePage implements OnInit {
 
   getUser(){
     this.user = this.sharedService.getUserCache();
-    this.user_name = this.user.name;
-    this.user_email = this.user.email;
-    this.user_id = this.user.id;
-    this.user_avatar = this.user.avatar;
-    this.lihatUserStatus(this.user_id);
+    this.lihatUserStatus(this.user.id);
   }
 
   update_profile(id){

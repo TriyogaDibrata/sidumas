@@ -118,7 +118,7 @@ export class UpdateProfilePage implements OnInit {
           this.navCtrl.navigateRoot('/app/tabs/profile');
           this.alertService.presentToast('Informasi berhasil diperbaharui');
         }
-        this.sharedService.getUserCache(true);
+        this.sharedService.getUserCache();
     }, err => {
         this.loading.dismiss();
         this.alertService.presentAlert('Oooops', err);
