@@ -108,8 +108,8 @@ export class LaporFilePage implements OnInit {
 
   async deletePhoto(index) {
     const confirm = await this.alertCtrl.create({
-      header: 'Sure you want to delete this photo? There is NO undo!',
-      message: '',
+      header: 'Perhatian!',
+      message: 'Apakah anda yakin untuk menghapus foto ini ?',
       buttons: [
         {
           text: 'No',

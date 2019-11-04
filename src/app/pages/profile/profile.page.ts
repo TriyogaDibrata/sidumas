@@ -9,6 +9,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EnvService } from 'src/app/services/env/env.service';
 import { ModalImagePage } from 'src/app/modal-image/modal-image.page';
+import { AppRate } from '@ionic-native/app-rate/ngx';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ProfilePage implements OnInit {
   constructor(
     public commonService      : CommonService,
     private authService       : AuthService,
-    private sharedService     : SharedService,
+    public sharedService     : SharedService,
     public navCtrl            : NavController,
     public alertCtrl          : AlertController,
     public loadingCtrl        : LoadingController,
@@ -42,6 +43,7 @@ export class ProfilePage implements OnInit {
     private http              : HttpClient,
     private env               : EnvService,
     public modalCtrl          : ModalController,
+    public appRate            : AppRate,
   ) { }
 
   ngOnInit() {
@@ -99,6 +101,7 @@ export class ProfilePage implements OnInit {
   lihatUserStatus(user_id){
     this.sharedService.seeUserStatus(user_id)
     .subscribe(data => {
+      console.log(data);
       this.statuses = data;
       this.loading.dismiss();
     }, err => {
@@ -124,7 +127,7 @@ export class ProfilePage implements OnInit {
         text: 'Lihat Foto Profile',
         icon: 'search',
         handler: () => {
-          this.PresentImage(this.user_avatar);
+          this.PresentImage(this.user.avatar);
         }
       }, {
         text: 'Ubah Foto Profile',
@@ -231,6 +234,14 @@ export class ProfilePage implements OnInit {
       }
     });
     return await modal.present();
+  }
+
+  rateApp(){
+    this.appRate.preferences.storeAppURL = {
+      android : 'market://details?id=com.badungkab.lapor_sidumas'
+    }
+
+    this.appRate.promptForRating(true);
   }
 
 }

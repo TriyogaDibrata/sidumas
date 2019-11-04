@@ -139,6 +139,9 @@ export class SharedService {
         .subscribe(data => {
           this.user = data;
           return this.user;
+        }, err => {
+          // this.authService.logout();
+          console.log(err);
         });
     }
     return this.user;

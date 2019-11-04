@@ -22,6 +22,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { ModalImagePageModule } from './modal-image/modal-image.module';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { AppRate } from '@ionic-native/app-rate/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +48,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     CallNumber,
     SocialSharing,
     Crop,
+    AppRate,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

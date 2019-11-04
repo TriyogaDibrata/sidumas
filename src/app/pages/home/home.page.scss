@@ -47,13 +47,13 @@ ion-chip {
 
 ion-segment{
   padding-top: 10px;
+  padding-bottom: 5px;
 }
 ion-segment-button{
-  --border-color : var(--ion-color-light);
   --padding-start: 15px;
   --padding-end: 15px;
   --indicator-color-checked: rgba(0,0,0,0) !important;
-  border: 1px solid #eee;
+  border: 1px solid #737373;
   border-radius: 100px;
   margin-right: 2px;
   margin-left: 2px;
@@ -109,9 +109,6 @@ ion-slides{
 .category-chip{
   font-size: 16px;
   padding-top: 4px;
-  // ion-text{
-  //   text-transform: uppercase;
-  // }
 }
 
 .uraian {

@@ -110,14 +110,12 @@ export class LoginPage implements OnInit {
 
             this.sharedService.forgotPassword(form)
             .subscribe(data => {
-              console.log(data);
               if(data['success']){
                 this.commonService.presentAlert('Perhatian !', data['message']);
               } else {
                 this.commonService.presentAlert('Perhatian !', data['message']);
               }
             }, err => {
-              console.log(err);
               this.commonService.presentAlert('Proses Gagal', 'Terjadi kesalahan saat menyimpan data');
             });
           }

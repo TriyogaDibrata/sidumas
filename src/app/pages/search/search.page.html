@@ -19,9 +19,10 @@
 </ion-header>
 
 <ion-content class="ion-no-padding">
-  
+
   <ion-refresher pull-max="60" slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent" refreshingText="Refreshing..."></ion-refresher-content>
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent"
+      refreshingText="Refreshing..."></ion-refresher-content>
   </ion-refresher>
 
   <ion-row class="ion-justify-content-center">
@@ -36,6 +37,11 @@
         <ion-card>
           <ion-card-header>
             <ion-row>
+              <ion-col size="12" class="ion-no-padding">
+                <ion-card-title class="category">
+                  {{ list['kategori_name'] }}{{ list['subkategori_name']?' - '+list['subkategori_name']:'' }}
+                </ion-card-title>
+              </ion-col>
               <ion-col class="ion-no-padding">
                 <ion-card-subtitle>
                   <h3>#{{list.no_tiket}}</h3>
@@ -50,20 +56,17 @@
             </ion-row>
           </ion-card-header>
           <ion-card-content (click)="seeDetail(list)">
-            <ion-card-title class="category">
-              {{ list['kategori_name'] }}{{ list['subkategori_name']?' - '+list['subkategori_name']:'' }}
-            </ion-card-title>
-            <ion-card-title>
+            <ion-card-title class="topik">
               {{ list['topik'] }}
             </ion-card-title>
 
             <div class="uraian">
               <ion-row>
+                <ion-col class="ion-no-padding" *ngIf="list['file']" size="12">
+                  <img [src]="list['file']['fullpath']" />
+                </ion-col>
                 <ion-col class="ion-no-padding ion-text-wrap" size="12">
                   <p>{{ list['uraian'] | slice:0:180 }} ...</p>
-                </ion-col>
-                <ion-col *ngIf="list['file']" size="12">
-                  <img [src]="list['file']['fullpath']" />
                 </ion-col>
               </ion-row>
             </div>

@@ -12,6 +12,7 @@ export class AuthService {
 
   token       : any;
   isLoggedIn  : boolean = false;
+  FB_APP_ID   : number = 2745787252127370;
 
   constructor(
     private http            : HttpClient,

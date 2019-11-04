@@ -101,10 +101,13 @@ export class DetailLaporanPage implements OnInit {
     this.showLoading();
     this.sharedService.getComments(this.pengaduan_id)
     .subscribe(data => {
+      console.log(data);
       this.komentars = data['data'];
       this.scrollToBottom();
       this.sharedService.pengaduan.comments_count = this.komentars.length;
       this.loading.dismiss();
+    }, err => {
+      this.alertService.presentAlert('Terjadi kesalahan', 'Terjadi kesalahan saat memuat data');
     })
   }
 
@@ -112,10 +115,13 @@ export class DetailLaporanPage implements OnInit {
     this.showLoading();
     this.sharedService.getTanggapans(this.pengaduan_id)
     .subscribe(data => {
+      console.log(data);
       this.tanggapans = data['data'];
       this.scrollToBottom();
       this.sharedService.pengaduan.tanggapans_count = this.tanggapans.length;
       this.loading.dismiss();
+    }, err => {
+      this.alertService.presentAlert('Terjadi kesalahan', 'Terjadi kesalahan saat memuat data');
     })
   }
 

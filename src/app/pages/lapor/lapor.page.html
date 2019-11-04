@@ -16,22 +16,28 @@
       </ion-item>
 
       <ion-item>
-        <ion-textarea placeholder="Deskripsi Pengaduan" [(ngModel)]="uraian" rows="10" auto-grow autocapitalize></ion-textarea>
+        <ion-textarea placeholder="Deskripsi Pengaduan" [(ngModel)]="uraian" rows="10" auto-grow autocapitalize>
+        </ion-textarea>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Rahasiakan Identitas</ion-label>
+      <ion-item class="ion-no-padding">
+        <ion-label class="toggle-label">Rahasiakan Identitas</ion-label>
         <ion-toggle [(ngModel)]="hide_identity" (ngModelChange)="hide_id()"></ion-toggle>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Rahasiakan Pengaduan</ion-label>
+      <ion-item class="ion-no-padding">
+        <ion-label class="toggle-label">Rahasiakan Pengaduan</ion-label>
         <ion-toggle [(ngModel)]="hide_report" (ionChange)="hide_rp()"></ion-toggle>
       </ion-item>
 
       <ion-item (click)="chooseLocation()">
-        <ion-label position="stacked"><ion-icon name="pin" color="danger"></ion-icon> Lokasi saat ini</ion-label>
-        <ion-textarea [(ngModel)]="address" readonly></ion-textarea>
+        <ion-label position="stacked">
+          <ion-chip>
+            <ion-icon name="pin" color="danger"></ion-icon>
+            <ion-text>Pilih Lokasi</ion-text>
+          </ion-chip>
+        </ion-label>
+        <ion-textarea [(ngModel)]="address" readonly auto-grow></ion-textarea>
       </ion-item>
 
     </ion-col>

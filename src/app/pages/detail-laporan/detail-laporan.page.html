@@ -138,12 +138,12 @@
               <ion-row>
                 <ion-col size="2">
                   <ion-avatar class="ion-no-padding">
-                    <ion-img *ngIf="!tanggapan.currentuser.avatar" src="assets/icon/ico-user.png"></ion-img>
-                    <ion-img *ngIf="tanggapan.currentuser.avatar" [src]="tanggapan.currentuser.avatar"></ion-img>
+                    <ion-img *ngIf="!tanggapan.avatar" src="assets/icon/ico-user.png"></ion-img>
+                    <ion-img *ngIf="tanggapan.avatar" [src]="tanggapan.avatar"></ion-img>
                   </ion-avatar>
                 </ion-col>
                 <ion-col size="10" class="user-name">
-                  <b class="name">{{ tanggapan.currentuser.name }}</b>
+                  <b class="name">{{ tanggapan.nama }}</b>
                   <br />
                   <span>{{ tanggapan.tanggapan }}</span>
                   <ion-grid *ngIf="tanggapan.files.length > 0" class="ion-no-padding">
@@ -171,12 +171,12 @@
               <ion-row>
                 <ion-col size="2">
                   <ion-avatar class="ion-no-padding">
-                      <ion-img *ngIf="!komentar.currentuser.avatar" src="assets/icon/ico-user.png"></ion-img>
-                      <ion-img *ngIf="komentar.currentuser.avatar" [src]="komentar.currentuser.avatar"></ion-img>
+                      <ion-img *ngIf="!komentar.avatar" src="assets/icon/ico-user.png"></ion-img>
+                      <ion-img *ngIf="komentar.avatar" [src]="komentar.avatar"></ion-img>
                   </ion-avatar>
                 </ion-col>
                 <ion-col size="10" class="user-name">
-                  <b class="name">{{ komentar.currentuser.name }}</b>
+                  <b class="name">{{ komentar.nama }}</b>
                   <br />
                   <span>{{ komentar.komentar }}</span>
                   <br />

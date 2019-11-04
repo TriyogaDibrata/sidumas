@@ -105,11 +105,11 @@ export class RegisterPage implements OnInit {
         this.storage.set('token', data['token'])
         .then(
           ()=> {
-            // console.log('Token Stored');
             loading.dismiss();
             this.commonService.goTo('app/tabs/home');
+            this.commonService.presentToast('Proses registrasi berhasil, silahkan login untuk dapat masuk ke dalam sistem');
           }, err => {
-            console.log(err);
+            this.commonService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
           }
         );
       }

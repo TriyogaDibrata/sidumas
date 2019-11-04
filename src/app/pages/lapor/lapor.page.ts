@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common/common.service';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, LoadingController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
@@ -25,6 +25,7 @@ export class LaporPage implements OnInit {
   kategori_id : any;
   hide_identity: boolean = false;
   hide_report: boolean = false;
+  loading   : any;
 
   constructor( public formBuilder   : FormBuilder,
                public commonService : CommonService,
@@ -35,6 +36,7 @@ export class LaporPage implements OnInit {
                public route         : ActivatedRoute,
                public router        : Router,
                private modalCtrl    : ModalController,
+               public loadingCtrl   : LoadingController,
                ) { 
                }
 
@@ -53,6 +55,7 @@ export class LaporPage implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.showLoading();
     this.getLocation();
   }
   
@@ -64,7 +67,9 @@ export class LaporPage implements OnInit {
       this.lng = resp.coords.longitude;
       console.log(this.lat, this.lng);  
       this.geocoder(this.lat, this.lng);
+      this.loading.dismiss();
     }, err=> {
+      this.loading.dismiss();
       this.alertService.presentAlert('Tidak dapat menemukan lokasi', 'Terjadi kesalahan saat mendapatkan lokasi');
     });
   }
@@ -77,8 +82,10 @@ export class LaporPage implements OnInit {
     this.nativeGeocoder.reverseGeocode(lat, lng, options)
       .then((result: NativeGeocoderResult[]) => 
       {
+        this.loading.dismiss();
         this.address = this.generateAddress(result[0]);
-      }).catch((error: any) => console.log(error));
+      }).catch((error: any) => 
+      this.loading.dismiss());
   }
 
   //Return Comma saperated address
@@ -158,6 +165,16 @@ export class LaporPage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  async showLoading(){
+    this.loading = await this.loadingCtrl.create({
+      spinner : "dots",
+      backdropDismiss : true,
+      message : "Loading..."
+    });
+
+    await this.loading.present();
   }
 
 }
