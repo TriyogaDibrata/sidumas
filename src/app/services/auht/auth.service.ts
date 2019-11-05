@@ -4,6 +4,8 @@ import { EnvService } from '../env/env.service';
 import { Storage } from '@ionic/storage';
 import { tap } from 'rxjs/operators';
 import { CommonService } from '../common/common.service';
+import { Facebook } from '@ionic-native/facebook/ngx';
+import { AlertService } from '../alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,8 @@ export class AuthService {
     private env             : EnvService,
     private storage         : Storage,
     public commonService    : CommonService,
+    private fb              : Facebook,
+    public alertService     : AlertService,
   ) {
   }
 
@@ -70,6 +74,53 @@ export class AuthService {
       this.token = null;
       this.isLoggedIn = false;
     })
+  }
+
+  fbLogin(){
+    const permissions = ["public_profile", "email"];
+
+    this.fb.login(permissions)
+    .then(response => {
+      let UserId = response.authResponse.userID;
+      
+      this.fb.api("/me?fields=name,email", permissions)
+      .then(user => {
+        user.picture = "https://graph.facebook.com/" + UserId + "/picture?type=large";
+        let sm_type = 'facebook';
+
+        if (user){
+          return this.socialMediaLogin(user.name, user.email, sm_type, user.id, user.picture);
+        }
+        this.alertService.presentAlert('Berhasil', JSON.stringify(user));
+      })
+
+    }, err => {
+      this.alertService.presentAlert('error', JSON.stringify(err));
+    });
+  }
+
+  socialMediaLogin(name: String, email: String, social_media: String, social_id: String, avatar: String) {
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin':'*',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    return this.http.post(this.env.API_URL + 'socialmedialogin',
+      {name: name, email: email, social_media: social_media, social_id: social_id, avatar: avatar}, {headers: headers}
+    ).pipe(
+      tap(user => {
+        console.log(user);
+        this.storage.set('user', user)
+        .then(
+          () => {
+            console.log('Token Stored');
+          },
+          error => console.error('Error storing item', error)
+        );
+        this.isLoggedIn = true;
+        return user;
+      }),
+    );
   }
 
   logout(){

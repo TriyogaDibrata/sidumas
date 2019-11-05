@@ -42,23 +42,35 @@
 
           <div class="ion-text-right forgot-password"><span (click)="forgotPass()">Lupa Password ?</span></div>
 
-          <ion-button expand="block" size="medium" color="light" class="btn-login" type="submit"
+          <ion-button expand="block" size="medium" color="light" shape="round" class="btn-login" type="submit"
             [disabled]="!loginForm.valid"> Masuk </ion-button>
 
         </form>
 
-        <!-- <ion-row class="btn-group">
+        <ion-row class="mt20">
+          <ion-col size="5">
+            <div class="line"></div>
+          </ion-col>
+          <ion-col size="2">
+            <div class="ion-text-center fw700"> <ion-text color="light">Atau</ion-text> </div>
+          </ion-col>
+          <ion-col size="5">
+            <div class="line"></div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="btn-group">
           <ion-col>
-            <ion-button expand="full" shape="round">
+            <ion-button expand="block" (click)="authService.fbLogin()" shape="round">
               <ion-icon name="logo-facebook"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col>
-            <ion-button expand="full" shape="round" color="danger">
+            <ion-button expand="block" color="danger" shape="round">
               <ion-icon name="logo-google"></ion-icon>
             </ion-button>
           </ion-col>
-        </ion-row> -->
+        </ion-row>
 
         <div class="ion-text-center mt10 text1 text-white bold">
           Belum memiliki akun ?

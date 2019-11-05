@@ -4,9 +4,10 @@ import { EnvService } from 'src/app/services/env/env.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common/common.service';
-import { IonInfiniteScroll, AlertController, LoadingController } from '@ionic/angular';
+import { IonInfiniteScroll, AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { isNull } from '@angular/compiler/src/output/output_ast';
+import { HomePopoverComponent } from 'src/app/components/home-popover/home-popover.component';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,7 @@ export class HomePage implements OnInit {
     public alertCtrl        : AlertController,
     private alertService    : AlertService,
     public loadingCtrl      : LoadingController,
+    public popoverCtrl      : PopoverController,
   ) {
    }
 
@@ -55,6 +57,7 @@ export class HomePage implements OnInit {
     this.getMenuCategories();
     this.getUser();
     this.getListPengaduan();
+    this.showPopover();
   }
 
   ionViewDidEnter(){
@@ -240,5 +243,15 @@ export class HomePage implements OnInit {
     } else {
       return "danger";
     }
+  }
+
+  async showPopover(){
+    const popover = await this.popoverCtrl.create({
+      component : HomePopoverComponent,
+      animated : true,
+      showBackdrop : true
+    })
+
+    return await popover.present();
   }
 }

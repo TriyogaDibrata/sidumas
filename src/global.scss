@@ -189,3 +189,14 @@ ion-title{
 ion-refresher {
   background : #eeeeee;
 }
+
+.line {
+  width: 100%;
+  border: solid 2px #ffffff;
+  margin-top: 10px;
+}
+
+ion-popover {
+  --width : 90% !important;
+  --height: 100% !important;
+}

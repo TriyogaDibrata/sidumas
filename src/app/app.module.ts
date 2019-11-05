@@ -23,10 +23,14 @@ import { Crop } from '@ionic-native/crop/ngx';
 import { ModalImagePageModule } from './modal-image/modal-image.module';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AppRate } from '@ionic-native/app-rate/ngx';
+import { Facebook } from '@ionic-native/facebook/ngx';
+
+//component
+import { HomePopoverComponent } from './components/home-popover/home-popover.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, HomePopoverComponent],
+  entryComponents: [HomePopoverComponent],
   imports: [
     BrowserModule, 
     FormsModule,
@@ -48,6 +52,7 @@ import { AppRate } from '@ionic-native/app-rate/ngx';
     CallNumber,
     SocialSharing,
     Crop,
+    Facebook,
     AppRate,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

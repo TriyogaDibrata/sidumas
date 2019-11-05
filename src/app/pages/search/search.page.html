@@ -60,7 +60,11 @@
               {{ list['topik'] }}
             </ion-card-title>
 
-            <div class="uraian">
+            <ion-item class="ion-text-wrap" color="tertiary" *ngIf="sharedService.getUserCache().status != 1">
+                <ion-icon name="warning" slot="start" color="warning"></ion-icon> <ion-text> Akun belum terverifikasi, pengaduan tidak dapat di proses</ion-text>
+            </ion-item>
+
+            <div class="uraian mt10">
               <ion-row>
                 <ion-col class="ion-no-padding" *ngIf="list['file']" size="12">
                   <img [src]="list['file']['fullpath']" />

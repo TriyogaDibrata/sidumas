@@ -140,7 +140,6 @@ export class SharedService {
           this.user = data;
           return this.user;
         }, err => {
-          // this.authService.logout();
           console.log(err);
         });
     }

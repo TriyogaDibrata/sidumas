@@ -54,8 +54,13 @@ export class UpdateProfilePage implements OnInit {
   }
 
   takePhoto(type) {
+      let height = 800;
+      let width = 800;
+
     const options: CameraOptions = {
       quality: 100, // picture quality
+      targetWidth: width,
+      targetHeight: height, 
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -65,9 +70,9 @@ export class UpdateProfilePage implements OnInit {
     this.camera.getPicture(options).then((imageData) => {
 
       if(type === "user_photo"){
-        this.verified_foto = "data:image/jpeg;base64," + imageData;
+        this.user.verified_foto = "data:image/jpeg;base64," + imageData;
       } else {
-        this.ktp = "data:image/jpeg;base64," + imageData;
+        this.user.ktp = "data:image/jpeg;base64," + imageData;
       }
     }, (err) => {
       this.alertService.presentAlert('Gagal membuka kamera', 'Terdapat kesalahan saat membuka kamera');
@@ -75,36 +80,23 @@ export class UpdateProfilePage implements OnInit {
   }
 
   getUserInformation(){
-    let data = this.sharedService.getUserCache();
-    this.user = data;
-    this.user_id = data['id'];
-    this.name = data['name'];
-    this.email = data['email'];
-    this.bio = data['description'];
-    this.no_hp = data['no_hp'];
-    this.birthday = data['tgl_lahir'];
-    this.nik = data['nik'];
-    this.ktp = data['ktp'];
-    this.verified_foto = data['verified_foto'];
-    this.path_ktp = data['path_ktp'];
-    this.path_verified_foto = data['path_verified_foto'];
-    this.sex = data['sex'];
-    this.status = data['status'];    
+    this.user = this.sharedService.getUserCache();
+    console.log(this.user);   
   }
 
   updateProfile(){
     this.showLoading();
 
     let data = {
-      'id'            : this.user_id,
-      'name'          : this.name,
-      'description'   : this.bio,
-      'sex'           : this.sex,
-      'no_hp'         : this.no_hp,
-      'tgl_lahir'     : this.birthday,
-      'nik'           : this.nik,
-      'ktp'           : this.ktp,
-      'foto'          : this.verified_foto
+      'id'            : this.user.id,
+      'name'          : this.user.name,
+      'description'   : this.user.description,
+      'sex'           : this.user.sex,
+      'no_hp'         : this.user.no_hp,
+      'tgl_lahir'     : this.user.tgl_lahir,
+      'nik'           : this.user.nik,
+      'ktp'           : this.user.ktp,
+      'foto'          : this.user.verified_foto
     }
     
     this.sharedService.updateProfileUser(data)
@@ -117,7 +109,7 @@ export class UpdateProfilePage implements OnInit {
         }
     }, err => {
         this.loading.dismiss();
-        this.alertService.presentAlert('Oooops', err);
+        this.alertService.presentAlert('Oooops', JSON.stringify(err));
         this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
     });
   }

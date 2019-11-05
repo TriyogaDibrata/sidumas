@@ -16,15 +16,15 @@
       <ion-list class="ion-padding">
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Nama</ion-label>
-          <ion-input type="text" [(ngModel)]="name"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.name"></ion-input>
         </ion-item>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="email"></ion-input>
+          <ion-input type="email" [(ngModel)]="user.email"></ion-input>
         </ion-item>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Bio</ion-label>
-          <ion-textarea type="text" [(ngModel)]="bio"></ion-textarea>
+          <ion-textarea type="text" [(ngModel)]="user.description"></ion-textarea>
         </ion-item>
       </ion-list>
 
@@ -33,7 +33,7 @@
       </ion-item-divider>
       <ion-list class="ion-padding">
         <ion-list class="ion-no-padding">
-          <ion-radio-group [(ngModel)]="sex" class="ion-no-padding">
+          <ion-radio-group [(ngModel)]="user.sex" class="ion-no-padding">
             <ion-list-header class="ion-no-padding">
               <ion-label>Jenis Kelamin</ion-label>
             </ion-list-header>
@@ -51,26 +51,26 @@
         </ion-list>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">No. HP</ion-label>
-          <ion-input type="tel" [(ngModel)]="no_hp"></ion-input>
+          <ion-input type="tel" [(ngModel)]="user.no_hp"></ion-input>
         </ion-item>
-        <ion-item *ngIf="status==0" class="ion-no-padding">
+        <ion-item *ngIf="user.status==0" class="ion-no-padding">
           <ion-label color="dark" position="stacked">Tanggal Lahir</ion-label>
-          <ion-datetime display-format="DD MMMM YYYY" [(ngModel)]="birthday"></ion-datetime>
+          <ion-datetime display-format="DD MMMM YYYY" [(ngModel)]="user.tgl_lahir"></ion-datetime>
         </ion-item>
-        <ion-item *ngIf="status==0" class="ion-no-padding">
+        <ion-item *ngIf="user.status==0" class="ion-no-padding">
           <ion-label position="stacked">NIK</ion-label>
-          <ion-input type="number" [(ngModel)]="nik"></ion-input>
+          <ion-input type="number" [(ngModel)]="user.nik"></ion-input>
         </ion-item>
-        <ion-row *ngIf="status==0">
+        <ion-row *ngIf="user.status==0">
           <ion-col class="ion-margin ion-text-center" (click)="takePhoto('user_photo')">
-            <ion-img [src]="verified_foto" *ngIf="verified_foto"></ion-img>
-            <ion-chip [hidden]="verified_foto"><ion-icon name="contact"></ion-icon> <ion-label>Upload Foto</ion-label></ion-chip>
-            <ion-label [hidden]="!verified_foto">Foto Pengguna</ion-label>
+            <ion-img [src]="user.verified_foto" *ngIf="user.verified_foto"></ion-img>
+            <ion-chip [hidden]="user.verified_foto"><ion-icon name="contact"></ion-icon> <ion-label>Upload Foto</ion-label></ion-chip>
+            <ion-label [hidden]="!user.verified_foto">Foto Pengguna</ion-label>
           </ion-col>
           <ion-col class="ion-margin ion-text-center" (click)="takePhoto('id_photo')">
-            <ion-img [src]="ktp" *ngIf="ktp"></ion-img>
-            <ion-chip [hidden]="ktp"><ion-icon name="card"></ion-icon> <ion-label>Upload Foto Ktp</ion-label></ion-chip>
-            <ion-label [hidden]="!ktp">Foto KTP</ion-label>
+            <ion-img [src]="user.ktp" *ngIf="user.ktp"></ion-img>
+            <ion-chip [hidden]="user.ktp"><ion-icon name="card"></ion-icon> <ion-label>Upload Foto Ktp</ion-label></ion-chip>
+            <ion-label [hidden]="!user.ktp">Foto KTP</ion-label>
           </ion-col>
         </ion-row>
       </ion-list>
