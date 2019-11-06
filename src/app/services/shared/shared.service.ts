@@ -318,7 +318,8 @@ export class SharedService {
       .subscribe((data) => {
         this.notif = data;
       }, err => {
-        this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
+        console.log('err');
+        // this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
       });
   }
 
