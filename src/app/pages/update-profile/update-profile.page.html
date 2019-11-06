@@ -55,7 +55,7 @@
         </ion-item>
         <ion-item *ngIf="user.status==0" class="ion-no-padding">
           <ion-label color="dark" position="stacked">Tanggal Lahir</ion-label>
-          <ion-datetime display-format="DD MMMM YYYY" [(ngModel)]="user.tgl_lahir"></ion-datetime>
+          <ion-datetime display-format="DD MMMM YYYY" [monthNames]="customMonthNames" [(ngModel)]="user.tgl_lahir"></ion-datetime>
         </ion-item>
         <ion-item *ngIf="user.status==0" class="ion-no-padding">
           <ion-label position="stacked">NIK</ion-label>

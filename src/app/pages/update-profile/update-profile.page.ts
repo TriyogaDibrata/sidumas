@@ -29,6 +29,8 @@ export class UpdateProfilePage implements OnInit {
   status        : any;
   loading       : any;
 
+  customMonthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
   constructor(private camera          : Camera,
               private sharedService   : SharedService,
               public loadingCtrl      : LoadingController,

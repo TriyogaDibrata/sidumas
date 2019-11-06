@@ -80,7 +80,6 @@ export class ProfilePage implements OnInit {
   }
 
   logout(sm_type : any){
-    this.showLoading();
     if(!sm_type){
       this.authService.logout().then(
         () => {
