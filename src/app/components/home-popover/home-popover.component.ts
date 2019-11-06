@@ -11,6 +11,7 @@ export class HomePopoverComponent implements OnInit {
 
   url: any = null;
   bgcolor: any = '#fff';
+  textcolor: any = '#000';
 
   constructor(
     public popoverCtrl      : PopoverController,
@@ -34,10 +35,12 @@ export class HomePopoverComponent implements OnInit {
 
         this.url = this.sharedService.banners.popover.url;
         this.bgcolor = this.sharedService.banners.popover.bgcolor;
+        this.textcolor = this.sharedService.banners.popover.textcolor;
       });
     }else{
       this.url = this.sharedService.banners.popover.url;
       this.bgcolor = this.sharedService.banners.popover.bgcolor;
+      this.textcolor = this.sharedService.banners.popover.textcolor;
     }
   }
 }
