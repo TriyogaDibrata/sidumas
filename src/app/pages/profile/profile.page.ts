@@ -55,7 +55,7 @@ export class ProfilePage implements OnInit {
     this.showLoading();
   }
 
-  async presentAlertConfirm() {
+  async presentAlertConfirm(sm_type : any) {
     const alert = await this.alertCtrl.create({
       header: 'Perhatian!',
       message: 'Apakah anda yakin ingin keluar ?',
@@ -70,7 +70,7 @@ export class ProfilePage implements OnInit {
         }, {
           text: 'Ya',
           handler: () => {
-            this.logout();
+            this.logout(sm_type);
           }
         }
       ]
@@ -79,9 +79,22 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
-  logout(){
-    this.sharedService.user = null;
-    this.authService.logout();
+  logout(sm_type : any){
+    this.showLoading();
+    if(!sm_type){
+      this.authService.logout().then(
+        () => {
+          this.sharedService.user = null;
+          this.alertService.presentToast("You're logged out");
+        });
+    } else if(sm_type === "facebook"){
+      this.authService.doFbLogout().then(
+        () => {
+          this.sharedService = null;
+          this.alertService.presentToast("You're logged out");
+        }
+      );
+    }
   }
 
   getUser(){

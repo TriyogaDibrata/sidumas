@@ -7,7 +7,7 @@
   <div class="profile-header">
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6" size-x="6">
-        <ion-chip class="ion-float-right" (click)="presentAlertConfirm()">
+        <ion-chip class="ion-float-right" (click)="presentAlertConfirm(sharedService.getUserCache().social_media)">
           <ion-icon name="log-out" color="light"></ion-icon>
           <ion-label color="light">Keluar</ion-label>
         </ion-chip>

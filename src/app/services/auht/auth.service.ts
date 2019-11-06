@@ -21,8 +21,8 @@ export class AuthService {
     private env             : EnvService,
     private storage         : Storage,
     public commonService    : CommonService,
-    private fb              : Facebook,
     public alertService     : AlertService,
+    public fb               : Facebook,
   ) {
   }
 
@@ -76,29 +76,6 @@ export class AuthService {
     })
   }
 
-  fbLogin(){
-    const permissions = ["public_profile", "email"];
-
-    this.fb.login(permissions)
-    .then(response => {
-      let UserId = response.authResponse.userID;
-      
-      this.fb.api("/me?fields=name,email", permissions)
-      .then(user => {
-        user.picture = "https://graph.facebook.com/" + UserId + "/picture?type=large";
-        let sm_type = 'facebook';
-
-        if (user){
-          return this.socialMediaLogin(user.name, user.email, sm_type, user.id, user.picture);
-        }
-        this.alertService.presentAlert('Berhasil', JSON.stringify(user));
-      })
-
-    }, err => {
-      this.alertService.presentAlert('error', JSON.stringify(err));
-    });
-  }
-
   socialMediaLogin(name: String, email: String, social_media: String, social_id: String, avatar: String) {
     let headers = new HttpHeaders({
       'Access-Control-Allow-Origin':'*',
@@ -108,17 +85,20 @@ export class AuthService {
     return this.http.post(this.env.API_URL + 'socialmedialogin',
       {name: name, email: email, social_media: social_media, social_id: social_id, avatar: avatar}, {headers: headers}
     ).pipe(
-      tap(user => {
-        console.log(user);
-        this.storage.set('user', user)
+      tap(data => {
+        console.log(data);
+        this.storage.set('token', data['token'])
         .then(
           () => {
             console.log('Token Stored');
           },
           error => console.error('Error storing item', error)
         );
+        this.token = data['token'];
         this.isLoggedIn = true;
-        return user;
+        return data['token'];
+      }, err => {
+        console.log(err);
       }),
     );
   }
@@ -135,5 +115,23 @@ export class AuthService {
         console.log(err);
       });
   }
+
+  doFbLogout(){
+		return this.fb.logout()
+		.then(res =>{
+			this.storage.remove('token')
+    .then(
+      ()=> {
+        this.storage.clear();
+        this.isLoggedIn = false;
+        this.token = null;
+        this.commonService.goTo('login');
+      }, err => {
+        console.log(err);
+      });
+		}, error =>{
+			console.log(error);
+		});
+	}
 
 }
