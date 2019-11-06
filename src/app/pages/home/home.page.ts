@@ -47,6 +47,9 @@ export class HomePage implements OnInit {
    }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.showPopover();
+    }, 2000);
   }
 
   ionViewWillEnter(){
@@ -57,7 +60,6 @@ export class HomePage implements OnInit {
     this.getMenuCategories();
     this.getUser();
     this.getListPengaduan();
-    this.showPopover();
   }
 
   ionViewDidEnter(){
@@ -229,7 +231,8 @@ export class HomePage implements OnInit {
       this.sharedService.getBanners()
       .subscribe(data => {
         this.sharedService.banners.get = 1;
-        this.sharedService.banners.data = data;
+        this.sharedService.banners = data;
+
         this.banners = this.sharedService.banners.data;
       });
     }else{
@@ -246,12 +249,22 @@ export class HomePage implements OnInit {
   }
 
   async showPopover(){
-    const popover = await this.popoverCtrl.create({
-      component : HomePopoverComponent,
-      animated : true,
-      showBackdrop : true
-    })
+    if(this.sharedService.banners.get == 0){
+      setTimeout(() => {
+        this.showPopover();
+      }, 2000);
+    }else{
+      if(this.sharedService.banners.popover != null){
+        const popover = await this.popoverCtrl.create({
+          component : HomePopoverComponent,
+          animated : true,
+          showBackdrop : true
+        })
 
-    return await popover.present();
+        return await popover.present();
+      }
+
+      return null;
+    }
   }
 }

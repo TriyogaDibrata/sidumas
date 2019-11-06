@@ -14,7 +14,7 @@ export class SharedService {
   headers: any;
   notif: any = { news: 0 };
   user: any = null;
-  banners: any = { get: 0, data: [] };
+  banners: any = { get: 0, data: [], popover: {} };
   pengaduan: any;
 
   constructor(
