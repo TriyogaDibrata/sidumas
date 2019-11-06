@@ -3,6 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { LoadingController, NavController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-update-profile',
@@ -53,14 +54,32 @@ export class UpdateProfilePage implements OnInit {
     await this.loading.present();
   }
 
+  checkChange() {
+    if(this.user.status==1){
+        this.alertService.presentAlert('Sudah Terverifikasi', 'Informasi ini tidak dapat diubah kembali.');
+        return false;
+    }
+    return true;
+  }
+
+  notEditableDate() {
+    moment.locale('id');
+    return moment(this.user.tgl_lahir).format('DD MMMM YYYY');
+  }
+
   takePhoto(type) {
-      let height = 800;
-      let width = 800;
+    if(this.user.status==1){
+        this.alertService.presentAlert('Sudah Terverifikasi', 'Informasi ini tidak dapat diubah kembali.');
+        return false;
+    }
+
+    let height = 800;
+    let width = 800;
 
     const options: CameraOptions = {
       quality: 100, // picture quality
       targetWidth: width,
-      targetHeight: height, 
+      targetHeight: height,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -81,7 +100,7 @@ export class UpdateProfilePage implements OnInit {
 
   getUserInformation(){
     this.user = this.sharedService.getUserCache();
-    console.log(this.user);   
+    console.log(this.user);
   }
 
   updateProfile(){
@@ -98,7 +117,7 @@ export class UpdateProfilePage implements OnInit {
       'ktp'           : this.user.ktp,
       'foto'          : this.user.verified_foto
     }
-    
+
     this.sharedService.updateProfileUser(data)
     .subscribe(data => {
         if(data['success']){
