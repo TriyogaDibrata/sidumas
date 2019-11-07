@@ -49,13 +49,14 @@ export class NotificationsPage implements OnInit {
       this.sharedService.notif.news = 0;
       this.loading.dismiss();
     }, err => {
-      console.log(err);
+      this.alertService.presentAlert('Gagal memuat data', 'Terdapat kesalahan saat memuat data');
     });
   }
 
   doRefresh(event){
     this.sharedService.getNotifs(this.user.id, this.page, 1)
     .subscribe((data: any[]) => {
+      this.notifs = [];
       if(data.length > 0){
         this.transformData(data);
       }
