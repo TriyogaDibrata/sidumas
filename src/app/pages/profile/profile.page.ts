@@ -106,6 +106,10 @@ export class ProfilePage implements OnInit {
     this.navCtrl.navigateForward(['/update-profile', id]);
   }
 
+  about(){
+    this.navCtrl.navigateForward(['/about']);
+  }
+
   update_password(id){
     this.navCtrl.navigateForward(['/update-password', id]);
   }

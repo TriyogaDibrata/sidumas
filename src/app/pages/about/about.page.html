@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>about</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tentang Sidumas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-img class="logo" src="https://sidumas.badungkab.go.id/assets/images/logo-badung.png"></ion-img>
+
+  <div class="ion-text-center">
+    <ion-text class="fw800 text12">{{ AppName }}</ion-text>
+  </div>
+  <div class="ion-text-center">
+    Version {{ VersionNumber }}
+  </div>
+  <div class="ion-text-center mt20">
+    <ion-text>Developed by</ion-text>
+    <br/>
+    <ion-text class="fw500 text1">Dinas Komunikasi dan Informatika Kabupaten Badung</ion-text>
+    <br/>
+    <ion-text class="text08"><ion-icon name="mail" color="medium"></ion-icon> dev.badungkab@gmail.com</ion-text>
+  </div>
 
 </ion-content>
