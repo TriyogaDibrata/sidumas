@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  
+
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent" refreshingText="Refreshing..."></ion-refresher-content>
   </ion-refresher>
@@ -27,6 +27,8 @@
         {{notif.ddmmm}}
       </ion-col>
       <ion-col class="notif-label" size="10">
+        <ion-text *ngIf="notif.tipe==0 && notif.user!=null" class="notif-name" color="dark">{{notif.user}}</ion-text>
+        <ion-text *ngIf="notif.tipe==1 && notif.adminuser!=null" class="notif-name" color="dark">{{notif.adminuser}}</ion-text>
         {{notif.title}}
       </ion-col>
     </ion-row>
