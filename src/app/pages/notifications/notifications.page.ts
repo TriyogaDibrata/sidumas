@@ -118,4 +118,10 @@ export class NotificationsPage implements OnInit {
 
     await this.loading.present();
   }
+
+  redirectTo(page){
+    if(page != null) {      
+      this.commonService.goForward(page);
+    }
+  }
 }

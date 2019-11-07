@@ -23,10 +23,10 @@
       <ion-col *ngIf="notif.group" class="notif-divider" size="12">
         {{notif.mmmmyy}}
       </ion-col>
-      <ion-col class="notif-date" size="2">
+      <ion-col class="notif-date" size="2" (click)="redirectTo(notif.redirect_mobile)">
         {{notif.ddmmm}}
       </ion-col>
-      <ion-col class="notif-label" size="10">
+      <ion-col class="notif-label" size="10" (click)="redirectTo(notif.redirect_mobile)">
         <ion-text *ngIf="notif.tipe==0 && notif.user!=null" class="notif-name" color="dark">{{notif.user}}</ion-text>
         <ion-text *ngIf="notif.tipe==1 && notif.adminuser!=null" class="notif-name" color="dark">{{notif.adminuser}}</ion-text>
         {{notif.title}}
