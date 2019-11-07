@@ -25,6 +25,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AppRate } from '@ionic-native/app-rate/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 //component
 import { HomePopoverComponent } from './components/home-popover/home-popover.component';
@@ -55,6 +56,7 @@ import { HomePopoverComponent } from './components/home-popover/home-popover.com
     Toast,
     Crop,
     Facebook,
+    AppVersion,
     AppRate,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

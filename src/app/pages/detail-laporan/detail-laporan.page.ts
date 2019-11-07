@@ -119,7 +119,7 @@ export class DetailLaporanPage implements OnInit {
       console.log(data);
       this.tanggapans = data['data'];
       this.scrollToBottom();
-      // this.sharedService.pengaduan.tanggapans_count = this.tanggapans.length;
+      this.sharedService.pengaduan.tanggapans_count = this.tanggapans.length;
       this.loading.dismiss();
     }, err => {
       this.alertService.presentAlert('Terjadi kesalahan', 'Terjadi kesalahan saat memuat data');

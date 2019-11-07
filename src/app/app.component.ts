@@ -39,7 +39,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
 
-    this.backButtonEvent();
+    // this.backButtonEvent();
   }
 
   initializeApp() {
