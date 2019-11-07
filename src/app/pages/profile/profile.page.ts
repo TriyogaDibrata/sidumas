@@ -194,7 +194,7 @@ export class ProfilePage implements OnInit {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      
+
       if(imageData){
         this.base64Image = "data:image/jpeg;base64," + imageData;
             let data = {
@@ -222,20 +222,20 @@ export class ProfilePage implements OnInit {
   doRefresh(event){
     this.token = this.authService.token;
 
-      let headers = new HttpHeaders ({
-        'Accept'        : 'application/json',
-        'Content-Type'  : 'application/json',
-        'Authorization' : 'Bearer ' + this.token,
-      });
+    let headers = new HttpHeaders ({
+      'Accept'        : 'application/json',
+      'Content-Type'  : 'application/json',
+      'Authorization' : 'Bearer ' + this.token,
+    });
 
-      this.user = this.http.get(this.env.API_URL + 'user', {headers : headers})
-      .subscribe(data => {
-        this.user = data;
-        event.target.complete();
-      }, err => {
-        this.alertService.presentAlert('Gagal memuat data', 'Terdapat kesalahan saat memuat data');
-        event.target.complete();
-      });
+    this.http.get(this.env.API_URL + 'user', {headers : headers})
+    .subscribe(data => {
+      this.user = data;
+      event.target.complete();
+    }, err => {
+      this.alertService.presentAlert('Gagal memuat data', 'Terdapat kesalahan saat memuat data');
+      event.target.complete();
+    });
   }
 
   async PresentImage(image: any){
