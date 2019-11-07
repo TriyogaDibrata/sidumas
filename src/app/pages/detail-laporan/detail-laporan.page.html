@@ -132,7 +132,9 @@
           <div class="ion-text-center" *ngIf="!tanggapans">
             <ion-spinner></ion-spinner>
           </div>
-          <div *ngIf="tanggapans.length < 1" class="ion-text-center">Belum Ada Tindak Lanjut</div>
+          <div *ngIf="tanggapans.length < 1" class="ion-text-center text-padding">
+            <ion-text><ion-icon name="ios-swap"></ion-icon> Belum Ada Tindak Lanjut</ion-text>
+          </div>
           <ion-list *ngFor="let tanggapan of tanggapans">
             <div class="comment-wrapper">
               <ion-row>
@@ -159,13 +161,28 @@
               </ion-row>
             </div>
           </ion-list>
+          <ion-toolbar class="toolbar-comment" color="light" *ngIf="sharedService.getUserCache().id == data.user_id">
+            <ion-row class="ion-no-padding ion-align-items-center">
+              <ion-col size="10">
+                <ion-textarea class="message-input" rows="2" [(ngModel)]="tanggapan_user" placeholder="Masukan Tanggapan"></ion-textarea>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button expand="block" fill="clear" color="primary" [disabled]="tanggapan_user === ''" class="msg-btn"
+                  (click)="addTanggapan()">
+                  <ion-icon name="send" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-toolbar>
         </div>
 
         <div class="komentars" [hidden]="!showKomentars">
           <div class="ion-text-center" *ngIf="!komentars">
             <ion-spinner></ion-spinner>
           </div>
-          <div class="ion-text-center" *ngIf="komentars.length < 1">Belum Ada Komentar</div>
+          <div class="ion-text-center text-padding" *ngIf="komentars.length < 1">
+            <ion-text><ion-icon name="ios-chatbubbles"></ion-icon> Belum Ada Komentar</ion-text>
+          </div>
           <ion-list *ngFor="let komentar of komentars">
             <div class="comment-wrapper">
               <ion-row>

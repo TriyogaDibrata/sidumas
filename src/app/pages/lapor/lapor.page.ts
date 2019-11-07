@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common/common.service';
-import { NavController, ModalController, LoadingController } from '@ionic/angular';
+import { NavController, ModalController, LoadingController, Platform } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
@@ -37,7 +37,9 @@ export class LaporPage implements OnInit {
                public router        : Router,
                private modalCtrl    : ModalController,
                public loadingCtrl   : LoadingController,
+               public platform      : Platform,
                ) { 
+                 this.backButtonEvent();
                }
 
   ngOnInit() {
@@ -175,6 +177,14 @@ export class LaporPage implements OnInit {
     });
 
     await this.loading.present();
+  }
+
+  backButtonEvent(){
+    this.platform.backButton.subscribe(
+      data => {
+        this.modalCtrl.dismiss();
+      }
+    )
   }
 
 }

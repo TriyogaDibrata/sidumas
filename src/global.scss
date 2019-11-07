@@ -200,3 +200,14 @@ ion-popover {
   --width : 80% !important;
   --height: 60% !important;
 }
+
+
+.text-padding {
+  padding : 40px;
+}
+
+.toolbar-comment {
+ ion-row {
+   --background : var(--ion-color-danger);
+ }
+}

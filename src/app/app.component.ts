@@ -1,6 +1,6 @@
 import { Component, ViewChildren, QueryList } from '@angular/core';
 
-import { Platform, ModalController, MenuController, ActionSheetController, PopoverController, ToastController, IonRouterOutlet } from '@ionic/angular';
+import { Platform, ModalController, MenuController, ActionSheetController, PopoverController, ToastController, IonRouterOutlet, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from 'src/app/services/shared/shared.service';
@@ -34,9 +34,12 @@ export class AppComponent {
     private actionSheetCtrl: ActionSheetController,
     private popoverCtrl: PopoverController,
     private router: Router,
-    private toast: Toast
+    private toast: Toast,
+    public alertCtrl : AlertController,
   ) {
     this.initializeApp();
+
+    this.backButtonEvent();
   }
 
   initializeApp() {
@@ -57,6 +60,42 @@ export class AppComponent {
 
     this.platform.resume.subscribe(() => {
       this.sharedService.getNewNotif();
+    });
+  }
+
+  backButtonEvent() {
+    this.platform.backButton.subscribeWithPriority(0, () => {
+      this.routerOutlets.forEach(async(outlet: IonRouterOutlet) => {
+        console.log(this.router.url);
+        if (this.router.url != '/tabs/home') {
+          await this.router.navigate(['/tabs/home']);
+        } else if (this.router.url === '/tabs/home') {
+          if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
+            this.lastTimeBackPress = new Date().getTime();
+            this.presentAlertConfirm();
+          } else {
+            navigator['app'].exitApp();
+          }
+        }
+      });
+    });
+  }
+  
+  async presentAlertConfirm() {
+    const alert = await this.alertCtrl.create({
+      // header: 'Confirm!',
+      message: 'Are you sure you want to exit the app?',
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {}
+      }, {
+        text: 'Close App',
+        handler: () => {
+          navigator['app'].exitApp();
+        }
+      }]
     });
   }
 }

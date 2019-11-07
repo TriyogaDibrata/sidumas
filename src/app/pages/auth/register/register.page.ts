@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { Storage } from '@ionic/storage';
+import { SharedService } from 'src/app/services/shared/shared.service';
+import { Facebook } from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +27,8 @@ export class RegisterPage implements OnInit {
     public loadingCtrl   : LoadingController,
     private authService  : AuthService,
     private storage      : Storage,
+    private sharedService: SharedService,
+    private fb           : Facebook,
   ) { }
 
   ngOnInit() {
@@ -118,5 +122,41 @@ export class RegisterPage implements OnInit {
       this.commonService.presentAlert('Daftar Gagal', errors[Object.keys(errors)[0]]);
       loading.dismiss();
     })
+  }
+
+  async fbLogin(){
+    const permissions = ["public_profile", "email"];
+
+    const loading = await this.loadingCtrl.create({
+      message: "Mohon Menunggu ..."
+    });
+
+    this.fb.login(permissions)
+    .then(response => {
+      let UserId = response.authResponse.userID;
+      
+      this.fb.api("/me?fields=name,email", permissions)
+      .then(user => {
+        user.picture = "https://graph.facebook.com/" + UserId + "/picture?type=large";
+        let sm_type = 'facebook';
+
+        if (user){
+          this.authService.socialMediaLogin(user.name, user.email, sm_type, user.id, user.picture)
+          .subscribe(data => {
+            if (data){
+              this.sharedService.getUserCache(true);
+              this.commonService.presentToast('Login Berhasil');
+              this.commonService.goTo('app/tabs/home');
+              loading.dismiss();
+            }
+          }, err => {
+            this.commonService.presentAlert('Login Gagal', 'Terjadi kesalahan saat proses login');
+          });
+        }
+      })
+
+    }, err => {
+      this.commonService.presentAlert('Login Gagal', 'Terjadi kesalahan saat proses login');
+    });
   }
 }

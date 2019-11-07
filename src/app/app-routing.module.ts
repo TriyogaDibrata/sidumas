@@ -48,6 +48,7 @@ const routes: Routes = [
   { path: 'detail-project/:id', loadChildren: './pages/detail-project/detail-project.module#DetailProjectPageModule' },
   { path: 'modal-places', loadChildren: './modal-places/modal-places.module#ModalPlacesPageModule' },
   { path: 'modal-image', loadChildren: './modal-image/modal-image.module#ModalImagePageModule' },
+  { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
 ];
 @NgModule({
   imports: [

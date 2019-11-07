@@ -231,6 +231,19 @@ export class SharedService {
       .pipe();
   }
 
+  postTanggapan(data) {
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token,
+    });
+
+    return this.http.post(this.env.API_URL + 'pengaduan/tanggapan', data, { headers: this.headers })
+      .pipe();
+  }
+
   seeUserStatus(user_id) {
     this.token = this.authService.token;
 

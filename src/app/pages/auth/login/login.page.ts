@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common/common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
     private sharedService: SharedService,
     public alertCtrl     : AlertController,
     private fb           : Facebook,
+    public navCtrl       : NavController,
   ) { }
 
   ngOnInit() {
@@ -54,8 +55,8 @@ export class LoginPage implements OnInit {
     this.hide_password = true;
   }
 
-  goTo(page : String){
-    this.commonService.goTo(page);
+  goTo(page){
+    this.navCtrl.navigateForward(page);
   }
 
   async showLoading(loading) {

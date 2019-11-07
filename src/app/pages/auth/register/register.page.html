@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="goTo('login')">
-        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
-      </ion-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Daftar</ion-title>
   </ion-toolbar>
@@ -108,8 +106,8 @@
 
         <ion-row class="button-group">
           <ion-col>
-            <ion-button expand="full" shape="round">
-              <ion-icon name="logo-facebook"></ion-icon>
+            <ion-button expand="full" shape="round" (click)="fbLogin()">
+              <ion-icon name="logo-facebook" size="large"></ion-icon> Daftar dengan Facebook
             </ion-button>
           </ion-col>
           <!-- <ion-col>

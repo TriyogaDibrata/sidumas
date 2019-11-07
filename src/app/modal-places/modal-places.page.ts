@@ -39,16 +39,16 @@ export class ModalPlacesPage implements OnInit {
   token: any;
 
   constructor(public modalCtrl      : ModalController,
-    private alert: AlertService,
-    private navCtrl: NavController,
-    private storage: Storage,
-    private geolocation: Geolocation,
-    public plt: Platform,
-    public googleMaps: GoogleMaps,
-    public loadingCtrl: LoadingController,
-    public zone: NgZone,
-    private authService: AuthService,
-    private router: Router) { 
+    private alert                   : AlertService,
+    private navCtrl                 : NavController,
+    private storage                 : Storage,
+    private geolocation             : Geolocation,
+    public plt                      : Platform,
+    public googleMaps               : GoogleMaps,
+    public loadingCtrl              : LoadingController,
+    public zone                     : NgZone,
+    private authService             : AuthService,
+    private router                  : Router) { 
       this.geocoder = new google.maps.Geocoder;
       let elem = document.createElement("div")
       this.GooglePlaces = new google.maps.places.PlacesService(elem);

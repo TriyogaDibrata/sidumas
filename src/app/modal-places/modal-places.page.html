@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-searchbar style="z-index: 99;" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
-      placeholder="Search for a place" name="autocomplete">
+      placeholder="Cari lokasi" name="autocomplete">
     </ion-searchbar>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
-        <ion-icon name="checkmark"></ion-icon>
+        <ion-icon name="checkmark-circle" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

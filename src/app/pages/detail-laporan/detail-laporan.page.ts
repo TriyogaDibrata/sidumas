@@ -36,6 +36,7 @@ export class DetailLaporanPage implements OnInit {
   count_dukungans : any;
   files : any;
   komentar_user : any;
+  tanggapan_user : any;
   statusShow : any;
   hide_info : boolean = false;
 
@@ -118,7 +119,7 @@ export class DetailLaporanPage implements OnInit {
       console.log(data);
       this.tanggapans = data['data'];
       this.scrollToBottom();
-      this.sharedService.pengaduan.tanggapans_count = this.tanggapans.length;
+      // this.sharedService.pengaduan.tanggapans_count = this.tanggapans.length;
       this.loading.dismiss();
     }, err => {
       this.alertService.presentAlert('Terjadi kesalahan', 'Terjadi kesalahan saat memuat data');
@@ -172,6 +173,27 @@ export class DetailLaporanPage implements OnInit {
         this.alertService.presentToast(data['message']);
         this.komentar_user = '';
         this.getComments();
+      } else {
+        this.alertService.presentAlert('Perhatian', data['message']);
+      }
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  addTanggapan(){
+    let data = {
+      'user_id' : this.user['id'],
+      'pengaduan_id'  : this.pengaduan_id,
+      'tanggapan'  : this.tanggapan_user
+    }
+
+    this.sharedService.postTanggapan(data)
+    .subscribe(data => {
+      if(data['success']){
+        this.alertService.presentToast(data['message']);
+        this.tanggapan_user = '';
+        this.getTanggapans();
       } else {
         this.alertService.presentAlert('Perhatian', data['message']);
       }

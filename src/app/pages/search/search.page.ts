@@ -62,6 +62,7 @@ export class SearchPage implements OnInit {
   doRefresh(event){
     this.showLoading();
     this.iScroll.page = 0;
+    this.iScroll.enable = 1;
     this.sharedService.myList(this.user['id'], this.segment.value, this.iScroll.page)
     .subscribe(data => {
       this.lists = data['data'];
