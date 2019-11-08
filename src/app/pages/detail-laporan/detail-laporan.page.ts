@@ -172,6 +172,7 @@ export class DetailLaporanPage implements OnInit {
       if(data['success']){
         this.alertService.presentToast(data['message']);
         this.komentar_user = '';
+        this.getDetail();
         this.getComments();
       } else {
         this.alertService.presentAlert('Perhatian', data['message']);
@@ -193,6 +194,7 @@ export class DetailLaporanPage implements OnInit {
       if(data['success']){
         this.alertService.presentToast(data['message']);
         this.tanggapan_user = '';
+        this.getDetail();
         this.getTanggapans();
       } else {
         this.alertService.presentAlert('Perhatian', data['message']);

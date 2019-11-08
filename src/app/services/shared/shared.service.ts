@@ -386,4 +386,21 @@ export class SharedService {
     return this.http.post(this.env.API_URL + 'lupapassword', data, { headers: this.headers })
       .pipe();
   }
+
+  getDesaID(lat: any, lng: any) {
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token,
+    });
+
+    let data = {
+      'lat'   : lat,
+      'lng'   : lng
+    }
+    return this.http.get(this.env.API_URL + 'pengaduan/desa?lat='+lat+'&lng='+lng, { headers: this.headers })
+      .pipe();
+  }
 }

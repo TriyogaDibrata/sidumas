@@ -73,6 +73,7 @@ export class HomePage implements OnInit {
   getListPengaduan(){
     this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
     .subscribe(data => {
+      console.log(data);
       this.lists = data['data'];
       this.loading.dismiss();
     });

@@ -22,6 +22,7 @@ export class LaporTinjauPage implements OnInit {
   lat        : number;
   lng        : number;
   nama_kategori : any;
+  desa       : any = {};
 
   slideOpts = {
     initialSlide: 0,
@@ -47,6 +48,7 @@ export class LaporTinjauPage implements OnInit {
     this.lat = this.dataUraian['lat'];
     this.lng = this.dataUraian['lng'];
     this.getCategoryName(this.dataUraian['kategori_id']);
+    this.getDesa(this.lat, this.lng);
   }
 
   closeTag(){
@@ -96,6 +98,15 @@ export class LaporTinjauPage implements OnInit {
     });
   }
 
+  getDesa(lat, lng){
+    this.sharedService.getDesaID(lat, lng).subscribe(data => {
+      console.log(data);
+      this.desa = data;
+    }, err => {
+      console.log(err);
+    })
+  }
+
   sendData(){
     this.showLoading();
     let data = {
@@ -110,7 +121,8 @@ export class LaporTinjauPage implements OnInit {
       'hide_pengaduan': this.dataUraian['hide_report'],
       'email': this.user['email'],
       'kategori_id': this.dataUraian['kategori_id'],
-      'files' : this.dataFiles
+      'files' : this.dataFiles,
+      'opd_id' : this.desa.opd_id,
     };
 
     console.log(data);
