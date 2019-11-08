@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { IonContent, NavController, LoadingController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CommonService } from 'src/app/services/common/common.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-detail-laporan',
@@ -47,11 +48,14 @@ export class DetailLaporanPage implements OnInit {
   komentar_color : any = "none";
   user : any = {};
   color_vote : any = "none";
+  disabled_button : boolean = true;
 
   slideOpts = {
     initialSlide: 0,
     speed: 400
   };
+
+  commentForm   : FormGroup;
 
   constructor(private route         : ActivatedRoute,
               private router        : Router,
@@ -61,14 +65,26 @@ export class DetailLaporanPage implements OnInit {
               public socialSharing  : SocialSharing,
               public loadingCtrl    : LoadingController,
               public commonService  : CommonService,
-              ) { }
+              public formBuilder    : FormBuilder,
+              ) { 
+                if(this.komentar_user !== ""){
+                  this.disabled_button = false;
+                } else {
+                  this.disabled_button = true;
+                }
+              }
 
   ngOnInit() {
     this.pengaduan_id = this.route.snapshot.paramMap.get('id');
-    this.showLoading();
+    // this.commentForm = this.formBuilder.group({
+    //   'komentar_user' : [null, Validators.compose([
+    //     Validators.required
+    //   ])]
+    // });
   }
 
   ionViewWillEnter(){
+    this.showLoading();
     this.getUser();
     this.getDetail();
   }
