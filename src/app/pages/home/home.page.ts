@@ -35,6 +35,7 @@ export class HomePage implements OnInit {
   };
   banners  : any = [];
   VersionNumber:string = '';
+  VersionCode:string = '';
 
   constructor(
     private sharedService   : SharedService,
@@ -54,6 +55,11 @@ export class HomePage implements OnInit {
       this.showPopover();
     }, 2000);
 
+    this.appVersion.getVersionCode().then(value => {
+      this.VersionCode = value;
+    }).catch(err => {
+      this.VersionCode = '';
+    });
     this.appVersion.getVersionNumber().then(value => {
       this.VersionNumber = value;
     }).catch(err => {
@@ -239,7 +245,7 @@ export class HomePage implements OnInit {
 
   getBanners(){
     if(this.sharedService.banners.get == 0){
-      this.sharedService.getBanners(this.VersionNumber)
+      this.sharedService.getBanners(this.VersionNumber, this.VersionCode)
       .subscribe(data => {
         this.sharedService.banners.get = 1;
         this.sharedService.banners = data;
