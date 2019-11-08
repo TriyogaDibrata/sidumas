@@ -8,6 +8,7 @@ import { IonInfiniteScroll, AlertController, LoadingController, PopoverControlle
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { isNull } from '@angular/compiler/src/output/output_ast';
 import { HomePopoverComponent } from 'src/app/components/home-popover/home-popover.component';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +34,7 @@ export class HomePage implements OnInit {
     speed: 400
   };
   banners  : any = [];
+  VersionNumber:string = '';
 
   constructor(
     private sharedService   : SharedService,
@@ -43,6 +45,7 @@ export class HomePage implements OnInit {
     private alertService    : AlertService,
     public loadingCtrl      : LoadingController,
     public popoverCtrl      : PopoverController,
+    private appVersion      : AppVersion
   ) {
    }
 
@@ -50,6 +53,12 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.showPopover();
     }, 2000);
+
+    this.appVersion.getVersionNumber().then(value => {
+      this.VersionNumber = value;
+    }).catch(err => {
+      this.VersionNumber = '';
+    });
   }
 
   ionViewWillEnter(){
@@ -230,7 +239,7 @@ export class HomePage implements OnInit {
 
   getBanners(){
     if(this.sharedService.banners.get == 0){
-      this.sharedService.getBanners()
+      this.sharedService.getBanners(this.VersionNumber)
       .subscribe(data => {
         this.sharedService.banners.get = 1;
         this.sharedService.banners = data;
