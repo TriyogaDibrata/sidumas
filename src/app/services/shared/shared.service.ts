@@ -361,7 +361,7 @@ export class SharedService {
       .pipe();
   }
 
-  getBanners(VersionNumber) {
+  getBanners(VersionNumber, VersionCode) {
     this.token = this.authService.token;
 
     this.headers = new HttpHeaders({
@@ -370,7 +370,7 @@ export class SharedService {
       'Authorization': 'Bearer ' + this.token,
     });
 
-    return this.http.get(this.env.API_URL + 'ref/banners?v='+VersionNumber, { headers: this.headers })
+    return this.http.get(this.env.API_URL + 'ref/banners?vc='+VersionCode+'&v='+VersionNumber, { headers: this.headers })
       .pipe();
   }
 
