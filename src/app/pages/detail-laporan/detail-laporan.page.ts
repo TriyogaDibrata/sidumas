@@ -67,20 +67,15 @@ export class DetailLaporanPage implements OnInit {
               public commonService  : CommonService,
               public formBuilder    : FormBuilder,
               ) { 
-                if(this.komentar_user !== ""){
-                  this.disabled_button = false;
-                } else {
-                  this.disabled_button = true;
-                }
               }
 
   ngOnInit() {
     this.pengaduan_id = this.route.snapshot.paramMap.get('id');
-    // this.commentForm = this.formBuilder.group({
-    //   'komentar_user' : [null, Validators.compose([
-    //     Validators.required
-    //   ])]
-    // });
+    this.commentForm = this.formBuilder.group({
+      'komentar_user' : [null, Validators.compose([
+        Validators.required
+      ])]
+    });
   }
 
   ionViewWillEnter(){
@@ -176,11 +171,11 @@ export class DetailLaporanPage implements OnInit {
     this.user = this.sharedService.getUserCache();
   }
 
-  addKomentar(){
+  addKomentar(form: FormGroup){
     let data = {
       'user_id' : this.user['id'],
       'pengaduan_id'  : this.pengaduan_id,
-      'komentar'  : this.komentar_user
+      'komentar'  : form.value.komentar_user
     }
 
     this.sharedService.postKomentar(data)

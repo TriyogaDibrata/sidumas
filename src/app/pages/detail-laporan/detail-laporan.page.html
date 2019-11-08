@@ -210,18 +210,20 @@
             </div>
           </ion-list>
           <ion-toolbar class="toolbar-comment" color="light">
+            <form [formGroup]="commentForm" (ngSubmit)="addKomentar(commentForm)">
             <ion-row class="ion-no-padding ion-align-items-center">
               <ion-col size="10">
-                <ion-textarea class="message-input" rows="2" [(ngModel)]="komentar_user" placeholder="Masukan Komentar">
+                <ion-textarea class="message-input" rows="2" name="komentar_user" id="komentar_user" formControlName="komentar_user" placeholder="Masukan Komentar" required>
                 </ion-textarea>
               </ion-col>
               <ion-col size="2">
-                <ion-button expand="block" fill="clear" color="primary" [disabled]="disabled_button"
-                  class="msg-btn" (click)="addKomentar()">
+                <ion-button expand="block" fill="clear" color="primary" [disabled]="!commentForm.valid"
+                  class="msg-btn" type="submit">
                   <ion-icon name="send" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>
             </ion-row>
+          </form>
           </ion-toolbar>
         </div>
       </div>
