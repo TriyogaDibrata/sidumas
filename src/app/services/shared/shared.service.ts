@@ -361,7 +361,7 @@ export class SharedService {
       .pipe();
   }
 
-  getBanners(VersionNumber, VersionCode) {
+  getBanners(VersionNumber = "", VersionCode= "") {
     this.token = this.authService.token;
 
     this.headers = new HttpHeaders({

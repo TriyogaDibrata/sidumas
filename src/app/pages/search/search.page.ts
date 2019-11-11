@@ -20,7 +20,7 @@ export class SearchPage implements OnInit {
   iScroll     : any = {enable: 1, page: 0};
   loading     : any;
 
-  constructor(private sharedService : SharedService,
+  constructor(public sharedService  : SharedService,
               private alertService  : AlertService,
               private commonService : CommonService,
               public loadingCtrl    : LoadingController,

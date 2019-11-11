@@ -34,8 +34,8 @@ export class HomePage implements OnInit {
     speed: 400
   };
   banners  : any = [];
-  VersionNumber:string = '';
-  VersionCode:string = '';
+  VersionNumber : any;
+  VersionCode : any;
 
   constructor(
     private sharedService   : SharedService,
@@ -53,7 +53,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.showPopover();
-    }, 2000);
+    }, 1500);
 
     this.appVersion.getVersionCode().then(value => {
       this.VersionCode = value;
@@ -65,13 +65,13 @@ export class HomePage implements OnInit {
     }).catch(err => {
       this.VersionNumber = '';
     });
+    this.getBanners();
   }
 
   ionViewWillEnter(){
     this.showLoading();
     this.lists = [];
     this.iScroll.page = 0;
-    this.getBanners();
     this.getMenuCategories();
     this.getUser();
     this.getListPengaduan();

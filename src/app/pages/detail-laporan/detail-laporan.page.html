@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content #content class="ion-no-padding">
+  <ion-refresher pull-max="60" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down" pullingText="Pull to refresh" refreshingSpinner="crescent" refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
   <ion-row class="ion-justify-content-center ion-no-padding" *ngIf="data">
     <ion-col size="12" size-md="6" size-xl="6" class="ion-no-padding">
       <div class="info-badge" *ngIf="statusShow === 1" [hidden]="hide_info">
@@ -32,7 +35,7 @@
             <ion-row class="name-wrapper">
               <ion-col size="12" class="mt3">
                 <ion-text class="bold text1">
-                  {{ data.atas_nama }}
+                  {{ data.pelapor }}
                   <br />
                   <ion-text color="medium" class="text07"> ID : #{{ data.no_tiket }} | {{ converTime(data.tanggal) }}
                   </ion-text>
@@ -52,7 +55,7 @@
 
         <div class="category-wrapper" [style.background]="data.color">
           <ion-row>
-            <ion-col class="ion-text-left">
+            <ion-col class="ion-text-right">
               <ion-text>{{  data.status_pengaduan }}</ion-text>
             </ion-col>
           </ion-row>
@@ -165,19 +168,21 @@
             </div>
           </ion-list>
           <ion-toolbar class="toolbar-comment" color="light" *ngIf="data.user_id == sharedService.getUserCache().id">
-            <ion-row class="ion-no-padding ion-align-items-center">
-              <ion-col size="10">
-                <ion-textarea class="message-input" rows="2" [(ngModel)]="tanggapan_user"
-                  placeholder="Masukan Tanggapan">
-                </ion-textarea>
-              </ion-col>
-              <ion-col size="2">
-                <ion-button expand="block" fill="clear" color="primary" [disabled]="tanggapan_user === ''"
-                  class="msg-btn" (click)="addTanggapan()">
-                  <ion-icon name="send" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
+            <form [formGroup]="tanggapanForm" (ngSubmit)="addTanggapan(tanggapanForm)">
+              <ion-row class="ion-no-padding ion-align-items-center">
+                <ion-col size="10">
+                  <ion-textarea class="message-input" rows="2" id="tanggapan_user" name="tanggapan_user" formControlName="tanggapan_user"
+                    placeholder="Masukan Tanggapan">
+                  </ion-textarea>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-button expand="block" fill="clear" color="primary" [disabled]="!tanggapanForm.valid || disabled_submit"
+                    class="msg-btn" type="Submit">
+                    <ion-icon name="send" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              </form>
           </ion-toolbar>
         </div>
 
@@ -211,19 +216,20 @@
           </ion-list>
           <ion-toolbar class="toolbar-comment" color="light">
             <form [formGroup]="commentForm" (ngSubmit)="addKomentar(commentForm)">
-            <ion-row class="ion-no-padding ion-align-items-center">
-              <ion-col size="10">
-                <ion-textarea class="message-input" rows="2" name="komentar_user" id="komentar_user" formControlName="komentar_user" placeholder="Masukan Komentar" required>
-                </ion-textarea>
-              </ion-col>
-              <ion-col size="2">
-                <ion-button expand="block" fill="clear" color="primary" [disabled]="!commentForm.valid"
-                  class="msg-btn" type="submit">
-                  <ion-icon name="send" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </form>
+              <ion-row class="ion-no-padding ion-align-items-center">
+                <ion-col size="10">
+                  <ion-textarea class="message-input" rows="2" name="komentar_user" id="komentar_user"
+                    formControlName="komentar_user" placeholder="Masukan Komentar" required>
+                  </ion-textarea>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-button expand="block" fill="clear" color="primary" [disabled]="!commentForm.valid || disabled_submit"
+                    class="msg-btn" type="submit">
+                    <ion-icon name="send" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </form>
           </ion-toolbar>
         </div>
       </div>
