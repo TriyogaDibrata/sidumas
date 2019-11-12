@@ -29,6 +29,18 @@ export class LaporTinjauPage implements OnInit {
     speed: 400
   };
 
+  requireds  : any = [
+    'user_id',
+    'atas_nama',
+    'topik',
+    'uraian',
+    'lat',
+    'lng',
+    'email',
+    'kategori_id',
+    'opd_id'
+  ];
+
   hide_info : boolean = false;
 
   constructor(public commonService  : CommonService,
@@ -41,6 +53,8 @@ export class LaporTinjauPage implements OnInit {
               ) { }
 
   ngOnInit() {
+    this.showLoading();
+
     this.dataRec = this.route.snapshot.paramMap.get('dataObj');
     this.dataObj = JSON.parse(this.dataRec);
     this.dataUraian = JSON.parse(this.dataObj['data']);
@@ -102,13 +116,13 @@ export class LaporTinjauPage implements OnInit {
     this.sharedService.getDesaID(lat, lng).subscribe(data => {
       console.log(data);
       this.desa = data;
+      this.loading.dismiss();
     }, err => {
       console.log(err);
     })
   }
 
   sendData(){
-    this.showLoading();
     let data = {
       'user_id': this.user['id'],
       'atas_nama': this.user['name'],
@@ -125,7 +139,19 @@ export class LaporTinjauPage implements OnInit {
       'opd_id' : this.desa.opd_id,
     };
 
-    console.log(data);
+    let valid=1;
+    this.requireds.forEach((required) => {
+      if(typeof data[required] === 'undefined' || data[required] == '' || data[required] == null){
+        valid=0;
+      }
+    });
+
+    if(valid===0){
+      this.alertService.presentAlert('Gagal Menyimpan Pengaduan', 'Terjadi kesalahan saat membuat pengaduan, mohon ulangi menyimpan / ulangi proses pengaduan.');
+      return false;
+    }
+
+    this.showLoading();
 
     this.sharedService.addPengaduan(data)
     .subscribe(data => {
