@@ -102,11 +102,13 @@ export class SearchPage implements OnInit {
         }else{
           this.iScroll.enable = 0;
         }
+        event.target.complete();
       }, err => {
         this.commonService.presentAlert('Gagal memuat', 'Terjadi kesalahan saat memuat data');
       });
+    }else{
+      event.target.complete();
     }
-    event.target.complete();
   }
 
   transformData(rows){

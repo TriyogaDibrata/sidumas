@@ -180,6 +180,8 @@ export class HomePage implements OnInit {
   }
 
   segmentChanged(ev: any){
+    this.showLoading();
+
     this.category = ev.detail.value;
     this.getListPengaduan();
 
@@ -189,6 +191,7 @@ export class HomePage implements OnInit {
 
   toogleSearch(){
     if(this.search.active==1){
+      this.showLoading();
       this.search.active = 0;
       this.search.value = '';
       this.getListPengaduan();
@@ -208,11 +211,13 @@ export class HomePage implements OnInit {
         }else{
           this.iScroll.enable = 0;
         }
+        event.target.complete();
       }, err => {
         this.commonService.presentAlert('Gagal memuat', 'Terjadi kesalahan saat memuat data');
       });
+    }else{
+      event.target.complete();
     }
-    event.target.complete();
   }
 
   transformData(rows){
@@ -222,6 +227,7 @@ export class HomePage implements OnInit {
   }
 
   searchPengaduan(ev){
+    this.showLoading();
     this.getListPengaduan();
   }
 

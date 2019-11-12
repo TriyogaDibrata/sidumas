@@ -81,11 +81,13 @@ export class NotificationsPage implements OnInit {
         }else{
           this.infiniteScrollEnable = 0;
         }
+        event.target.complete();
       }, err => {
         console.log(err);
       });
+    }else{
+      event.target.complete();
     }
-    event.target.complete();
   }
 
   transformData(rows){
