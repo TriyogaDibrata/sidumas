@@ -180,6 +180,8 @@ export class HomePage implements OnInit {
   }
 
   segmentChanged(ev: any){
+    this.showLoading();
+
     this.category = ev.detail.value;
     this.getListPengaduan();
 
@@ -189,6 +191,7 @@ export class HomePage implements OnInit {
 
   toogleSearch(){
     if(this.search.active==1){
+      this.showLoading();
       this.search.active = 0;
       this.search.value = '';
       this.getListPengaduan();
@@ -224,6 +227,7 @@ export class HomePage implements OnInit {
   }
 
   searchPengaduan(ev){
+    this.showLoading();
     this.getListPengaduan();
   }
 
