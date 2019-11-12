@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { SharedService } from 'src/app/services/shared/shared.service';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, ActionSheetController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import * as moment from 'moment';
+import { Crop } from '@ionic-native/crop/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-update-profile',
@@ -32,11 +34,17 @@ export class UpdateProfilePage implements OnInit {
 
   customMonthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
+  croppedImagepath = "";
+  isLoading = false;
+
   constructor(private camera          : Camera,
               private sharedService   : SharedService,
               public loadingCtrl      : LoadingController,
               public navCtrl          : NavController,
               public alertService     : AlertService,
+              private crop            : Crop,
+              public actionSheet      : ActionSheetController,
+              private file            : File, 
              ) { }
 
   ngOnInit() {
@@ -69,35 +77,48 @@ export class UpdateProfilePage implements OnInit {
     return moment(this.user.tgl_lahir).format('DD MMMM YYYY');
   }
 
-  takePhoto(type) {
+  async selectImage(imageType) {
+    const actionSheet = await this.actionSheet.create({
+      header: "Pilih sumber gambar",
+      buttons: [{
+        text: 'Pilih Dari Galeri',
+        handler: () => {
+          this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY, imageType);
+        }
+      },
+      {
+        text: 'Ambil Gambar',
+        handler: () => {
+          this.pickImage(this.camera.PictureSourceType.CAMERA, imageType);
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }
+      ]
+    });
+    await actionSheet.present();
+  }
+
+  pickImage(sourceType, imageType) {
+    console.log(sourceType, imageType);
     if(this.user.status==1){
         this.alertService.presentAlert('Sudah Terverifikasi', 'Informasi ini tidak dapat diubah kembali.');
         return false;
     }
 
-    let height, width;
-
-    if(type == 'id_photo'){
-      height = 600;
-      width = 800;
-    }else{
-      height = 800;
-      width = 800;
-    }
-
     const options: CameraOptions = {
       quality: 100, // picture quality
-      targetWidth: width,
-      targetHeight: height,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       allowEdit: false,
-      sourceType: this.camera.PictureSourceType.CAMERA,
+      sourceType: sourceType,
     }
     this.camera.getPicture(options).then((imageData) => {
 
-      if(type === "user_photo"){
+      if(imageType === "user_photo"){
         this.user.verified_foto = "data:image/jpeg;base64," + imageData;
       } else {
         this.user.ktp = "data:image/jpeg;base64," + imageData;

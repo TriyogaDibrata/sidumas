@@ -31,6 +31,7 @@
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/crop": "^5.15.1",
     "@ionic-native/facebook": "^5.16.0",
+    "@ionic-native/file": "^5.16.0",
     "@ionic-native/geolocation": "^5.15.0",
     "@ionic-native/google-maps": "^5.0.0-beta.27",
     "@ionic-native/native-geocoder": "^5.15.0",
@@ -51,6 +52,7 @@
     "cordova-plugin-crop": "^0.4.0",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-facebook4": "^6.2.0",
+    "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-geolocation": "^4.0.2",
     "cordova-plugin-globalization": "^1.11.0",
     "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
@@ -134,7 +136,8 @@
         "APP_NAME": "“SidumasBadung”"
       },
       "cordova-plugin-x-toast": {},
-      "cordova-plugin-app-version": {}
+      "cordova-plugin-app-version": {},
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "android",
