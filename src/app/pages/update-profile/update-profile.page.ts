@@ -14,60 +14,60 @@ import { File } from '@ionic-native/file/ngx';
 })
 export class UpdateProfilePage implements OnInit {
 
-  base64Image   : any;
-  photos        : any;
-  user_id       : any;
-  user          : any = {};
-  name          : any;
-  email         : any;
-  bio           : any;
-  no_hp         : any;
-  birthday      : any;
-  nik           : any;
-  ktp           : any;
-  verified_foto : any;
-  path_ktp      : any;
-  path_verified_foto : any;
-  sex           : any;
-  status        : any;
-  loading       : any;
+  base64Image: any;
+  photos: any;
+  user_id: any;
+  user: any = {};
+  name: any;
+  email: any;
+  bio: any;
+  no_hp: any;
+  birthday: any;
+  nik: any;
+  ktp: any;
+  verified_foto: any;
+  path_ktp: any;
+  path_verified_foto: any;
+  sex: any;
+  status: any;
+  loading: any;
 
   customMonthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
   croppedImagepath = "";
   isLoading = false;
 
-  constructor(private camera          : Camera,
-              private sharedService   : SharedService,
-              public loadingCtrl      : LoadingController,
-              public navCtrl          : NavController,
-              public alertService     : AlertService,
-              private crop            : Crop,
-              public actionSheet      : ActionSheetController,
-              private file            : File, 
-             ) { }
+  constructor(private camera: Camera,
+    private sharedService: SharedService,
+    public loadingCtrl: LoadingController,
+    public navCtrl: NavController,
+    public alertService: AlertService,
+    private crop: Crop,
+    public actionSheet: ActionSheetController,
+    private file: File,
+  ) { }
 
   ngOnInit() {
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getUserInformation();
   }
 
-  async showLoading(){
+  async showLoading() {
     this.loading = await this.loadingCtrl.create({
-      spinner : "dots",
-      backdropDismiss : true,
-      message : "Loading..."
+      spinner: "dots",
+      backdropDismiss: true,
+      message: "Loading..."
     });
 
     await this.loading.present();
   }
 
   checkChange() {
-    if(this.user.status==1){
-        this.alertService.presentAlert('Sudah Terverifikasi', 'Informasi ini tidak dapat diubah kembali.');
-        return false;
+    if (this.user.status == 1) {
+      this.alertService.presentAlert('Sudah Terverifikasi', 'Informasi ini tidak dapat diubah kembali.');
+      return false;
     }
     return true;
   }
@@ -103,9 +103,9 @@ export class UpdateProfilePage implements OnInit {
 
   pickImage(sourceType, imageType) {
     console.log(sourceType, imageType);
-    if(this.user.status==1){
-        this.alertService.presentAlert('Sudah Terverifikasi', 'Informasi ini tidak dapat diubah kembali.');
-        return false;
+    if (this.user.status == 1) {
+      this.alertService.presentAlert('Sudah Terverifikasi', 'Informasi ini tidak dapat diubah kembali.');
+      return false;
     }
 
     const options: CameraOptions = {
@@ -118,48 +118,82 @@ export class UpdateProfilePage implements OnInit {
     }
     this.camera.getPicture(options).then((imageData) => {
 
-      if(imageType === "user_photo"){
-        this.user.verified_foto = "data:image/jpeg;base64," + imageData;
-      } else {
-        this.user.ktp = "data:image/jpeg;base64," + imageData;
-      }
+      // if(imageType === "user_photo"){
+      //   this.user.verified_foto = "data:image/jpeg;base64," + imageData;
+      // } else {
+      //   this.user.ktp = "data:image/jpeg;base64," + imageData;
+      // }
+      this.cropImage(imageData, imageType);
     }, (err) => {
       this.alertService.presentAlert('Gagal membuka kamera', 'Terdapat kesalahan saat membuka kamera');
     });
   }
 
-  getUserInformation(){
+  cropImage(fileUrl, imageType) {
+    this.crop.crop(fileUrl, { quality: 50 })
+      .then(
+        newPath => {
+          this.showCroppedImage(newPath.split('?')[0], imageType)
+        },
+        error => {
+          alert('Error cropping image' + error);
+        }
+      );
+  }
+
+  showCroppedImage(ImagePath, imageType) {
+    this.isLoading = true;
+    var copyPath = ImagePath;
+    var splitPath = copyPath.split('/');
+    var imageName = splitPath[splitPath.length - 1];
+    var filePath = ImagePath.split(imageName)[0];
+
+    this.file.readAsDataURL(filePath, imageName).then(base64 => {
+      if(imageType === "user_photo"){
+        this.user.verified_foto = base64;
+        this.isLoading = false;
+      } else {
+        this.user.ktp = base64;
+        this.isLoading = false;
+      }
+    }, error => {
+      alert('Error in showing image' + error);
+      this.isLoading = false;
+    });
+  }
+
+  getUserInformation() {
     this.user = this.sharedService.getUserCache();
     console.log(this.user);
   }
 
-  updateProfile(){
+  updateProfile() {
     this.showLoading();
 
     let data = {
-      'id'            : this.user.id,
-      'name'          : this.user.name,
-      'description'   : this.user.description,
-      'sex'           : this.user.sex,
-      'no_hp'         : this.user.no_hp,
-      'tgl_lahir'     : this.user.tgl_lahir,
-      'nik'           : this.user.nik,
-      'ktp'           : this.user.ktp,
-      'foto'          : this.user.verified_foto
+      'id': this.user.id,
+      'name': this.user.name,
+      'description': this.user.description,
+      'sex': this.user.sex,
+      'no_hp': this.user.no_hp,
+      'tgl_lahir': this.user.tgl_lahir,
+      'nik': this.user.nik,
+      'ktp': this.user.ktp,
+      'foto': this.user.verified_foto
     }
 
     this.sharedService.updateProfileUser(data)
-    .subscribe(data => {
-        if(data['success']){
+      .subscribe(data => {
+        if (data['success']) {
           this.loading.dismiss();
           this.navCtrl.navigateRoot('/app/tabs/profile');
           this.alertService.presentToast('Informasi berhasil diperbaharui');
           this.sharedService.getUserCache(true);
         }
-    }, err => {
+      }, err => {
         this.loading.dismiss();
         this.alertService.presentAlert('Oooops', JSON.stringify(err));
         this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
-    });
+      });
   }
 }
