@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalPlacesPage } from '../../modal-places/modal-places.page';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-lapor',
@@ -16,7 +17,7 @@ import { ModalPlacesPage } from '../../modal-places/modal-places.page';
 export class LaporPage implements OnInit {
 
   laporForm : FormGroup;
-  
+
   lat       : any;
   lng       : any;
   address   : any;
@@ -38,7 +39,8 @@ export class LaporPage implements OnInit {
                private modalCtrl    : ModalController,
                public loadingCtrl   : LoadingController,
                public platform      : Platform,
-               ) { 
+               private sharedService: SharedService,
+               ) {
                  this.backButtonEvent();
                }
 
@@ -60,14 +62,14 @@ export class LaporPage implements OnInit {
     this.showLoading();
     this.getLocation();
   }
-  
+
 
   getLocation(){
     this.geolocation.getCurrentPosition()
     .then((resp) => {
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
-      console.log(this.lat, this.lng);  
+      console.log(this.lat, this.lng);
       this.geocoder(this.lat, this.lng);
       this.loading.dismiss();
     }, err=> {
@@ -82,11 +84,11 @@ export class LaporPage implements OnInit {
         maxResults: 5
     };
     this.nativeGeocoder.reverseGeocode(lat, lng, options)
-      .then((result: NativeGeocoderResult[]) => 
+      .then((result: NativeGeocoderResult[]) =>
       {
         this.loading.dismiss();
         this.address = this.generateAddress(result[0]);
-      }).catch((error: any) => 
+      }).catch((error: any) =>
       this.loading.dismiss());
   }
 
@@ -170,11 +172,7 @@ export class LaporPage implements OnInit {
   }
 
   async showLoading(){
-    this.loading = await this.loadingCtrl.create({
-      spinner : "dots",
-      backdropDismiss : true,
-      message : "Loading..."
-    });
+    this.loading = await this.loadingCtrl.create(this.sharedService.loadingOption);
 
     await this.loading.present();
   }

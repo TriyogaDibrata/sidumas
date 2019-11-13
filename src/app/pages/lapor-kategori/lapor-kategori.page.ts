@@ -35,11 +35,7 @@ export class LaporKategoriPage implements OnInit {
   }
 
   async showLoading(){
-    this.loading = await this.loadingCtrl.create({
-      spinner : "dots",
-      backdropDismiss : true,
-      message : "Loading..."
-    });
+    this.loading = await this.loadingCtrl.create(this.sharedService.loadingOption);
 
     await this.loading.present();
   }

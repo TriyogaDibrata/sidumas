@@ -54,12 +54,8 @@ export class UpdateProfilePage implements OnInit {
     this.getUserInformation();
   }
 
-  async showLoading() {
-    this.loading = await this.loadingCtrl.create({
-      spinner: "dots",
-      backdropDismiss: true,
-      message: "Loading..."
-    });
+  async showLoading(){
+    this.loading = await this.loadingCtrl.create(this.sharedService.loadingOption);
 
     await this.loading.present();
   }
