@@ -16,6 +16,14 @@ export class SharedService {
   user: any = null;
   banners: any = { get: 0, data: [], popover: {} };
   pengaduan: any;
+  loadingOption: any = {
+    spinner : null,
+    backdropDismiss : false,
+    message : '<div class="sidumas-loading lds-ring"><div></div><div></div><div></div><div></div><img src="assets/images/icon-min-200.png"></div>',
+    cssClass: 'sidumas-loading',
+    keyboardClose: true,
+    animated: true,
+  };
 
   constructor(
     private http        : HttpClient,

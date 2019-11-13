@@ -96,9 +96,7 @@ export class RegisterPage implements OnInit {
   }
 
   async register(form: FormGroup){
-    const loading = await this.loadingCtrl.create({
-      message: "Mohon Menunggu...."
-    });
+    const loading = await this.loadingCtrl.create(this.sharedService.loadingOption);
 
     this.presentLoading(loading);
 
@@ -127,14 +125,12 @@ export class RegisterPage implements OnInit {
   async fbLogin(){
     const permissions = ["public_profile", "email"];
 
-    const loading = await this.loadingCtrl.create({
-      message: "Mohon Menunggu ..."
-    });
+    const loading = await this.loadingCtrl.create(this.sharedService.loadingOption);
 
     this.fb.login(permissions)
     .then(response => {
       let UserId = response.authResponse.userID;
-      
+
       this.fb.api("/me?fields=name,email", permissions)
       .then(user => {
         user.picture = "https://graph.facebook.com/" + UserId + "/picture?type=large";

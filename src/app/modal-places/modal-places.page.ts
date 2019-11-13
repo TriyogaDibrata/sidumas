@@ -48,7 +48,7 @@ export class ModalPlacesPage implements OnInit {
     public loadingCtrl              : LoadingController,
     public zone                     : NgZone,
     private authService             : AuthService,
-    private router                  : Router) { 
+    private router                  : Router) {
       this.geocoder = new google.maps.Geocoder;
       let elem = document.createElement("div")
       this.GooglePlaces = new google.maps.places.PlacesService(elem);
@@ -58,8 +58,8 @@ export class ModalPlacesPage implements OnInit {
       };
       this.autocompleteItems = [];
       this.markers = [];
-      this.loading = this.loadingCtrl.create();
-      
+      this.loading = this.loadingCtrl.create(this.sharedService.loadingOption);
+
       this.map = null;
       this.pengaduan.address = this.address;
     }
@@ -200,11 +200,7 @@ export class ModalPlacesPage implements OnInit {
   }
 
   async showLoading(){
-    this.loading = await this.loadingCtrl.create({
-      spinner : "dots",
-      backdropDismiss : true,
-      message : "Loading..."
-    });
+    this.loading = await this.loadingCtrl.create(this.sharedService.loadingOption);
 
     await this.loading.present();
   }
