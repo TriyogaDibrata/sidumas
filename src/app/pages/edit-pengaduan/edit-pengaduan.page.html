@@ -9,40 +9,46 @@
 
 <ion-content class="ion-no-padding">
 
-  <ion-item class="ion-no-padding">
-    <ion-label position="stacked">Kategori</ion-label>
-    <ion-select [(ngModel)]="detail.kategori_id">
-      <ion-select-option value="">No Game Console</ion-select-option>
-      <ion-select-option value="nes">NES</ion-select-option>
-      <ion-select-option value="n64" selected>Nintendo64</ion-select-option>
-      <ion-select-option value="ps">PlayStation</ion-select-option>
-      <ion-select-option value="genesis">Sega Genesis</ion-select-option>
-      <ion-select-option value="saturn">Sega Saturn</ion-select-option>
-      <ion-select-option value="snes">SNES</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <ion-row class="ion-justify-content-center ion-no-padding">
+    <ion-col size="12" size-md="6" size-xl="6" class="ion-no-padding">
 
-  <ion-item class="ion-no-padding">
-    <ion-label position="stacked">Topik Pengaduan</ion-label>
-    <ion-textarea [(ngModel)]="detail.topik"></ion-textarea>
-  </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-label position="stacked">Kategori</ion-label>
+        <ion-select [(ngModel)]="detail.kategori_id">
+          <ion-select-option value="">No Game Console</ion-select-option>
+          <ion-select-option value="nes">NES</ion-select-option>
+          <ion-select-option value="n64" selected>Nintendo64</ion-select-option>
+          <ion-select-option value="ps">PlayStation</ion-select-option>
+          <ion-select-option value="genesis">Sega Genesis</ion-select-option>
+          <ion-select-option value="saturn">Sega Saturn</ion-select-option>
+          <ion-select-option value="snes">SNES</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-  <ion-item class="ion-no-padding">
-    <ion-label position="stacked">Uraian Pengaduan</ion-label>
-    <ion-textarea [(ngModel)]="detail.uraian" auto-grow></ion-textarea>
-  </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-label position="stacked">Topik Pengaduan</ion-label>
+        <ion-textarea [(ngModel)]="detail.topik"></ion-textarea>
+      </ion-item>
 
-  <ion-item class="ion-no-padding">
-    <ion-label position="stacked">Lokasi</ion-label>
-    <ion-textarea [(ngModel)]="detail.alamat" auto-grow></ion-textarea>
-  </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-label position="stacked">Uraian Pengaduan</ion-label>
+        <ion-textarea [(ngModel)]="detail.uraian" auto-grow></ion-textarea>
+      </ion-item>
 
-  <ion-grid *ngIf="files" class="ion-no-padding">
-    <ion-row>
-      <ion-col size="4" *ngFor="let file of files">
-        <ion-img [src]="file.fullpath"></ion-img>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      <ion-item class="ion-no-padding">
+        <ion-label position="stacked">Lokasi</ion-label>
+        <ion-textarea [(ngModel)]="detail.alamat" auto-grow></ion-textarea>
+      </ion-item>
+
+      <ion-grid *ngIf="files" class="ion-no-padding">
+        <ion-row>
+          <ion-col size="4" *ngFor="let file of files">
+            <ion-img [src]="file.fullpath"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-col>
+  </ion-row>
 
 </ion-content>
