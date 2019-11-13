@@ -49,6 +49,7 @@ const routes: Routes = [
   { path: 'modal-places', loadChildren: './modal-places/modal-places.module#ModalPlacesPageModule' },
   { path: 'modal-image', loadChildren: './modal-image/modal-image.module#ModalImagePageModule' },
   { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
+  { path: 'edit-pengaduan/:id', loadChildren: './pages/edit-pengaduan/edit-pengaduan.module#EditPengaduanPageModule' },
 ];
 @NgModule({
   imports: [
