@@ -54,10 +54,10 @@ export class NotificationsPage implements OnInit {
   }
 
   doRefresh(event){
+    this.page = this.lastMonth = 0;
     this.sharedService.getNotifs(this.user.id, this.page, 1)
     .subscribe((data: any[]) => {
       this.notifs = [];
-      this.page = this.lastMonth = 0;
       this.infiniteScrollEnable = 1;
       if(data.length > 0){
         this.transformData(data);

@@ -251,3 +251,7 @@ ion-popover {
     transform: rotate(360deg);
   }
 }
+.refresher-pulling-text, .refresher-refreshing-text, ion-infinite-scroll-content{
+  font-style: italic !important;
+  font-size: 0.8em !important;
+}
