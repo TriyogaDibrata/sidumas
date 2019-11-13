@@ -298,4 +298,8 @@ export class DetailLaporanPage implements OnInit {
 
     await this.loading.present();
   }
+
+  editPengaduan(id){
+    this.navCtrl.navigateForward(['edit-pengaduan', id]);
+  }
 }
