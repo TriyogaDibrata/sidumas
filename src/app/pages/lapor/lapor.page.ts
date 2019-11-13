@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalPlacesPage } from '../../modal-places/modal-places.page';
+import { SharedService } from 'src/app/services/shared/shared.service';
 
 @Component({
   selector: 'app-lapor',
@@ -38,6 +39,7 @@ export class LaporPage implements OnInit {
                private modalCtrl    : ModalController,
                public loadingCtrl   : LoadingController,
                public platform      : Platform,
+               private sharedService: SharedService,
                ) {
                  this.backButtonEvent();
                }
