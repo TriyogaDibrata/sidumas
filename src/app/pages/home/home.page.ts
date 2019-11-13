@@ -103,8 +103,7 @@ export class HomePage implements OnInit {
     }
   }
 
-  doRefresh(event){
-    this.showLoading();
+  doRefresh(event){    
     this.iScroll.page = 0;
     this.iScroll.enable = 1;
     this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
