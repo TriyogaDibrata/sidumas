@@ -104,8 +104,14 @@ export class NotificationsPage implements OnInit {
         this.lastMonth = date.month();
       }
 
+      data.title = this.capitalizeFirstLetter(data.title);      
+
       this.notifs.push(data);
     });
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   getUser(){
