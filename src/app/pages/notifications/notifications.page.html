@@ -28,7 +28,7 @@
       </ion-col>
       <ion-col class="notif-label" size="10" (click)="redirectTo(notif.redirect_mobile)">
         <ion-text *ngIf="notif.tipe==0 && notif.user!=null" class="notif-name" color="dark">{{notif.user}}</ion-text>
-        <ion-text *ngIf="notif.tipe==1 && notif.adminuser!=null" class="notif-name" color="dark">{{notif.adminuser}}</ion-text>
+        <ion-text *ngIf="notif.tipe==1 && notif.admin_user!=null" class="notif-name" color="dark">{{notif.admin_user}}</ion-text>
         {{notif.title}}
       </ion-col>
     </ion-row>
