@@ -83,7 +83,7 @@ export class EditPengaduanPage implements OnInit {
   }
 
   save(){
-    console.log(this.detail);
+    
   }
 
   deleteFiles(file_id, pengaduan_id){
