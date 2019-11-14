@@ -204,8 +204,7 @@ export class DetailLaporanPage implements OnInit {
     }
   }
 
-  doRefresh(event){
-    this.showLoading();
+  doRefresh(event){    
     this.sharedService.getDetailPengaduan(this.pengaduan_id)
     .subscribe(data => {
       this.data = data['data'];
