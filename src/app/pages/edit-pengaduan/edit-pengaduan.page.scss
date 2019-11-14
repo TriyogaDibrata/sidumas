@@ -1,0 +1,10 @@
+.block {
+    .deleteIcon {
+      position: absolute !important;
+      color: #ffffff !important;
+      margin-left: 85% !important;
+    }
+    .deleteIcon:before {
+      font-size: 40px !important;
+    }
+}

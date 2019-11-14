@@ -9,19 +9,13 @@
 
 <ion-content class="ion-no-padding">
 
-  <ion-row class="ion-justify-content-center ion-no-padding">
+  <ion-row class="ion-justify-content-center ion-padding">
     <ion-col size="12" size-md="6" size-xl="6" class="ion-no-padding">
 
       <ion-item class="ion-no-padding">
         <ion-label position="stacked">Kategori</ion-label>
         <ion-select [(ngModel)]="detail.kategori_id">
-          <ion-select-option value="">No Game Console</ion-select-option>
-          <ion-select-option value="nes">NES</ion-select-option>
-          <ion-select-option value="n64" selected>Nintendo64</ion-select-option>
-          <ion-select-option value="ps">PlayStation</ion-select-option>
-          <ion-select-option value="genesis">Sega Genesis</ion-select-option>
-          <ion-select-option value="saturn">Sega Saturn</ion-select-option>
-          <ion-select-option value="snes">SNES</ion-select-option>
+          <ion-select-option *ngFor="let cat of categories" value="{{ cat.id }}" [selected]="detail.kategori_id == cat.id">{{ cat.kategori_name }}</ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -36,14 +30,35 @@
       </ion-item>
 
       <ion-item class="ion-no-padding">
-        <ion-label position="stacked">Lokasi</ion-label>
-        <ion-textarea [(ngModel)]="detail.alamat" auto-grow></ion-textarea>
+        <ion-label>Rahasiakan Identitas</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="detail.hide_id"></ion-checkbox>
       </ion-item>
+
+      <ion-item class="ion-no-padding">
+        <ion-label>Rahasiakan Identitas</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="detail.hide_pgn"></ion-checkbox>
+      </ion-item>
+
+
+      <ion-row class="ion-align-items-center ion-no-padding">
+        <ion-col size="9">
+          <ion-item class="ion-no-padding">
+            <ion-label position="stacked">Lokasi</ion-label>
+            <ion-textarea [(ngModel)]="detail.alamat" auto-grow></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-chip class="ion-text-center"><ion-icon name="pin" color="danger"></ion-icon><ion-label>Ubah Lokasi</ion-label></ion-chip>
+        </ion-col>
+      </ion-row>
 
       <ion-grid *ngIf="files" class="ion-no-padding">
         <ion-row>
           <ion-col size="4" *ngFor="let file of files">
-            <ion-img [src]="file.fullpath"></ion-img>
+            <ion-card class="block">
+              <ion-icon name="close-circle" class="deleteIcon" (click)="deleteFiles(file.id, detail.id)"></ion-icon>
+              <img [src]="file.fullpath"/>
+            </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -52,3 +67,6 @@
   </ion-row>
 
 </ion-content>
+<ion-footer>
+  <ion-button expand="block" color="danger" size="medium" (click)="save()">Simpan</ion-button>
+</ion-footer>

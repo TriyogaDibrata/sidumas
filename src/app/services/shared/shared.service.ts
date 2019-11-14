@@ -120,6 +120,19 @@ export class SharedService {
       .pipe();
   }
 
+  getAllCategory(){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token,
+    });
+
+    return this.http.get(this.env.API_URL + 'pengaduan/all-category', { headers: this.headers })
+      .pipe();
+  }
+
   getUser() {
     this.token = this.authService.token;
 
@@ -410,5 +423,23 @@ export class SharedService {
     }
     return this.http.get(this.env.API_URL + 'pengaduan/desa?lat='+lat+'&lng='+lng, { headers: this.headers })
       .pipe();
+  }
+
+  deleteFile(file_id, pengaduan_id){
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token,
+    });
+
+    let data = {
+      'id'  : file_id,
+      'pengaduan' : pengaduan_id
+    }
+
+    return this.http.post(this.env.API_URL + 'pengaduan/remove-file', data, {headers : this.headers})
+    .pipe();
   }
 }

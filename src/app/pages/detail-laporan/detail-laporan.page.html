@@ -61,7 +61,7 @@
           </ion-row>
         </div>
 
-        <div class="ion-text-right" *ngIf="data.status == 3">
+        <div class="ion-text-right" *ngIf="data.status == 1 || data.status == 3">
           <ion-chip (click)="editPengaduan(data.id)">
             <ion-icon name="create"></ion-icon> 
             <ion-label>Edit Pengaduan</ion-label>
