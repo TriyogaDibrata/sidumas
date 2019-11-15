@@ -86,7 +86,7 @@ ion-item {
       }
 
   }
-  
+
   b.name {
     font-size: .7rem;
   }
@@ -126,4 +126,13 @@ ion-item {
   .toolbar-comment{
     position: fixed;
     bottom: 0;
+  }
+
+  .info-tanggapan{
+    font-style: italic;
+    font-weight: normal;
+    font-size: 0.7em;
+  }
+  .info-tanggapan ion-row, .info-tanggapan ion-col{
+    padding-top: 0 !important;
   }
