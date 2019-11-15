@@ -86,7 +86,7 @@ ion-item {
       }
 
   }
-  
+
   b.name {
     font-size: .7rem;
   }
@@ -127,4 +127,13 @@ ion-item {
     position: fixed;
     bottom: 0;
     border-top : 2px solid #eeeeee;
+  }
+
+  .info-tanggapan{
+    font-style: italic;
+    font-weight: normal;
+    font-size: 0.7em;
+  }
+  .info-tanggapan ion-row, .info-tanggapan ion-col{
+    padding-top: 0 !important;
   }

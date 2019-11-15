@@ -56,8 +56,15 @@
 
         <div class="category-wrapper" [style.background]="data.color">
           <ion-row class="ion-no-padding">
-            <ion-col class="ion-text-right">
+            <ion-col class="ion-text-center">
               <ion-text>Status Pengaduan : {{  data.status_pengaduan }}</ion-text>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div *ngIf="infotanggapan!=''" class="category-wrapper info-tanggapan" [style.background]="data.color">
+          <ion-row class="ion-no-padding">
+            <ion-col class="ion-text-center">
+              <ion-text>"{{ infotanggapan }}"</ion-text>
             </ion-col>
           </ion-row>
         </div>

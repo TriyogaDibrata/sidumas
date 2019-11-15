@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { LoadingController, AlertController, ModalController, ActionSheetController } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController, ActionSheetController, NavController } from '@ionic/angular';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { ModalPlacesPage } from 'src/app/modal-places/modal-places.page';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -22,10 +22,9 @@ export class EditPengaduanPage implements OnInit {
   hide_identitas  : boolean = false;
   hide_pengaduan  : boolean = false;
   address         : any;
-  lat             : any;
-  lng             : any;
-  base64Image     : any;
-  photos          : any = [];
+  base64Image     : string;
+  photos          : any;
+  desa            : any;
 
   constructor(public route          : ActivatedRoute,
               public Router         : Router,
@@ -36,7 +35,8 @@ export class EditPengaduanPage implements OnInit {
               public nativeGeocoder : NativeGeocoder,
               public modalCtrl      : ModalController,
               public actionSheetCtrl: ActionSheetController,
-              public camera         : Camera) {
+              public camera         : Camera,
+              public navCtrl        : NavController) {
                 this.files = [];
                 this.photos = [];
                }
@@ -59,6 +59,7 @@ export class EditPengaduanPage implements OnInit {
       this.geocoder(this.detail.koordinat_lat, this.detail.koordinat_lng);
       console.log(this.detail.hide_identitas);
       this.files = this.detail['files'];
+      this.getDesa(this.detail.koordinat_lat, this.detail.koordinat_lng);
       this.loading.dismiss();
     }, err => {
       this.loading.dismiss();
@@ -96,10 +97,6 @@ export class EditPengaduanPage implements OnInit {
     this.loading = await this.loadingCtrl.create(this.sharedService.loadingOption);
 
     await this.loading.present();
-  }
-
-  save(){
-    console.log();
   }
 
   deleteFiles(file_id, pengaduan_id, index){
@@ -169,9 +166,10 @@ export class EditPengaduanPage implements OnInit {
     });
 
     modal.onDidDismiss().then(data => {
-      this.lat = data['data']['lat'];
-      this.lng = data['data']['lng'];
-      this.geocoder(this.lat, this.lng);
+      this.detail.koordinat_lat = data['data']['lat'];
+      this.detail.koordinat_lng = data['data']['lng'];
+      this.geocoder(this.detail.koordinat_lat, this.detail.koordinat_lng);
+      this.getDesa(this.detail.koordinat_lat, this.detail.koordinat_lng);
     });
 
     return await modal.present();
@@ -245,6 +243,49 @@ export class EditPengaduanPage implements OnInit {
       ]
     });
     await confirm.present();
+  }
+
+  getDesa(lat, lng){
+    this.sharedService.getDesaID(lat, lng).subscribe(data => {
+      console.log(data);
+      this.desa = data;
+      this.loading.dismiss();
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  save(){
+    let data = {
+      'id': this.detail.id,
+      'topik': this.detail.topik,
+      'uraian': this.detail.uraian,
+      'lat': this.detail.koordinat_lat,
+      'lng': this.detail.koordinat_lng,
+      'alamat': this.address,
+      'hide_identitas': this.detail.hide_id,
+      'hide_pengaduan': this.detail.hide_pgn,
+      'kategori_id': this.detail.kategori_id,
+      'files' : this.photos,
+      'opd_id' : this.desa.opd_id,
+    };
+
+    this.showLoading();
+
+    this.sharedService.updatePengaduan(data)
+    .subscribe(data => {
+      if(data['success']){
+        this.loading.dismiss();
+        this.navCtrl.navigateRoot('app/tabs/search');
+        this.alertService.presentToast('Pengaduan Berhasil Disimpan')
+      } else{
+        this.loading.dismiss();
+        this.alertService.presentAlert('Gagal menyimpan data', 'Terjadi kesalahan saat menyimpan data');
+      }
+    }, err => {
+      this.loading.dismiss();
+      this.alertService.presentAlert('Gagal menyimpan data', 'Terjadi kesalahan saat menyimpan data');
+    })
   }
 
 }

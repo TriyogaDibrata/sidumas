@@ -40,6 +40,7 @@ export class DetailLaporanPage implements OnInit {
   tanggapan_user: any;
   statusShow: any;
   hide_info: boolean = false;
+  infotanggapan: any = '';
 
   showTanggapans: boolean = false;
   tanggapan_color: any = "none";
@@ -102,6 +103,16 @@ export class DetailLaporanPage implements OnInit {
           this.count_dukungans = this.data['likes']['length'];
           this.files = this.data['files'];
           this.statusShow = this.data['statusshow'];
+
+          if(this.count_tanggapans > 0){
+            for (let i=this.count_tanggapans-1; i>=0; i--){              
+              if(this.data['tanggapans'][i].tipe==1 && this.data['tanggapans'][i].status_id==this.data.status) {
+                this.infotanggapan = this.capitalizeFirstLetter(this.data['tanggapans'][i].tanggapan);
+                break;
+              }
+            }
+          }
+
           this.loading.dismiss();
         }
       }, err => {
@@ -205,7 +216,6 @@ export class DetailLaporanPage implements OnInit {
   }
 
   doRefresh(event){
-    this.showLoading();
     this.sharedService.getDetailPengaduan(this.pengaduan_id)
     .subscribe(data => {
       this.data = data['data'];
@@ -301,5 +311,9 @@ export class DetailLaporanPage implements OnInit {
 
   editPengaduan(id){
     this.navCtrl.navigateForward(['edit-pengaduan', id]);
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
