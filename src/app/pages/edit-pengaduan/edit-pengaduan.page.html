@@ -44,21 +44,32 @@
         <ion-col size="9">
           <ion-item class="ion-no-padding">
             <ion-label position="stacked">Lokasi</ion-label>
-            <ion-textarea [(ngModel)]="detail.alamat" auto-grow></ion-textarea>
+            <ion-textarea [(ngModel)]="address" auto-grow></ion-textarea>
           </ion-item>
         </ion-col>
         <ion-col size="3">
-          <ion-chip class="ion-text-center"><ion-icon name="pin" color="danger"></ion-icon><ion-label>Ubah Lokasi</ion-label></ion-chip>
+          <ion-chip class="ion-text-center" (click)="chooseLocation()"><ion-icon name="pin" color="danger"></ion-icon><ion-label>Ubah Lokasi</ion-label></ion-chip>
         </ion-col>
       </ion-row>
 
-      <ion-grid *ngIf="files" class="ion-no-padding">
+      <ion-grid class="ion-no-padding">
         <ion-row>
-          <ion-col size="4" *ngFor="let file of files">
+          <ion-col size="4" *ngFor="let file of files; let id = index">
             <ion-card class="block">
-              <ion-icon name="close-circle" class="deleteIcon" (click)="deleteFiles(file.id, detail.id)"></ion-icon>
+              <ion-icon name="close-circle" class="deleteIcon" (click)="deleteFiles(file.id, detail.id, id)"></ion-icon>
               <img [src]="file.fullpath"/>
             </ion-card>
+          </ion-col>
+          <ion-col size="4" *ngFor="let photo of photos; let id = index">
+            <ion-card class="block">
+              <ion-icon name="close-circle" class="deleteIcon" (click)="deletePhotos(id)">
+                <img [src]="photo" *ngIf="photo"/>
+              </ion-icon> 
+            </ion-card>
+          </ion-col>
+          <ion-col size="4" class="ion-text-center fw500" (click)="selectPhoto()">
+            <img src="assets/icon/ico-addimage.jpg" />
+            <ion-label>Tambah Gambar</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>

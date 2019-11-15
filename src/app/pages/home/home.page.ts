@@ -28,6 +28,7 @@ export class HomePage implements OnInit {
   iScroll  : any = {enable: 1, page: 0};
   slideOpts = {
     initialSlide: 0,
+    loop : true,
     autoplay: {
       delay: 3000,
     },

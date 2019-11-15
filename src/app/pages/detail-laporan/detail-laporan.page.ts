@@ -20,7 +20,7 @@ export class DetailLaporanPage implements OnInit {
 
   loading: any;
   pengaduan_id: any;
-  data: any;
+  data: any = {};
   nama_pelapor: any;
   tracking_id: any;
   tanggal: any;
@@ -264,15 +264,15 @@ export class DetailLaporanPage implements OnInit {
     this.sharedService.addVote(data)
       .subscribe(data => {
         if (data['success'] && data['new_user']) {
-          pengaduan['likes']['length']++;
+          this.count_dukungans++;
           pengaduan['is_like'] = true;
           this.sharedService.pengaduan.is_like = 1;
-          this.sharedService.pengaduan.likes_count = pengaduan['likes']['length'];
+          this.sharedService.pengaduan.likes_count = this.count_dukungans;
         } else if (data['success'] && !data['new_user']) {
-          pengaduan['likes']['length']--;
+          this.count_dukungans--;
           pengaduan['is_like'] = null;
           this.sharedService.pengaduan.is_like = null;
-          this.sharedService.pengaduan.likes_count = pengaduan['likes']['length'];
+          this.sharedService.pengaduan.likes_count = this.count_dukungans;
         } else {
           this.alertService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
         }

@@ -436,10 +436,24 @@ export class SharedService {
 
     let data = {
       'id'  : file_id,
-      'pengaduan' : pengaduan_id
+      'pengaduan_id' : pengaduan_id
     }
 
     return this.http.post(this.env.API_URL + 'pengaduan/remove-file', data, {headers : this.headers})
     .pipe();
   }
+
+  updatePengaduan(data) {
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token,
+    });
+
+    return this.http.post(this.env.API_URL + 'pengaduan/edit', data, { headers: this.headers })
+      .pipe();
+  }
+  
 }
