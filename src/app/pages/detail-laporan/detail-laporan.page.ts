@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import * as moment from 'moment';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { IonContent, NavController, LoadingController } from '@ionic/angular';
+import { IonContent, NavController, LoadingController, PopoverController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CommonService } from 'src/app/services/common/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImagePopoverComponent } from 'src/app/components/image-popover/image-popover.component';
 
 @Component({
   selector: 'app-detail-laporan',
@@ -68,6 +69,7 @@ export class DetailLaporanPage implements OnInit {
     public loadingCtrl: LoadingController,
     public commonService: CommonService,
     public formBuilder: FormBuilder,
+    public popoverCtrl: PopoverController,
   ) {
   }
 
@@ -105,7 +107,7 @@ export class DetailLaporanPage implements OnInit {
           this.statusShow = this.data['statusshow'];
 
           if(this.count_tanggapans > 0){
-            for (let i=this.count_tanggapans-1; i>=0; i--){              
+            for (let i=this.count_tanggapans-1; i>=0; i--){
               if(this.data['tanggapans'][i].tipe==1 && this.data['tanggapans'][i].status_id==this.data.status) {
                 this.infotanggapan = this.capitalizeFirstLetter(this.data['tanggapans'][i].tanggapan);
                 break;
@@ -315,5 +317,19 @@ export class DetailLaporanPage implements OnInit {
 
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  async imagePopover(src){
+    const popover = await this.popoverCtrl.create({
+      component : ImagePopoverComponent,
+      cssClass: 'image-popover',
+      animated : true,
+      showBackdrop : true,
+      componentProps: {
+        url: src,
+      }
+    });
+
+    return await popover.present();
   }
 }
