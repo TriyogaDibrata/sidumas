@@ -436,7 +436,7 @@ export class SharedService {
 
     let data = {
       'id'  : file_id,
-      'pengaduan' : pengaduan_id
+      'pengaduan_id' : pengaduan_id
     }
 
     return this.http.post(this.env.API_URL + 'pengaduan/remove-file', data, {headers : this.headers})

@@ -212,7 +212,7 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar class="toolbar-comment" color="light" *ngIf="data.user_id == sharedService.getUserCache().id">
+  <ion-toolbar class="toolbar-comment" color="light" *ngIf="data.user_id == sharedService.getUserCache().id" [hidden]="!showTanggapans">
     <form [formGroup]="tanggapanForm" (ngSubmit)="addTanggapan(tanggapanForm)">
       <ion-row class="ion-no-padding ion-align-items-center">
         <ion-col size="10">
