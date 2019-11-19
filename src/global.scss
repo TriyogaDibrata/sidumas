@@ -201,6 +201,10 @@ ion-popover {
   --height: 60% !important;
 }
 
+ion-popover.image-popover .popover-content {
+    top: 10% !important;
+    height: auto !important;
+}
 
 .text-padding {
   padding : 40px;
