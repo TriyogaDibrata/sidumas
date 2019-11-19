@@ -172,7 +172,7 @@
                   <ion-grid *ngIf="tanggapan.files.length > 0" class="ion-no-padding">
                     <ion-row>
                       <ion-col size="4" *ngFor="let tl_file of tanggapan.files">
-                        <ion-img [src]="tl_file.fullpath"></ion-img>
+                        <ion-img (click)="imagePopover(tl_file.fullpath)" [src]="tl_file.fullpath"></ion-img>
                       </ion-col>
                     </ion-row>
                   </ion-grid>
