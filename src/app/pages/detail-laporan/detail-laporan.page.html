@@ -32,7 +32,7 @@
               <img *ngIf="!data.avatar" src="https://sidumas.badungkab.go.id/assets/frontpage/anon_user.png" />
             </ion-avatar>
           </ion-col>
-          <ion-col size="10">
+          <ion-col size="8">
             <ion-row class="name-wrapper">
               <ion-col size="12" class="mt3">
                 <ion-text class="bold text1">
@@ -43,6 +43,12 @@
                 </ion-text>
               </ion-col>
             </ion-row>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button fill="clear" color="medium" (click)="presentAlertMultipleButtons(sharedService.getUserCache().id, data)">
+              <ion-icon name="more" slot="icon-only">
+              </ion-icon>
+            </ion-button>
           </ion-col>
         </ion-row>
 
@@ -67,13 +73,6 @@
               <ion-text>"{{ infotanggapan }}"</ion-text>
             </ion-col>
           </ion-row>
-        </div>
-
-        <div class="ion-text-right" *ngIf="data.status == 1 || data.status == 3">
-          <ion-chip (click)="editPengaduan(data.id)">
-            <ion-icon name="create"></ion-icon>
-            <ion-label>Edit Pengaduan</ion-label>
-          </ion-chip>
         </div>
 
         <div class="main-content-wrapper ion-padding">
@@ -132,7 +131,7 @@
             </ion-row>
           </ion-col>
 
-          <ion-col>
+          <!-- <ion-col>
             <ion-row>
               <ion-col size="12" (click)="share(data)">
                 <ion-icon name="share"></ion-icon>
@@ -141,7 +140,7 @@
                 <span>Bagikan</span>
               </ion-col>
             </ion-row>
-          </ion-col>
+          </ion-col> -->
         </ion-row>
       </div>
 

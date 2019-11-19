@@ -27,6 +27,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 //component
 import { HomePopoverComponent } from './components/home-popover/home-popover.component';
@@ -52,6 +53,7 @@ import { HomePopoverComponent } from './components/home-popover/home-popover.com
     GoogleMaps,
     Geolocation,
     NativeGeocoder,
+    Clipboard,
     CallNumber,
     SocialSharing,
     Toast,

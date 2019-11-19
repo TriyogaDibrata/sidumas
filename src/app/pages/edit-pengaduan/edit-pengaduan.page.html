@@ -14,8 +14,8 @@
 
       <ion-item class="ion-no-padding">
         <ion-label position="stacked">Kategori</ion-label>
-        <ion-select [(ngModel)]="detail.kategori_id">
-          <ion-select-option *ngFor="let cat of categories" value="{{ cat.id }}" [selected]="detail.kategori_id == cat.id">{{ cat.kategori_name }}</ion-select-option>
+        <ion-select [(ngModel)]="detail.kategori_id" [selectedText]="detail.kategori_name">
+          <ion-select-option *ngFor="let cat of categories" value="{{ cat.id }}">{{ cat.kategori_name }}</ion-select-option>
         </ion-select>
       </ion-item>
 
