@@ -32,10 +32,11 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 //component
 import { HomePopoverComponent } from './components/home-popover/home-popover.component';
 import { ImagePopoverComponent } from './components/image-popover/image-popover.component';
+import { ProfilePopoverComponent } from './components/profile-popover/profile-popover.component';
 
 @NgModule({
-  declarations: [AppComponent, HomePopoverComponent, ImagePopoverComponent],
-  entryComponents: [HomePopoverComponent, ImagePopoverComponent],
+  declarations: [AppComponent, HomePopoverComponent, ImagePopoverComponent, ProfilePopoverComponent],
+  entryComponents: [HomePopoverComponent, ImagePopoverComponent, ProfilePopoverComponent],
   imports: [
     BrowserModule,
     FormsModule,

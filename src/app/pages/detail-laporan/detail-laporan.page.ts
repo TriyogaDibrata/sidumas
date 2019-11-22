@@ -334,9 +334,10 @@ export class DetailLaporanPage implements OnInit {
             }
           },
           {
-            text: 'Copy link',
+            text: 'Salin URL',
             handler : () => {
               this.clipboard.copy("https://sidumas.badungkab.go.id/T/" + data.no_tiket);
+              this.alertService.presentToast('URL berhasil disalin');
             }
           },
           {
@@ -368,9 +369,10 @@ export class DetailLaporanPage implements OnInit {
             }
           },
           {
-            text: 'Copy link',
+            text: 'Salin URL',
             handler : () => {
               this.clipboard.copy("https://sidumas.badungkab.go.id/T/" + data.no_tiket);
+              this.alertService.presentToast('URL berhasil disalin');
             }
           },
           {
@@ -391,9 +393,10 @@ export class DetailLaporanPage implements OnInit {
           }
         },
         {
-          text: 'Copy link',
+          text: 'Salin URL',
           handler : () => {
             this.clipboard.copy("https://sidumas.badungkab.go.id/T/" + data.no_tiket);
+            this.alertService.presentToast('URL berhasil disalin');
           }
         },
         {
@@ -451,7 +454,7 @@ export class DetailLaporanPage implements OnInit {
       if(data['success']){
         this.loading.dismiss();
         this.navCtrl.navigateRoot('app/tabs/search');
-        this.alertService.presentToast('Pengaduan Berhasil Disimpan')
+        this.alertService.presentToast('Pengaduan Berhasil Dihapus')
       } else{
         this.loading.dismiss();
         this.alertService.presentAlert('Gagal menyimpan data', 'Terjadi kesalahan saat menyimpan data');

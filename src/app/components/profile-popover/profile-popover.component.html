@@ -1,0 +1,11 @@
+<div [style.background-color]="bgcolor" class="background-popover"></div>
+<div [style.color]="textcolor" class="loading-slide-box">
+  <div>
+    <ion-spinner></ion-spinner>
+  </div>
+  <div class="loading-slide-text">
+    Loading..
+  </div>
+</div>
+<ion-img [src]="image"></ion-img>
+<ion-icon class="close-popover" (click)="closeHomePopover()" name="close-circle" [style.color]="textcolor"></ion-icon>
