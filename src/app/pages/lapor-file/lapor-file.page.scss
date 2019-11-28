@@ -15,6 +15,12 @@ ion-content{
     .deleteIcon:before {
       font-size: 40px !important;
     }
+
+    img {
+        height: 100px;
+        width: 100%;
+        object-fit: cover;
+    }
 }
 
 .btn-camera {
@@ -38,4 +44,18 @@ ion-content{
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
+}
+
+.bottom-button {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.photo-preview {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 100px;
 }

@@ -77,7 +77,7 @@ export class LaporFilePage implements OnInit {
       x: 0,
       y: 0,
       width: window.screen.width,
-      height: this.screenHeight,
+      height: window.screen.height,
       camera: this.cameraPreview.CAMERA_DIRECTION.BACK,
       tapPhoto: true,
       previewDrag: false,

@@ -458,4 +458,17 @@ export class SharedService {
       .pipe();
   }
 
+  deletePengaduan(data) {
+    this.token = this.authService.token;
+
+    this.headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.token,
+    });
+
+    return this.http.post(this.env.API_URL + 'pengaduan/remove-pengaduan', data, { headers: this.headers })
+      .pipe();
+  }
+
 }

@@ -15,13 +15,13 @@
   <ion-row class="ion-justify-content-center" no-padding>
     <ion-col size="12" size-md="6" size-xl="6" no-padding>
 
-      <ion-item-divider color="warning" *ngIf="dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan ini bersifat rahasia dan identitas anda akan disembunyikan</ion-item-divider>
-      <ion-item-divider color="warning" *ngIf="dataUraian.hide_identity && !dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Identitas anda pada laporan ini di rahasiakan</ion-item-divider>
-      <ion-item-divider color="warning" *ngIf="!dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan bersifat rahasia</ion-item-divider>
+      <ion-item-divider color="primary" *ngIf="dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan ini bersifat rahasia dan identitas anda akan disembunyikan</ion-item-divider>
+      <ion-item-divider color="primary" *ngIf="dataUraian.hide_identity && !dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Identitas anda pada laporan ini di rahasiakan</ion-item-divider>
+      <ion-item-divider color="primary" *ngIf="!dataUraian.hide_identity && dataUraian.hide_report"><ion-icon name="information-circle"></ion-icon> Laporan bersifat rahasia</ion-item-divider>
 
       <ion-slides pager="true" [options]="slideOpts">
         <ion-slide *ngFor="let photo of dataFiles">
-          <ion-img [src]="photo"></ion-img>
+          <img [src]="photo"/>
         </ion-slide>
       </ion-slides>
 

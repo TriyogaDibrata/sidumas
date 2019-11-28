@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DetailLaporanPage } from './detail-laporan.page';
+import { ImagePopoverComponent } from 'src/app/components/image-popover/image-popover.component';
 
 const routes: Routes = [
   {

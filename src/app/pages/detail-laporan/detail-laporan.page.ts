@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import * as moment from 'moment';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { IonContent, NavController, LoadingController, PopoverController } from '@ionic/angular';
+import { IonContent, NavController, LoadingController, AlertController, PopoverController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CommonService } from 'src/app/services/common/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { ImagePopoverComponent } from 'src/app/components/image-popover/image-popover.component';
 
 @Component({
@@ -61,15 +62,17 @@ export class DetailLaporanPage implements OnInit {
   tanggapanForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
-    public sharedService: SharedService,
-    public alertService: AlertService,
-    public navCtrl: NavController,
-    public socialSharing: SocialSharing,
-    public loadingCtrl: LoadingController,
-    public commonService: CommonService,
-    public formBuilder: FormBuilder,
-    public popoverCtrl: PopoverController,
+    private router        : Router,
+    public sharedService  : SharedService,
+    public alertService   : AlertService,
+    public navCtrl        : NavController,
+    public socialSharing  : SocialSharing,
+    public loadingCtrl    : LoadingController,
+    public commonService  : CommonService,
+    public formBuilder    : FormBuilder,
+    public alertCtrl      : AlertController,
+    public clipboard      : Clipboard,
+    public popoverCtrl    : PopoverController,
   ) {
   }
 
@@ -319,6 +322,149 @@ export class DetailLaporanPage implements OnInit {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  async presentAlertMultipleButtons(user_id, data) {
+    let buttons;
+    if (user_id == data.user_id){
+      if(data.status == 1 || data.status == 3){
+        buttons = [
+          {
+            text: 'Bagikan',
+            handler : () => {
+              this.share(data);
+            }
+          },
+          {
+            text: 'Salin URL',
+            handler : () => {
+              this.clipboard.copy("https://sidumas.badungkab.go.id/T/" + data.no_tiket);
+              this.alertService.presentToast('URL berhasil disalin');
+            }
+          },
+          {
+            text : 'Edit Pengaduan',
+            handler : () => {
+              this.editPengaduan(data.id);
+            }
+          },
+          {
+            text : 'Hapus Pengaduan',
+            handler : () => {
+              this.confirmDelete(data.id);
+            }
+          },
+          {
+            text : 'Batal',
+            role : 'cancel',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      } else {
+        buttons = [
+          {
+            text: 'Bagikan',
+            handler : () => {
+              this.share(data);
+            }
+          },
+          {
+            text: 'Salin URL',
+            handler : () => {
+              this.clipboard.copy("https://sidumas.badungkab.go.id/T/" + data.no_tiket);
+              this.alertService.presentToast('URL berhasil disalin');
+            }
+          },
+          {
+            text : 'Batal',
+            role : 'cancel',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }
+        ]
+      }
+    } else {
+      buttons = [
+        {
+          text: 'Bagikan',
+          handler : () => {
+            this.share(data);
+          }
+        },
+        {
+          text: 'Salin URL',
+          handler : () => {
+            this.clipboard.copy("https://sidumas.badungkab.go.id/T/" + data.no_tiket);
+            this.alertService.presentToast('URL berhasil disalin');
+          }
+        },
+        {
+          text : 'Batal',
+          role : 'cancel',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }
+      ]
+    }
+
+    const alert = await this.alertCtrl.create({
+      header: 'Lainnya',
+      cssClass: 'secondary',
+      buttons: buttons
+    });
+
+    await alert.present();
+  }
+
+  async confirmDelete(pengaduan_id) {
+    const alert = await this.alertCtrl.create({
+      header: 'Konfirmasi !',
+      message: 'Apakah anda yakin untuk menghapus pengaduan ini ?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Yakin',
+          handler: () => {
+            this.deletePengaduan(pengaduan_id);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  deletePengaduan(pengaduan_id){
+    let data = {
+      'id' : pengaduan_id 
+    }
+
+    this.showLoading();
+
+    this.sharedService.deletePengaduan(data)
+    .subscribe(data => {
+      if(data['success']){
+        this.loading.dismiss();
+        this.navCtrl.navigateRoot('app/tabs/search');
+        this.alertService.presentToast('Pengaduan Berhasil Dihapus')
+      } else{
+        this.loading.dismiss();
+        this.alertService.presentAlert('Gagal menyimpan data', 'Terjadi kesalahan saat menyimpan data');
+      }
+    }, err => {
+        this.loading.dismiss();
+        this.alertService.presentAlert('Gagal menyimpan data', 'Terjadi kesalahan saat menyimpan data');
+    })
+  }
+  
   async imagePopover(src){
     const popover = await this.popoverCtrl.create({
       component : ImagePopoverComponent,

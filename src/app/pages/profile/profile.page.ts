@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common/common.service';
 import { AuthService } from 'src/app/services/auht/auth.service';
 import { SharedService } from 'src/app/services/shared/shared.service';
-import { NavController, AlertController, LoadingController, ActionSheetController, ModalController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ActionSheetController, ModalController, PopoverController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EnvService } from 'src/app/services/env/env.service';
 import { ModalImagePage } from 'src/app/modal-image/modal-image.page';
 import { AppRate } from '@ionic-native/app-rate/ngx';
+import { ProfilePopoverComponent } from '../../components/profile-popover/profile-popover.component';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class ProfilePage implements OnInit {
   constructor(
     public commonService      : CommonService,
     private authService       : AuthService,
-    public sharedService     : SharedService,
+    public sharedService      : SharedService,
     public navCtrl            : NavController,
     public alertCtrl          : AlertController,
     public loadingCtrl        : LoadingController,
@@ -44,6 +45,7 @@ export class ProfilePage implements OnInit {
     private env               : EnvService,
     public modalCtrl          : ModalController,
     public appRate            : AppRate,
+    public popover            : PopoverController
   ) { }
 
   ngOnInit() {
@@ -139,7 +141,8 @@ export class ProfilePage implements OnInit {
         text: 'Lihat Foto Profile',
         icon: 'search',
         handler: () => {
-          this.PresentImage(this.user.avatar);
+          // this.PresentImage(this.user.avatar);
+          this.enlargeImage(this.sharedService.getUserCache().avatar);
         }
       }, {
         text: 'Ubah Foto Profile',
@@ -231,6 +234,7 @@ export class ProfilePage implements OnInit {
     this.http.get(this.env.API_URL + 'user', {headers : headers})
     .subscribe(data => {
       this.user = data;
+      this.sharedService.getUserCache(true);
       event.target.complete();
     }, err => {
       this.alertService.presentAlert('Gagal memuat data', 'Terdapat kesalahan saat memuat data');
@@ -254,6 +258,19 @@ export class ProfilePage implements OnInit {
     }
 
     this.appRate.promptForRating(true);
+  }
+
+  async enlargeImage(image){
+    const popover = await this.popover.create({
+      component: ProfilePopoverComponent, 
+      animated : true,
+      cssClass : 'image-popover',
+      showBackdrop: true,
+      componentProps: {
+        image : image,
+      }
+    });
+    return await popover.present();
   }
 
 }

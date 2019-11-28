@@ -27,14 +27,16 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 //component
 import { HomePopoverComponent } from './components/home-popover/home-popover.component';
 import { ImagePopoverComponent } from './components/image-popover/image-popover.component';
+import { ProfilePopoverComponent } from './components/profile-popover/profile-popover.component';
 
 @NgModule({
-  declarations: [AppComponent, HomePopoverComponent, ImagePopoverComponent],
-  entryComponents: [HomePopoverComponent, ImagePopoverComponent],
+  declarations: [AppComponent, HomePopoverComponent, ImagePopoverComponent, ProfilePopoverComponent],
+  entryComponents: [HomePopoverComponent, ImagePopoverComponent, ProfilePopoverComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -53,6 +55,7 @@ import { ImagePopoverComponent } from './components/image-popover/image-popover.
     GoogleMaps,
     Geolocation,
     NativeGeocoder,
+    Clipboard,
     CallNumber,
     SocialSharing,
     Toast,
