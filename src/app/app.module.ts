@@ -28,6 +28,8 @@ import { Toast } from '@ionic-native/toast/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+// import { QuillModule } from 'ngx-quill';
 
 //component
 import { HomePopoverComponent } from './components/home-popover/home-popover.component';
@@ -64,6 +66,7 @@ import { ProfilePopoverComponent } from './components/profile-popover/profile-po
     AppVersion,
     AppRate,
     File,
+    ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

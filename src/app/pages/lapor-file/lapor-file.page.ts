@@ -19,6 +19,7 @@ export class LaporFilePage implements OnInit {
   public base64Image: string;
   dataObj : any = {};
   dataRec : any;
+  flash_on : boolean = false;
 
   constructor(public commonService : CommonService,
               public cameraPreview : CameraPreview,
@@ -157,6 +158,20 @@ export class LaporFilePage implements OnInit {
     let dataString = JSON.stringify(combineObj);
 
     this.navCtrl.navigateForward(['lapor-tinjau', dataString]);
+  }
+
+  switchCamera(){
+    this.cameraPreview.switchCamera();
+  }
+
+  switchFlashOn(){
+    this.flash_on = true;
+    this.cameraPreview.setFlashMode(this.cameraPreview.FLASH_MODE.ON);
+  }
+
+  switchFlashOff(){
+    this.flash_on = false;
+    this.cameraPreview.setFlashMode(this.cameraPreview.FLASH_MODE.OFF);
   }
 
 }

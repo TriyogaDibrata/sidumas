@@ -62,7 +62,7 @@
           </ion-col>
           <ion-col size="4" *ngFor="let photo of photos; let id = index">
             <ion-card class="block">
-              <ion-icon name="close-circle" class="deleteIcon" (click)="deletePhotos(id)">
+              <ion-icon name="close-circle" class="deleteIcon" (click)="deletePhoto(id)">
                 <img [src]="photo" *ngIf="photo"/>
               </ion-icon> 
             </ion-card>

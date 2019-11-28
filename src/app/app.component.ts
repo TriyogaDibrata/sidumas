@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common/common.service';
 import { AlertService } from './services/alert/alert.service';
 import { Router } from '@angular/router';
 import { Toast } from '@ionic-native/toast/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,7 @@ export class AppComponent {
     private router: Router,
     private toast: Toast,
     public alertCtrl : AlertController,
+    public screenOrientation  : ScreenOrientation,
   ) {
     this.initializeApp();
 
@@ -46,6 +48,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.lockScreenOrientation();
 
       this.authService.getToken().then(data => {
         if(this.authService.isLoggedIn){
@@ -97,5 +100,9 @@ export class AppComponent {
         }
       }]
     });
+  }
+
+  lockScreenOrientation(){
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
   }
 }
