@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common/common.service';
 import { AlertService } from './services/alert/alert.service';
 import { Router } from '@angular/router';
 import { Toast } from '@ionic-native/toast/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,7 @@ export class AppComponent {
     private router: Router,
     private toast: Toast,
     public alertCtrl : AlertController,
+    private appVersion : AppVersion
   ) {
     this.initializeApp();
 
@@ -47,10 +49,21 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
+      this.appVersion.getVersionCode().then(value => {
+        this.sharedService.versionCode = value;
+      }).catch(err => {
+        this.sharedService.versionCode = '';
+      });
+      this.appVersion.getVersionNumber().then(value => {
+        this.sharedService.versionNumber = value;
+      }).catch(err => {
+        this.sharedService.versionNumber = '';
+      });
+
       this.authService.getToken().then(data => {
         if(this.authService.isLoggedIn){
           this.commonService.goTo('app/tabs/home');
-          this.sharedService.getNewNotif();          
+          this.sharedService.getNewNotif();
           this.sharedService.getUserCache(true);
         }else{
           this.commonService.goTo('login');
@@ -80,7 +93,7 @@ export class AppComponent {
       });
     });
   }
-  
+
   async presentAlertConfirm() {
     const alert = await this.alertCtrl.create({
       // header: 'Confirm!',
