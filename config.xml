@@ -3,7 +3,7 @@
     <name>Sidumas Badung</name>
     <description>Sistem Pengaduan Masyarakat Badung</description>
     <author email="dev.badung@gmail.com" href="developer.badungkab.com">Developer Smart City</author>
-    <content original-src="index.html" src="http://localhost:8102" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -108,5 +108,4 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <allow-navigation href="http://localhost:8102" sessionid="0e823fa0" />
 </widget>

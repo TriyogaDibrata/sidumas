@@ -8,7 +8,6 @@ import { IonInfiniteScroll, AlertController, LoadingController, PopoverControlle
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { isNull } from '@angular/compiler/src/output/output_ast';
 import { HomePopoverComponent } from 'src/app/components/home-popover/home-popover.component';
-import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-home',
@@ -35,8 +34,6 @@ export class HomePage implements OnInit {
     speed: 400
   };
   banners  : any = [];
-  VersionNumber : any;
-  VersionCode : any;
 
   constructor(
     private sharedService   : SharedService,
@@ -46,8 +43,7 @@ export class HomePage implements OnInit {
     public alertCtrl        : AlertController,
     private alertService    : AlertService,
     public loadingCtrl      : LoadingController,
-    public popoverCtrl      : PopoverController,
-    private appVersion      : AppVersion
+    public popoverCtrl      : PopoverController
   ) {
    }
 
@@ -55,17 +51,6 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.showPopover();
     }, 1500);
-
-    this.appVersion.getVersionCode().then(value => {
-      this.VersionCode = value;
-    }).catch(err => {
-      this.VersionCode = '';
-    });
-    this.appVersion.getVersionNumber().then(value => {
-      this.VersionNumber = value;
-    }).catch(err => {
-      this.VersionNumber = '';
-    });
     this.getBanners();
   }
 
@@ -104,7 +89,7 @@ export class HomePage implements OnInit {
     }
   }
 
-  doRefresh(event){    
+  doRefresh(event){
     this.iScroll.page = 0;
     this.iScroll.enable = 1;
     this.sharedService.getListPengaduan(this.category, this.search.value, this.iScroll.page)
@@ -247,7 +232,7 @@ export class HomePage implements OnInit {
 
   getBanners(){
     if(this.sharedService.banners.get == 0){
-      this.sharedService.getBanners(this.VersionNumber, this.VersionCode)
+      this.sharedService.getBanners(this.sharedService.versionNumber, this.sharedService.versionCode)
       .subscribe(data => {
         this.sharedService.banners.get = 1;
         this.sharedService.banners = data;

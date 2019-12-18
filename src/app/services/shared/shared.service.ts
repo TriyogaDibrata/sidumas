@@ -24,6 +24,8 @@ export class SharedService {
     keyboardClose: true,
     animated: true,
   };
+  versionNumber: any = '';
+  versionCode: any = '';
 
   constructor(
     private http        : HttpClient,
@@ -468,5 +470,5 @@ export class SharedService {
     return this.http.post(this.env.API_URL + 'pengaduan/remove-pengaduan', data, { headers: this.headers })
       .pipe();
   }
-  
+
 }
