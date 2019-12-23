@@ -1,0 +1,37 @@
+<ion-content>
+
+  <ion-slides pager="true" [options]="slideOpts" #wtslides>
+    <ion-slide class="step-one">
+      <!-- <ion-img src="/assets/slides/step1.svg"></ion-img> -->
+      <h1>Step  1</h1>
+      <p>Lorem ipsum dolor</p>
+      <ion-button class="btn-next" fill="clear" (click)="nextSlide()">
+        <ion-icon slot="icon-only" name="arrow-dropright-circle" color="light" size="large"></ion-icon>
+      </ion-button>
+    </ion-slide>
+
+    <ion-slide class="step-two">
+      <!-- <ion-img src="/assets/slides/step2.svg"></ion-img> -->
+      <h1>Step 2</h1>
+      <p>Loren ipsum dolor</p>
+      <ion-button class="btn-prev" fill="clear" (click)="prevSlide()">
+        <ion-icon slot="icon-only" name="arrow-dropleft-circle" color="light" size="large"></ion-icon>
+      </ion-button>
+      <ion-button class="btn-next" fill="clear" (click)="nextSlide()">
+        <ion-icon slot="icon-only" name="arrow-dropright-circle" color="light" size="large"></ion-icon>
+      </ion-button>
+    </ion-slide>
+
+    <ion-slide class="step-three">
+      <!-- <ion-img src="/assets/slides/step3.svg"></ion-img> -->
+      <h1>Step 3</h1>
+      <p>Lorem ipsum dolor</p>
+      <ion-button class="btn-prev" fill="clear" (click)="prevSlide()">
+        <ion-icon slot="icon-only" name="arrow-dropleft-circle" color="light" size="large"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="finish()">Finish</ion-button>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

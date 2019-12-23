@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { WalkthroughGuard } from './guards/walkthrough.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full', runGuardsAndResolvers: "always" },
+  { path: '', redirectTo: 'login', pathMatch: 'full', 
+    runGuardsAndResolvers: "always", 
+    canActivate: [WalkthroughGuard] 
+  },
   {
     path: 'app',
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
-    runGuardsAndResolvers: "always",
-    canActivate: [AuthGuard]
+    runGuardsAndResolvers: "always" 
   },
-  { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule' },
+  { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule', canActivate: [WalkthroughGuard] },
   { path: 'register', loadChildren: './pages/auth/register/register.module#RegisterPageModule' },
   { path: 'detail-laporan/:id', loadChildren: './pages/detail-laporan/detail-laporan.module#DetailLaporanPageModule',
     runGuardsAndResolvers: "always",
@@ -50,6 +53,7 @@ const routes: Routes = [
   { path: 'modal-image', loadChildren: './modal-image/modal-image.module#ModalImagePageModule' },
   { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
   { path: 'edit-pengaduan/:id', loadChildren: './pages/edit-pengaduan/edit-pengaduan.module#EditPengaduanPageModule' },
+  { path: 'walkthrough', loadChildren: './walkthrough/walkthrough.module#WalkthroughPageModule' },
 ];
 @NgModule({
   imports: [
