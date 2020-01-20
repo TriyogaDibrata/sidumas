@@ -1,3 +1,24 @@
+ion-content {
+    font-family: Lato-Regular !important;
+    --ion-font-family : Lato-Regular !important;
+    --background : var(--ion-color-danger);
+}
+
+.btn-back {
+    text-transform: capitalize;
+}
+
+ion-card {
+    --background : var(--ion-color-light);
+    border-radius: 10px;
+}
+
+ion-card-content {
+    ion-button {
+        text-transform: capitalize;
+    }
+}
+
 .line {
     width: 100%;
     border: solid 2px #a3a3a3;

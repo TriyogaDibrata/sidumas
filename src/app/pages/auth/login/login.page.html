@@ -1,82 +1,61 @@
-<ion-content class="auth-content ion-no-padding">
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-s="10" size-md="6" size-xl="4">
-        <div class="auth-logo"></div>
-        <div class="logo-title ion-text-center">
-          <h4>
-            Layanan Aspirasi Dan Pengaduan Masyarakat Online Kabupaten Badung
-          </h4>
-        </div>
-      </ion-col>
-    </ion-row>
+<ion-content class="ion-padding">
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-s="10" size-md="6" size-xl="4">
+      <div class="logo">
+        <img src="assets/images/logo-circle.png"/>
+      </div>
 
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="12" size-s="10" size-md="6" size-xl="4">
+      <ion-card class="ion-padding">
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">
+            Login
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
 
-        <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
-
-          <ion-item class="ion-no-padding">
-            <ion-input placeholder="Email" type="email" id="email" name="email" formControlName="email" required>
-            </ion-input>
-          </ion-item>
-          <div class="error mt10" *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('required')">
-            <ion-label color="light">
-              <ion-icon name="warning"></ion-icon>
-              <ion-text class="ion-margin">Email Tidak Boleh Kosong !</ion-text>
-            </ion-label>
+            <ion-item class="ion-no-padding">
+              <ion-input placeholder="Email" type="email" id="email" name="email" formControlName="email" required>
+              </ion-input>
+            </ion-item>
+            <div class="error mt10" *ngIf="loginForm.get('email').touched && loginForm.get('email').hasError('required')">
+              <ion-label color="dark">
+                <ion-icon name="warning" color="warning"></ion-icon>
+                <ion-text class="ion-margin">Email Tidak Boleh Kosong !</ion-text>
+              </ion-label>
+            </div>
+  
+            <ion-item class="ion-no-padding">
+              <ion-input placeholder="Password" type="{{ password_type }}" id="password" name="password"
+                formControlName="password" required></ion-input>
+              <ion-icon name="eye" (click)="showPassword()" *ngIf="hide_password"></ion-icon>
+              <ion-icon name="eye-off" (click)="hidePassword()" *ngIf="!hide_password"></ion-icon>
+            </ion-item>
+            <div class="error mt10" *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('required')">
+              <ion-label color="dark">
+                <ion-icon name="warning" color="warning"></ion-icon>
+                <ion-text class="ion-margin">Password Tidak Boleh Kosong !</ion-text>
+              </ion-label>
+            </div>
+  
+            <div class="ion-text-right forgot-password"><span (click)="forgotPass()">Lupa Password ?</span></div>
+  
+            <ion-button expand="block" size="medium" color="danger" shape="round" class="btn-login" type="submit"
+              [disabled]="!loginForm.valid"> Masuk </ion-button>
+  
+          </form>
+          <div class="ion-text-center mt10 lato-bold">
+            <ion-text>Belum memiliki akun ? <a (click)="goTo('register')">Daftar</a> </ion-text>
           </div>
 
-          <ion-item class="ion-no-padding">
-            <ion-input placeholder="Password" type="{{ password_type }}" id="password" name="password"
-              formControlName="password" required></ion-input>
-            <ion-icon name="eye" (click)="showPassword()" *ngIf="hide_password"></ion-icon>
-            <ion-icon name="eye-off" (click)="hidePassword()" *ngIf="!hide_password"></ion-icon>
-          </ion-item>
-          <div class="error mt10" *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('required')">
-            <ion-label color="light">
-              <ion-icon name="warning"></ion-icon>
-              <ion-text class="ion-margin">Password Tidak Boleh Kosong !</ion-text>
-            </ion-label>
+          <div class="other-login-option mt20 lato-bold">
+            <ion-text>Login dengan : </ion-text>
+            <ion-button color="primary" shape="round" (click)="fbLogin()"><ion-icon name="logo-facebook"></ion-icon></ion-button>
           </div>
+        </ion-card-content>
+      </ion-card>
 
-          <div class="ion-text-right forgot-password"><span (click)="forgotPass()">Lupa Password ?</span></div>
+    </ion-col>
+  </ion-row>
 
-          <ion-button expand="block" size="medium" color="light" shape="round" class="btn-login" type="submit"
-            [disabled]="!loginForm.valid"> Masuk </ion-button>
-
-        </form>
-
-        <ion-row class="mt20">
-          <ion-col size="5">
-            <div class="line"></div>
-          </ion-col>
-          <ion-col size="2">
-            <div class="ion-text-center fw700"> <ion-text color="light">Atau</ion-text> </div>
-          </ion-col>
-          <ion-col size="5">
-            <div class="line"></div>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="btn-group">
-          <ion-col>
-            <ion-button expand="block" (click)="fbLogin()" shape="round">
-              <ion-icon name="logo-facebook" size="large"></ion-icon> Login dengan Facebook
-            </ion-button>
-          </ion-col>
-          <!-- <ion-col>
-            <ion-button expand="block" color="danger" shape="round">
-              <ion-icon name="logo-google"></ion-icon>
-            </ion-button>
-          </ion-col> -->
-        </ion-row>
-
-        <div class="ion-text-center mt10 text1 text-white bold">
-          Belum memiliki akun ?
-          <a class="text-white" (click)="goTo('register')">Daftar</a>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>

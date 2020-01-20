@@ -104,16 +104,30 @@ export class RegisterPage implements OnInit {
     .subscribe(data => {
       console.log(data);
       if(data){
-        this.storage.set('token', data['token'])
-        .then(
-          ()=> {
-            loading.dismiss();
+        // this.storage.set('token', data['token'])
+        // .then(
+        //   ()=> {
+        //     loading.dismiss();
+        //     this.commonService.goTo('app/tabs/home');
+        //     this.commonService.presentToast('Proses registrasi berhasil, silahkan login untuk dapat masuk ke dalam sistem');
+        //   }, err => {
+        //     loading.dismiss();
+        //     this.commonService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+        //   }
+        // );
+        this,this.authService.login(form.value.email, form.value.password)
+        .subscribe(data => {
+          console.log(data)
+          if(data) {
+            this.sharedService.getUserCache(true);
+            this.commonService.presentToast('Login Berhasil');
             this.commonService.goTo('app/tabs/home');
-            this.commonService.presentToast('Proses registrasi berhasil, silahkan login untuk dapat masuk ke dalam sistem');
-          }, err => {
-            this.commonService.presentAlert('Gagal Menyimpan Data', 'Terjadi kesalahan saat menyimpan data');
+            loading.dismiss();
           }
-        );
+        }, err => {
+          this.commonService.presentAlert('Login Gagal', err.error.errors.email[0]);
+          loading.dismiss();
+        });
       }
     }, err => {
       let errors = err.error.errors;

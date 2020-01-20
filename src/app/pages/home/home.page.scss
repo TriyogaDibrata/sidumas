@@ -1,5 +1,7 @@
 ion-content{
   --background : #eeeeee;
+  font-family : Lato-Regular;
+  --ion-font-family : Lato-Regular;
 }
 
 .user-avatar {
@@ -27,9 +29,11 @@ ion-content{
 }
 
 ion-card-title {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     margin: 10px 0 10px;
     font-weight: 500;
+    font-family: Lato-Bold !important;
+    --ion-font-family: Lato-Bold !important;
 }
 
 .button-group {

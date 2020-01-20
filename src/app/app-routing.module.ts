@@ -5,15 +5,14 @@ import { WalkthroughGuard } from './guards/walkthrough.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full', 
-    runGuardsAndResolvers: "always", 
-    canActivate: [WalkthroughGuard] 
+    runGuardsAndResolvers: "always"
   },
   {
     path: 'app',
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
     runGuardsAndResolvers: "always" 
   },
-  { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule', canActivate: [WalkthroughGuard] },
+  { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule', canActivate : [WalkthroughGuard]},
   { path: 'register', loadChildren: './pages/auth/register/register.module#RegisterPageModule' },
   { path: 'detail-laporan/:id', loadChildren: './pages/detail-laporan/detail-laporan.module#DetailLaporanPageModule',
     runGuardsAndResolvers: "always",

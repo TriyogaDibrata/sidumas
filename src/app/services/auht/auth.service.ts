@@ -107,7 +107,6 @@ export class AuthService {
     return this.storage.remove('token')
     .then(
       ()=> {
-        this.storage.clear();
         this.isLoggedIn = false;
         this.token = null;
         this.commonService.goTo('login');
@@ -122,7 +121,6 @@ export class AuthService {
 			this.storage.remove('token')
     .then(
       ()=> {
-        this.storage.clear();
         this.isLoggedIn = false;
         this.token = null;
         this.commonService.goTo('login');

@@ -48,8 +48,8 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.statusBar.backgroundColorByHexString('#d33939');
       this.lockScreenOrientation();
 
       this.appVersion.getVersionCode().then(value => {

@@ -103,6 +103,22 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
+  /** blue pastel **/
+  --ion-color-bluepastel: #aadbf8;
+  --ion-color-bluepastel-rgb: 170,219,248;
+  --ion-color-bluepastel-contrast: #000000;
+  --ion-color-blupastel-contrast-rgb: 0, 0, 0;
+  --ion-color-bluepastel-shade: #92d1f6;
+  --ion-color-bluepastel-tint: #c1e5fa;
+
+  /** red pastel **/
+  --ion-color-redpastel: #ff6961;
+  --ion-color-bluepastel-rgb:255,105,97;
+  --ion-color-bluepastel-contrast: #000000;
+  --ion-color-blupastel-contrast-rgb: 0, 0, 0;
+  --ion-color-bluepastel-shade: #ff5148;
+  --ion-color-bluepastel-tint: #ff817b;
+
   .ion-color-red {
     --ion-color-base: #e44347;
     --ion-color-theme-rgb: 89, 26, 28;
@@ -110,7 +126,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
     --ion-color-theme-contrast-rgb: 255, 255, 255;
     --ion-color-theme-shade: #c20a0a;
     --ion-color-theme-tint: #f55353;
-    }
+  }
 }
 
 html, body { height: 100%; }

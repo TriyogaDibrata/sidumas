@@ -1,21 +1,28 @@
 ion-content {
-    --background: url('../../../../assets/images/background-sidumas.png') 0 0/100% 100% no-repeat;
-}
-
-ion-item {
+    font-family: Lato-Regular !important;
+    --ion-font-family : Lato-Regular !important;
+    --background : var(--ion-color-danger);
     --color : var(--ion-color-light);
-    --border-color : var(--ion-color-light);
-    --color-activated : var(--ion-color-light);
-    --highlight-color-focused : var(--ion-color-light);
-    --highlight-color-invalid : var(--ion-color-danger);
 }
 
-ion-label {
-    --color: var(--ion-color-light);
+.logo {
+    margin-top: 10%;
+    img{
+        width: 40%;
+        display: block;
+        margin : auto;
+    }
 }
 
-ion-icon {
-    color: var(--ion-color-light);
+ion-card {
+    --background : var(--ion-color-light);
+    border-radius: 10px;    
+}
+
+ion-card-content {
+    ion-button {
+        text-transform: capitalize;
+    }
 }
 
 .btn-group {

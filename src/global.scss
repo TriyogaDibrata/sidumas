@@ -29,6 +29,46 @@
 //     // --ion-background-color : var(--ion-color-dark);
 // }
 
+@font-face {
+  font-family : 'Lato-Light';
+  src         : url('../src/assets/fonts/Lato-Light.ttf');
+}
+
+@font-face {
+  font-family : 'Lato-Regular';
+  src         : url('../src/assets/fonts/Lato-Regular.ttf');
+}
+
+@font-face {
+  font-family : 'Lato-Bold';
+  src         : url('../src/assets/fonts/Lato-Bold.ttf');
+}
+
+@font-face {
+  font-family : 'Lato-Semibold';
+  src         : url('../src/assets/fonts/Lato-Semibold.ttf');
+}
+
+.lato-bold{
+  --ion-font-family:  'Lato-Bold'!important;
+  font-family:  'Lato-Bold' !important;
+}
+
+.lato-light{
+  --ion-font-family:  'Lato-Light'!important;
+  font-family:  'Lato-Light' !important;
+}
+
+.lato-regular{
+  --ion-font-family:  'Lato-Regular'!important;
+  font-family:  'Lato-Regular' !important;
+}
+
+.lato-semibold{
+  --ion-font-family:  'Lato-Semibold'!important;
+  font-family:  'Lato-Regular' !important;
+}
+
 [contenteditable] {
   -webkit-user-select: text;
   user-select: text;
@@ -70,7 +110,7 @@ ion-item {
 .forgot-password {
     font-weight: bolder;
     margin : 10px 5px 0;
-    color: var(--ion-color-light);
+    color: var(--ion-color-dark);
 }
 
 //common helper

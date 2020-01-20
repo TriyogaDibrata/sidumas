@@ -1,37 +1,87 @@
 <ion-content>
 
-  <ion-slides pager="true" [options]="slideOpts" #wtslides>
-    <ion-slide class="step-one">
-      <!-- <ion-img src="/assets/slides/step1.svg"></ion-img> -->
-      <h1>Step  1</h1>
-      <p>Lorem ipsum dolor</p>
-      <ion-button class="btn-next" fill="clear" (click)="nextSlide()">
-        <ion-icon slot="icon-only" name="arrow-dropright-circle" color="light" size="large"></ion-icon>
-      </ion-button>
+  <ion-row class="ion-justify-content-center">
+    <ion-col class="no-padding-bottom" size="12" size-md="6" size-xl="6">
+
+  <ion-slides pager="true" [options]="slideOpts" #wtslides (ionSlideWillChange)="doCheck()">
+    <ion-slide>
+
+    <div class="wt-content">
+      <div class="wt-img">
+        <img src="assets/images/wt/wt-1.png" />
+      </div>
+      <div class="wt-title lato-bold">
+        <ion-text>Selamat Datang di</ion-text>
+        <ion-text color="danger"> Layanan Aspirasi dan Pengaduan</ion-text>
+        <ion-text> Masyarakat Badung</ion-text>
+      </div>
+      <div class="wt-step lato-regular">
+        <h3>Langkah 1</h3>
+        <ion-text>Buat akun dengan menggunakan email yang masih aktif</ion-text>
+      </div>
+    </div>
+      
     </ion-slide>
 
-    <ion-slide class="step-two">
-      <!-- <ion-img src="/assets/slides/step2.svg"></ion-img> -->
-      <h1>Step 2</h1>
-      <p>Loren ipsum dolor</p>
-      <ion-button class="btn-prev" fill="clear" (click)="prevSlide()">
-        <ion-icon slot="icon-only" name="arrow-dropleft-circle" color="light" size="large"></ion-icon>
-      </ion-button>
-      <ion-button class="btn-next" fill="clear" (click)="nextSlide()">
-        <ion-icon slot="icon-only" name="arrow-dropright-circle" color="light" size="large"></ion-icon>
-      </ion-button>
-    </ion-slide>
+    <ion-slide>
+      
+      <div class="wt-content">
+        <div class="wt-img">
+          <img src="assets/images/wt/wt-2.png" />
+        </div>
+        <div class="wt-title lato-bold">
+          <ion-text color="danger">SIDUMAS</ion-text>
+          <ion-text> Memastikan Pelapor adalah Masyarakat yang</ion-text>
+          <ion-text color="danger"> Valid</ion-text>
+        </div>
+        <div class="wt-step lato-regular">
+          <h3>Langkah 2</h3>
+          <ion-text>Lengkapi identitas diri anda pada halaman profile</ion-text>
+        </div>
+      </div>
+        
+      </ion-slide>
 
-    <ion-slide class="step-three">
-      <!-- <ion-img src="/assets/slides/step3.svg"></ion-img> -->
-      <h1>Step 3</h1>
-      <p>Lorem ipsum dolor</p>
-      <ion-button class="btn-prev" fill="clear" (click)="prevSlide()">
-        <ion-icon slot="icon-only" name="arrow-dropleft-circle" color="light" size="large"></ion-icon>
-      </ion-button>
+      <ion-slide>
+      
+        <div class="wt-content">
+          <div class="wt-img">
+            <img src="assets/images/wt/wt-3.png" />
+          </div>
+          <div class="wt-title lato-bold">
+            <ion-text color="danger">SIDUMAS</ion-text>
+            <ion-text> Siap Menerima</ion-text>
+            <ion-text color="danger"> Pengaduan Anda</ion-text>
+          </div>
+          <div class="wt-step lato-regular">
+            <h3>Langkah 3</h3>
+            <ion-text>Laporkan pengaduan anda pada menu lapor</ion-text>
+            <h3>"<ion-text color="danger">Jadilah Pelapor Yang Bijak</ion-text>"</h3>
+            <ion-button color="danger" shape="round" (click)="finish()">Mulai</ion-button>
+          </div>
+        </div>
+          
+        </ion-slide>
+  </ion-slides> 
 
-      <ion-button (click)="finish()">Finish</ion-button>
-    </ion-slide>
-  </ion-slides>
+</ion-col>
+</ion-row>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-no-padding ion-activatable lato-bold">
+    <ion-buttons slot="start" *ngIf="!disablePrevBtn" (click)="prevSlide()">
+      <ion-button>
+        <ion-icon name="arrow-round-back" color="dark"></ion-icon>
+        <ion-text color="dark">Prev</ion-text>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="!disableNextBtn" (click)="nextSlide()">
+      <ion-button>
+        <ion-text color="dark">Next</ion-text>
+        <ion-icon name="arrow-round-forward" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

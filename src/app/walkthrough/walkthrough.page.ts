@@ -19,6 +19,9 @@ export class WalkthroughPage implements OnInit {
     allowSlideNext: true,
   };
 
+  disablePrevBtn = true;
+  disableNextBtn = false;
+
   constructor(private storage   : Storage,
               private router    : Router
              ) { }
@@ -37,6 +40,16 @@ export class WalkthroughPage implements OnInit {
 
   prevSlide(){
     this.slides.slidePrev();
+  }
+
+  doCheck() {
+    let prom1 = this.slides.isBeginning();
+    let prom2 = this.slides.isEnd();
+  
+    Promise.all([prom1, prom2]).then((data) => {
+      data[0] ? this.disablePrevBtn = true : this.disablePrevBtn = false;
+      data[1] ? this.disableNextBtn = true : this.disableNextBtn = false;
+    });
   }
 
 }

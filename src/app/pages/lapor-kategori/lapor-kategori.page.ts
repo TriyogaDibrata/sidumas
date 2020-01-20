@@ -41,10 +41,15 @@ export class LaporKategoriPage implements OnInit {
   }
 
   goToLapor(id, event){
-    if(event == 'call_number'){
-      this.callNumber.callNumber('112', true)
-      .then(res => console.log('Launched Dialer', res))
-      .catch(err => console.log('Error launching dialer', err))
+    if(event){
+      let event_detail = event.split('.');
+      if(event_detail[0] == 'call_number'){
+        this.callNumber.callNumber(event_detail[1], true)
+        .then(res => console.log('Launched Dialer', res))
+        .catch(err => console.log('Error launching dialer', err))
+      } else {
+        console.log('no event');
+      }
     } else {
       this.navCtrl.navigateForward(['/lapor', id]);
     }
