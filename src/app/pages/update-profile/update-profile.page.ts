@@ -121,7 +121,8 @@ export class UpdateProfilePage implements OnInit {
       // }
       this.cropImage(imageData, imageType);
     }, (err) => {
-      this.alertService.presentAlert('Gagal membuka kamera', 'Terdapat kesalahan saat membuka kamera');
+      //this.alertService.presentAlert('Gagal membuka kamera', 'Terdapat kesalahan saat membuka kamera');
+      console.log(err);
     });
   }
 

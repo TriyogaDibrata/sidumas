@@ -218,7 +218,8 @@ export class ProfilePage implements OnInit {
             });
       }
     }, (err) => {
-        this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
+        //this.alertService.presentAlert('Gagal menyimpan data', 'Terdapat kesalahan saat menyimpan data');
+        console.log(err);
     });
   }
 

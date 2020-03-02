@@ -32,10 +32,6 @@ export class LaporFilePage implements OnInit {
               ) 
   {
     this.photos = [];
-    if(this.photos.length >= 5){
-      this.toTinjau();
-      this.alertService.presentToast('Maksimum 5 data');
-    }
   }
 
   ionViewWillEnter(){
@@ -92,6 +88,14 @@ export class LaporFilePage implements OnInit {
   // take a picture
   takePicture(){
 
+    if(this.photos.length >= 5){
+      this.toTinjau();
+      this.alertService.presentToast('Maksimum 5 data');
+    } else {
+
+
+    console.log(this.photos);
+
     const pictureOpts: CameraPreviewOptions = {
       width: 1280,
       height: 1280
@@ -105,6 +109,7 @@ export class LaporFilePage implements OnInit {
       console.log(err);
       // this.picture = 'assets/img/test.jpg';
     });
+  }
   }
 
   async deletePhoto(index) {
